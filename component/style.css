@@ -1,0 +1,56 @@
+/* CSS goes here: */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  font-family: sans-serif;
+}
+
+:root{
+  --background: #F8F8F8;
+  --component-bg: #FCFCFC;
+  --box-shadow: #e6e6e6;
+  --text-primary: #8F8F8F;
+  --text-secondary: #aaaaaa;
+  --large-text: 16px;
+  --medium-text: 12px;
+  --small-text: 8px;
+}
+
+.svg1 path {
+  fill: var(--text-primary);
+}
+
+body{
+background-color: var(--background);
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--background);
+}
+
+.component{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background-color: var(--component-bg);
+  padding: 8px 4px 4px 8px;
+  border: 1px solid #EDEDED;
+  border-radius: 4px;
+  color: var(--text-primary);
+  box-shadow: 2px 2px 4px var(--box-shadow);
+  font-size: var(--large-text);
+}
+
+input{
+    height: auto;
+    border: 0;
+    outline: none;
+    background-color: var(--component-bg);
+
+}
