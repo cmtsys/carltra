@@ -11,8 +11,10 @@
   --background: #F8F8F8;
   --component-bg: #FCFCFC;
   --box-shadow: #e6e6e6;
+  --text-strongest: #171717;
   --text-primary: #8F8F8F;
   --text-secondary: #aaaaaa;
+  --xl-text: 24px;
   --large-text: 16px;
   --medium-text: 12px;
   --small-text: 8px;
@@ -32,19 +34,21 @@ background-color: var(--background);
   align-items: center;
   height: 100vh;
   background-color: var(--background);
+  padding: 35px;
 }
 
 .component{
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 4px;
   background-color: var(--component-bg);
-  padding: 8px 4px 4px 8px;
+  padding: 8px 4px 6px 8px;
   border: 1px solid #EDEDED;
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text-primary);
-  box-shadow: 2px 2px 4px var(--box-shadow);
-  font-size: var(--large-text);
+  box-shadow: 1px 3px 3px var(--box-shadow);
+  width: 450px;
+  height: 72px;
 }
 
 input{
@@ -52,5 +56,13 @@ input{
     border: 0;
     outline: none;
     background-color: var(--component-bg);
+    font-size: var(--large-text);
+    letter-spacing: -0.01em;
+    color: var(--text-strongest);
+    caret-color: #ff4d6d;
+}
 
+::placeholder {
+  color: var(--text-secondary);
+  opacity: 1; /* Firefox */
 }
