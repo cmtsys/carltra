@@ -5,7 +5,13 @@
   padding: 0;
   box-sizing: border-box; 
   font-family: sans-serif;
+  /* font-family: -apple-system; */
+/* font-family: "Helvetica Neue", Helvetica; */
+/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+font-weight: 400; or 400 */
 }
+
+
 
 :root{
   --background: #F8F8F8;
@@ -37,18 +43,23 @@ background-color: var(--background);
   padding: 35px;
 }
 
+.svgclass{
+ display: flex;
+ height: 90%;
+}
+
 .component{
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: 14px;
   background-color: var(--component-bg);
-  padding: 8px 4px 6px 8px;
+  padding: 8px 4px 4px 14px;
   border: 1px solid #EDEDED;
-  border-radius: 6px;
+  border-radius: 12px;
   color: var(--text-primary);
-  box-shadow: 1px 3px 3px var(--box-shadow);
-  width: 450px;
-  height: 72px;
+  box-shadow: 0px 2px 4px var(--box-shadow);
+  width: 500px;
+  height: 80px;
 }
 
 input{
@@ -56,13 +67,23 @@ input{
     border: 0;
     outline: none;
     background-color: var(--component-bg);
-    font-size: var(--large-text);
-    letter-spacing: -0.01em;
+    font-size: 32px;
+    letter-spacing: -0.015em;
     color: var(--text-strongest);
-    caret-color: #ff4d6d;
+    caret-color: #25ec2c;
 }
 
 ::placeholder {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   opacity: 1; /* Firefox */
+}
+
+.component input {
+  transition: opacity 1.5s ease-in-out, blur 1.5s ease-in-out;
+}
+
+.component input.fade-out {
+  opacity: 0;
+  filter: blur(6px);
+  /* transform: translateY(-5px); */
 }
