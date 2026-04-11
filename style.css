@@ -154,13 +154,13 @@ footer {
     padding: var(--space-s);
   }
 
-  h1 {
+  /* h1 {
 font-size: var(--medium-text);
   }
 
   p{
     font-size: var(--x-small-text);
-  }
+  } */
 }
 
 
