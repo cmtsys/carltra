@@ -1,0 +1,214 @@
+/* CSS goes here: */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=UnifrakturMaguntia&display=swap');
+
+* {
+  box-sizing: border-box; 
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+:root{
+  --background: #F8F8F8;
+  --text-strongest: #171717;
+  --text-primary: #8F8F8F;
+  --text-secondary: #aaaaaa;
+
+  --component-bg: #FCFCFC;
+  --box-shadow: #e6e6e6;
+  --xl-text: 32px;
+  --large-text: 20px;
+  --medium-text: 16px;
+  --small-text: 14px;
+  --x-small-text: 10px;
+
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 40px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--space-l);
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: var(--background);
+}
+
+body{
+  color: var(--text-strongest);
+  font-size: var(--medium-text);
+
+}
+
+h1{
+  font-weight: 500;
+  font-size: var(--large-text);
+  max-width: 860px;
+  margin-bottom: var(--space-xl); /* space below */
+}
+
+.titlehover:hover {
+  font-family: "UnifrakturMaguntia", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 22px;
+}
+
+.grid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  gap: var(--space-m);
+}
+
+
+
+.card{
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: var(--space-l); */
+  
+  flex: 1 1 calc(33.333% - var(--space-m));
+  min-width: 300px;
+  max-width: 600px;
+  pointer-events: none; 
+
+}
+
+.card-title{
+  margin-top: var(--space-s);
+  font-size: var(--medium-text);
+  display: block;
+}
+
+.card img{
+  /* filter: blur(20px); */
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  /* padding: 4px; */
+  /* aspect-ratio: 4 / 3;
+  object-fit: cover; */
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  font-size: var(--large-text);
+  padding: 20px 0;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--x-small-text);
+  padding-top: var(--space-l);
+}
+
+.visuals{
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+}
+
+@media (max-width: 768px){
+  .page{
+    padding: var(--space-s);
+  }
+
+  h1 {
+font-size: var(--medium-text);
+  }
+
+  p{
+    font-size: var(--x-small-text);
+  }
+}
+
+
+/* 
+.component{
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  background-color: var(--component-bg);
+  padding: 8px 4px 4px 14px;
+  border: 1px solid #EDEDED;
+  border-radius: 12px;
+  color: var(--text-primary);
+  box-shadow: 0px 2px 4px var(--box-shadow);
+  width: 500px;
+  height: 80px;
+} */
+
+a {
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: var(--text-strongest);
+}
+
+/* a:hover {
+    color: rgb(5, 222, 23);
+    text-decoration: underline;
+} */
+
+.cursor {
+  animation: blink 2s infinite;
+
+}
+
+.typewriter{
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+.tagline{
+  font-size: var(--medium-text);
+  color: var(--text-primary);
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: italic;
+}

@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: white;
+  color: #111;
+}
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 4rem;
+  padding-top: 12rem;
+  overflow: hidden;
+}
+
+.hero-text {
+  font-size: clamp(1.25rem, 2.5vw, 2.5rem);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  font-weight: 400;
+}
+
+.typewriter {
+  color: #eab308; /* Tailwind yellow-500 */
+}
+
+.cursor {
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
