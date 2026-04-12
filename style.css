@@ -131,8 +131,9 @@ footer {
 
 @media (max-width: 768px){
   .page{
-    padding: var(--space-s);
+    padding: var(--space-s) var(--space-s) 0;
   }
+}
 
   /* h1 {
 font-size: var(--medium-text);

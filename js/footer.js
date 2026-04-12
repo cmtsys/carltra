@@ -1,17 +1,17 @@
 function updateInfo() {
   const now = new Date();
 
-  const day = now.toLocaleDateString([], {
+  const day = now.toLocaleDateString("en-GB", {
     weekday: "long"
   });
 
-  const date = now.toLocaleDateString([], {
+  const date = now.toLocaleDateString("en-GB", {
     year: "numeric",
     month: "long",
     day: "numeric"
   });
 
-  const time = now.toLocaleTimeString([], {
+  const time = now.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit"
