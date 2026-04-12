@@ -116,7 +116,7 @@ footer {
   justify-content: space-between;
   font-size: var(--x-small-text);
   padding-top: var(--space-l);
-  padding-bottom: var(--space-l);
+  padding-bottom: var(--space-m);
 }
 
 .cm {
@@ -133,32 +133,11 @@ footer {
   .page{
     padding: var(--space-s) var(--space-s) 0;
   }
+  footer {
+  padding-top: var(--space-m);
+  padding-bottom: var(--space-s);
 }
-
-  /* h1 {
-font-size: var(--medium-text);
-  }
-
-  p{
-    font-size: var(--x-small-text);
-  } */
 }
-
-
-/* 
-.component{
-  display: flex;
-  flex-direction: row;
-  gap: 14px;
-  background-color: var(--component-bg);
-  padding: 8px 4px 4px 14px;
-  border: 1px solid #EDEDED;
-  border-radius: 12px;
-  color: var(--text-primary);
-  box-shadow: 0px 2px 4px var(--box-shadow);
-  width: 500px;
-  height: 80px;
-} */
 
 a {
     text-decoration: none;
