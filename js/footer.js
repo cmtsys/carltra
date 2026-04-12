@@ -1,34 +1,31 @@
-const timeEl = document.getElementById("time");
-const dateEl = document.getElementById("date");
-const widthEl = document.getElementById("width");
-const heightEl = document.getElementById("height");
-
-function updateClock() {
+function updateInfo() {
   const now = new Date();
 
-  timeEl.textContent = now.toLocaleTimeString("en-GB", {
+  const day = now.toLocaleDateString([], {
+    weekday: "long"
+  });
+
+  const date = now.toLocaleDateString([], {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+
+  const time = now.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit",
-    hour12: false
+    second: "2-digit"
   });
 
-  dateEl.textContent = now.toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  document.getElementById("day").textContent = day;
+  document.getElementById("date").textContent = date;
+  document.getElementById("clock").textContent = time;
+  document.getElementById("window-size").textContent = `${width} x ${height}`;
 }
 
-function updateSize() {
-  widthEl.textContent = window.innerWidth;
-  heightEl.textContent = window.innerHeight;
-}
-
-updateClock();
-updateSize();
-
-setInterval(updateClock, 1000);
-window.addEventListener("resize", updateSize);
-
+updateInfo();
+setInterval(updateInfo, 1000);
+window.addEventListener("resize", updateInfo);
