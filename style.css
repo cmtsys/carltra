@@ -110,6 +110,9 @@ header {
   z-index: 100;
   font-size: var(--large-text);
   padding: 14px 0;
+  /* display: flex; */
+  /* flex-direction: row;
+  justify-content: space-between; */
 }
 
 header::before {
@@ -138,10 +141,22 @@ header::before {
 }
 footer {
   display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   justify-content: space-between;
   font-size: var(--x-small-text);
   padding-top: var(--space-l);
 }
+
+.cmt {
+  width: 2%;
+  transition: filter 0.5s ease;
+}
+
+.cmt:hover {
+  filter: blur(4px);
+}
+
 
 .visuals{
   display: flex;
