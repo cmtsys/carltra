@@ -1,5 +1,3 @@
-# Hi!
+# Welcome to carltra.no
 
-## This is my person website
-
-### Welcome
+## This is my personal website
