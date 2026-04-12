@@ -17,7 +17,7 @@ const projects = [
     title: "Daydreaming & screen usage",
     tagline: "Mind-wandering as paradigm",
     image: "/img/daydream.png",
-    link: "#"
+    link: "projects/template.html"
   },
     {
     title: "Artwork production for Damla Kilickiran",

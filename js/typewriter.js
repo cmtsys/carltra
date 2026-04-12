@@ -1,17 +1,24 @@
+
 const words = [
-"UX",
-"code",  
-"products",  
-"interaction",
+  "UX",
+  "code",  
+  "products",  
+  "interaction",
   "systems",
   "AI",
   "prototypes",
-  "interfaces",
-  "typography <3",
   "visuals",
+  "research & insight",
+  "typography <3",
+  "interfaces",
+  "print",
   "3D",
-  "UX",
-  "print"
+  "flows",
+  "javascript",
+  "vibes",
+  "microinteractions",
+  "post-it notes",
+  "clients with undefined needs",
 ];
 
 let i = 0;

@@ -120,7 +120,7 @@ footer {
 }
 
 .cm {
-  width: 2%;
+  width: 24px;
 }
 
 .visuals{
@@ -134,7 +134,7 @@ footer {
     padding: var(--space-s) var(--space-s) 0;
   }
   footer {
-  padding-top: var(--space-m);
+  padding-top: var(--space-l);
   padding-bottom: var(--space-s);
 }
 }
