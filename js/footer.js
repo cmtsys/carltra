@@ -17,8 +17,8 @@ function updateInfo() {
     second: "2-digit"
   });
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+const width = document.documentElement.clientWidth;
+const height = document.documentElement.clientHeight;
 
   document.getElementById("day").textContent = day;
   document.getElementById("date").textContent = date;
@@ -29,3 +29,4 @@ function updateInfo() {
 updateInfo();
 setInterval(updateInfo, 1000);
 window.addEventListener("resize", updateInfo);
+

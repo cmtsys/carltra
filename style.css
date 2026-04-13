@@ -67,10 +67,10 @@ h1{
   font-size: 22px;
 }
 
-.grid{
+.grid {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: var(--space-m);
 }
 
@@ -79,11 +79,11 @@ h1{
 .card{
   display: flex;
   flex-direction: column;
-  /* margin-bottom: var(--space-l); */
-  
-  flex: 1 1 calc(33.333% - var(--space-m));
+  flex: 0 0 calc(33.333% - var(--space-m));
   min-width: 300px;
-  max-width: 600px;
+  max-width: calc(33.333% - var(--space-m));
+
+  
   pointer-events: none; 
 
 }
@@ -107,6 +107,7 @@ h1{
 
 header {
   font-size: var(--large-text);
+  padding-bottom: var(--space-m);
 }
 
 footer {
@@ -121,6 +122,7 @@ footer {
 
 .cm {
   width: 24px;
+  height: auto;
 }
 
 .visuals{

@@ -44,32 +44,20 @@ const projects = [
     link: "#"
   },
   {
-  title: "Remarkable stacks",
-  tagline: "UI Concept for reMarkable",
-  image: "/img/remarkable.jpeg",
-  link: "#"
-},
-  {
   title: "UI Concept for reMarkable",
   tagline: "Figma & Indesign",
   image: "/img/remarkable.jpeg",
   link: "#"
 },
   {
-    title: "Analog Incidents",
+    title: "Exploring analog B&W photography",
     image: "/img/analoginc.jpeg",
-    tagline: "Exploring analog B&W photography",
+    tagline: "Olympus OM-1 & Ilford 3200",
     link: "#"
   },
   {
-  title: "Error 445",
-  tagline: "Exploring VR and shaders in Unity",
-  image: "/img/error445.jpeg",
-  link: "#"
-},
-  {
   title: "Exploring VR and shaders in Unity",
-  tagline: "Blender, Meta & Unity",
+  tagline: "Blender, Unity & Quest 2",
   image: "/img/error445.jpeg",
   link: "#"
 },
