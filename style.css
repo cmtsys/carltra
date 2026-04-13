@@ -68,24 +68,13 @@ h1{
 }
 
 .grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-m);
 }
 
-
-
 .card{
-  display: flex;
-  flex-direction: column;
-  flex: 0 0 calc(33.333% - var(--space-m));
-  min-width: 300px;
-  max-width: calc(33.333% - var(--space-m));
-
-  
   pointer-events: none; 
-
 }
 
 .card-title{
@@ -131,15 +120,16 @@ footer {
   max-height: 70vh;
 }
 
-@media (max-width: 768px){
-  .page{
-    padding: var(--space-s) var(--space-s) 0;
-  }
-  footer {
-  padding-top: var(--space-l);
-  padding-bottom: var(--space-s);
+@media (max-width: 900px) {
+  .page { padding: var(--space-s) var(--space-s) 0; }
+  footer { padding-top: var(--space-l); padding-bottom: var(--space-s); }
+  .grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
 }
+
 
 a {
     text-decoration: none;
