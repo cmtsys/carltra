@@ -12,3 +12,9 @@ loadComponent('footer', '/components/footer.html', () => {
   script.src = '/js/footer.js';
   document.body.appendChild(script);
 });
+
+loadComponent('header', '/components/header.html', () => {
+  const script = document.createElement('script');
+  script.src = '/js/header.js';
+  document.body.appendChild(script);
+});

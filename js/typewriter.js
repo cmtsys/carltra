@@ -9,16 +9,14 @@ const words = [
   "prototypes",
   "visuals",
   "research & insight",
-  "typography <3",
+  "typography",
   "interfaces",
   "print",
   "3D",
   "flows",
   "javascript",
-  "vibes",
   "microinteractions",
   "post-it notes",
-  "clients with undefined needs",
 ];
 
 let i = 0;
