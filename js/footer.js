@@ -20,7 +20,7 @@ function updateInfo() {
 const width = document.documentElement.clientWidth;
 const height = document.documentElement.clientHeight;
 
-  document.getElementById("day").textContent = day;
+  document.getElementById("day").textContent = day + "    ";
   document.getElementById("date").textContent = date;
   document.getElementById("clock").textContent = time;
   document.getElementById("window-size").textContent = `${width} x ${height}`;
