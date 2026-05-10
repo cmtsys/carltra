@@ -3,13 +3,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=UnifrakturMaguntia&display=swap');
 
+@font-face {
+  font-family: 'ABC Diatype';
+  src: url('../fonts/ABCDiatypeEdu-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('../fonts/PPEditorialNew-Ultralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('../fonts/PPEditorialNew-UltralightItalic.woff2') format('woff2');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('../fonts/PPEditorialNew-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('../fonts/PPEditorialNew-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+
 * {
   box-sizing: border-box; 
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: 'ABC Diatype', sans-serif;
   margin: 0;
   padding: 0;
-  
 }
+
+html, body { height: 100%; }
+h1, h2, h3, h4, p { margin: 0; font-weight: 400; font-size: var(--medium-text); }
+
 
 :root{
   --background: #F8F8F8;
@@ -33,21 +78,7 @@
   --space-xxl: 72px;
 }
 
-html,
-body {
-  height: 100%;
-}
 
-/* BODY OPACITY ON ENTER */
-
-/* body {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-} */
 
 .page {
   min-height: 100vh;
@@ -66,21 +97,27 @@ body{
   font-size: var(--medium-text);
 }
 
-
-
-h1{
+.heading-md{
   font-weight: 500;
   font-size: var(--large-text);
   max-width: 860px;
   margin-bottom: var(--space-xl); /* space below */
+  letter-spacing: -0.02em;
 }
 
-h2{
+.heading-lg{
   font-weight: 900;
   font-size: var(--xl-text);
   max-width: 860px;
   margin-bottom: var(--space-m); /* space below */
   letter-spacing: -0.02em;
+}
+
+.editorial{
+  font-family: 'PP Editorial New', Georgia, serif;
+  font-weight: 200; /* Ultralight is the signature Editorial New look */
+  font-style: regular; /* the italic is especially beautiful */
+  font-size: 42px;
 }
 
 /* ============
@@ -175,7 +212,7 @@ h2{
 
 
 .card{
-  /* pointer-events: none;  */
+  pointer-events: none; 
 }
 
 /* CARD HOVER STATE */
@@ -288,10 +325,21 @@ a:link, a:visited {
 .tagline{
   font-size: var(--medium-text);
   color: var(--text-primary);
+
+  font-size: var(--medium-text);
   font-family: "Instrument Serif", serif;
   font-weight: 400;
   font-style: italic;
 }
+
+.tagline2{
+  color: var(--text-primary);
+  font-size: 14.5px;
+  font-family: 'PP Editorial New', Georgia, serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
 
 /* NEXTPROJEC.JS CLASSES */
 
@@ -316,6 +364,8 @@ a:link, a:visited {
 .project-img {
   width: 200px;
   height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 

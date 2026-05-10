@@ -40,12 +40,12 @@ navEl.innerHTML = `
   <div class="project-nav">
 
     <a class="project-link" href="${previous.link}">
-      <p>← Previous project</p>
+      <p>← Previous</p>
       <img class="project-img" src="${previous.image}" alt="${previous.title}">
     </a>
 
     <a class="project-link next" href="${next.link}">
-      <p>Next project →</p>
+      <p>Next →</p>
       <img class="project-img" src="${next.image}" alt="${next.title}">
     </a>
 
