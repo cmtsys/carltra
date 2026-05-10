@@ -22,7 +22,7 @@
   --xl-text: 26px;
   --large-text: 20px;
   --medium-text: 16px;
-  --small-text: 14px;
+  --small-text: 12px;
   --x-small-text: 10px;
 
   --space-xs: 4px;
@@ -83,8 +83,6 @@ h2{
   letter-spacing: -0.02em;
 }
 
-
-
 /* ============
    PROJECTS
    ============ */
@@ -96,6 +94,16 @@ h2{
   margin: 0 auto;
   width: 100%;
   padding: var(--space-xxl) 0;
+}
+
+.content2{
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxl);
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--space-xxl);
 }
 
 .full-bleed{
@@ -122,7 +130,7 @@ h2{
 
 .prose{
   font-size: var(--large-text);
-  line-height: 140%;
+  line-height: 149%;
   max-width: 700px;
   margin: 0 auto; /* center within content column */
 }
@@ -287,15 +295,37 @@ a:link, a:visited {
 
 /* NEXTPROJEC.JS CLASSES */
 
-.nextproject {
+.project-nav {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: var(--space-s);
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-xl);
 }
 
+.project-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  text-decoration: none;
+}
 
-.nextproject-img {
+.project-link.next {
+  text-align: right;
+}
+
+.project-img {
   width: 200px;
   height: auto;
 }
+
+
+
+/* ── Layout helpers ─────────────────────────────────────── */
+
+.flex         { display: flex; }
+.flex-col     { flex-direction: column; }
+.items-center { align-items: center; }
+.items-start  { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.flex-wrap    { flex-wrap: wrap; }
+.grid         { display: grid; }

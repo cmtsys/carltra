@@ -53,7 +53,7 @@ const projects = [
   tagline: "Figma & Indesign",
   image: "/img/remarkable.jpeg",
   slug: "remarkable",
-  link: "#"
+  link: "projects/remarkable.html"
 },
   {
     title: "Exploring analog B&W photography",
