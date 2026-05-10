@@ -65,8 +65,8 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; font-size: var(--medium-text); 
   --component-bg: #FCFCFC;
   --box-shadow: #e6e6e6;
   --xl-text: 26px;
-  --large-text: 20px;
-  --medium-text: 16px;
+  --large-text: 21px;
+  --medium-text: 17px;
   --small-text: 12px;
   --x-small-text: 10px;
 
