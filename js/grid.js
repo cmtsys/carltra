@@ -14,7 +14,15 @@ if (grid) {
     `;
 
     grid.appendChild(card);
+
+    //CARD ANIMATION GIF HERE
+    // const cards = grid.querySelectorAll('.card');
+    // cards.forEach((card, i) => {
+    // card.style.animationDelay = `${i * 0.04}s`;
+//     });
   });
 }
+
+
 
 console.log(grid);
