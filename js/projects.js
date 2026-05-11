@@ -1,5 +1,19 @@
 const projects = [
   {
+  title: "Artwork production for Damla Kilickiran",
+  tagline: "Blender, keyshot",
+  image: "/img/nordic.jpeg",
+  slug: "artwork",
+  link: "projects/artwork.html"
+},
+  {
+    title: "Daydreaming & screen usage",
+    tagline: "Mind-wandering as paradigm",
+    image: "/img/daydream.png",
+    slug: "daydream",
+    link: "projects/daydream.html"
+  },
+  {
     title: "Kote 12",
     tagline: "Art-direction",
     image: "/img/kote.jpg",
@@ -12,20 +26,6 @@ const projects = [
     image: "/img/rosa.png",
     slug: "rosa",
     link: "#"
-  },
-  {
-    title: "Daydreaming & screen usage",
-    tagline: "Mind-wandering as paradigm",
-    image: "/img/daydream.png",
-    slug: "daydream",
-    link: "projects/daydream.html"
-  },
-    {
-    title: "Artwork production for Damla Kilickiran",
-    tagline: "Blender, keyshot",
-    image: "/img/nordic.jpeg",
-    slug: "artwork",
-    link: "projects/artwork.html"
   },
     {
     title: "Vanishing input component",

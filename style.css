@@ -120,7 +120,8 @@ body{
 }
 
 .heading-lg{
-  font-weight: 500;
+  font-family: 'PP Editorial New', Georgia, serif;
+  font-weight: 400;
   font-size: var(--text-xxl);
   max-width: 860px;
   /* margin-bottom: var(--space-m);  */
