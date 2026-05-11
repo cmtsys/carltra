@@ -233,13 +233,17 @@ body{
   pointer-events: none; 
 }
 
+.card:hover{
+  /* text-decoration: underline; */
+}
+
 /* CARD HOVER STATE */
-/* .card img {
-  transition: filter .1s ease-out;
+.card img {
+  transition: border-radius 0.15s ease-out;
 }
 .card:hover img {
-  transform: scale(1.01);
-} */
+  border-radius: 10px;
+}
 
 .card-title{
   margin-top: var(--space-s);
