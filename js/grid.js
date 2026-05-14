@@ -9,8 +9,10 @@ if (grid) {
 
     card.innerHTML = `
       <img src="${project.image}" alt="${project.title}">
+      <div class="card-text">
       <span class="card-title">${project.title}</span>
-      <span class="tagline2">${project.tagline}</span>
+      <span class="tagline">${project.tagline}</span>
+      </div>
     `;
 
     grid.appendChild(card);

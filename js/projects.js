@@ -1,14 +1,14 @@
 const projects = [
   {
   title: "Artwork production for Damla Kilickiran",
-  tagline: "Blender, keyshot",
+  tagline: "Bridging art and engineering",
   image: "/img/nordic.jpeg",
   slug: "artwork",
   link: "projects/artwork.html"
 },
   {
-    title: "Daydreaming & screen usage",
-    tagline: "Mind-wandering as paradigm",
+    title: "Daydreams & doomscrolling",
+    tagline: "Exploring mind-wandering in the context of smart phones",
     image: "/img/daydream.png",
     slug: "daydream",
     link: "projects/daydream.html"

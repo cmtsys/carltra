@@ -57,11 +57,12 @@ h1, h2, h3, h4, p { margin: 0; font-weight: 400; font-size: var(--text-m); }
 
 
 :root{
-  --background: #F8F8F8;
+  --background: #FCFCFC;
+  /* --background: #F8F8F8; */
   --text-strongest: #171717;
   --text-primary: #8F8F8F;
+  /* --text-primary: #7B7B7B; */
   --text-secondary: #aaaaaa;
-
   --component-bg: #FCFCFC;
   --box-shadow: #e6e6e6;
 
@@ -127,7 +128,11 @@ body{
   /* margin-bottom: var(--space-m);  */
   letter-spacing: -0.03em;
   max-width: 45ch;
-  margin-bottom: var(--space-m);  
+  margin-bottom: var(--space-s);  
+}
+
+.max-width-45{
+  max-width: 45ch;
 }
 
 .editorial{
@@ -236,7 +241,11 @@ body{
 
 
 .card{
-  pointer-events: none; 
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 8px;
   /* opacity: 0;
   animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; */
 }
@@ -253,12 +262,6 @@ body{
   border-radius: 10px;
 }
 
-.card-title{
-  margin-top: var(--space-s);
-  font-size: var(--text-m);
-  display: block;
-}
-
 .card img{
   /* filter: blur(20px); */
   display: block;
@@ -270,7 +273,26 @@ body{
   object-fit: cover;
 }
 
+.card-title{
+  margin-top: var(--space-s);
+  font-size: var(--text-m);
+  display: block;
+}
 
+.tagline{
+  font-size: var(--text-m);
+  color: var(--text-primary);
+  font-size: var(--text-m);
+  font-weight: 400;
+}
+
+/* .tagline2{
+  color: var(--text-primary);
+  font-size: 14.5px;
+  font-family: 'PP Editorial New', Georgia, serif;
+  font-weight: 200;
+  font-style: italic;
+} */
 
 /* ============
    FOOTER
@@ -352,23 +374,7 @@ a:link, a:visited {
     color: var(--text-strongest);
 }
 
-.tagline{
-  font-size: var(--text-m);
-  color: var(--text-primary);
 
-  font-size: var(--text-m);
-  font-family: "Instrument Serif", serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.tagline2{
-  color: var(--text-primary);
-  font-size: 14.5px;
-  font-family: 'PP Editorial New', Georgia, serif;
-  font-weight: 200;
-  font-style: italic;
-}
 
 
 /* NEXTPROJEC.JS CLASSES */
