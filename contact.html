@@ -36,8 +36,8 @@
 </header>
 
 <div class="contact">
-  <form action="https://formspree.io/f/xzdolezd" method="post">
-    <input type="hidden" name="_next" value="https://carltra.com/thanks.html">
+  <form id="contact-form" action="https://formspree.io/f/xzdolezd" method="post">
+    <input type="hidden" name="_next" value="https://carltra.vercel.app/thanks.html">
     <div class="form-field">
       <label for="email">What can I help with?</label>
       <input name="Email" id="email" type="email" placeholder="your@email.com">
@@ -61,6 +61,21 @@
         navLinks.classList.toggle('open');
       });
     </script>
+
+<script>
+const form = document.getElementById('contact-form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  await fetch('https://formspree.io/f/xzdolezd', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  window.location.href = '/thanks.html';
+});
+</script>
+
       <script src="js/typewriter.js"></script>
       <script src="js/projects.js"></script>
       <script src="js/grid.js"></script>
