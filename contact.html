@@ -22,8 +22,8 @@
     <a href="/" class="">Carl Traberg</a>
     <div class="links" id="nav-links">
       <a href="/">Work</a>
-      <a class="active" href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/about.html">About</a>
+      <a class="active" href="/contact.html">Contact</a>
     </div>
 
       <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -35,35 +35,19 @@
   </nav>
 </header>
 
-<section class="aboutme">
-<img class="cm2" src="img/cm.png" alt="">
-<section class="about-text">
-<h1 class="title-serif">Hi there!</h1>
-<h2 class="heading-md">My name is Carl, I do UX, interaction design, graphics, a touch of coding, and a lot more. <br> <br>
-I built this thing myself*, have a look <span href="https://github.com/cmtsys/carltra">here</span> if you want proof. </h2>
-<p style="text-align: right; color: var(--text-primary)" class="small-text">*ok, I might have asked claude for help a few times, but no vibecode, I promise!</p>
-</section>
-</section>
-
-<!-- <section class="experience">
-<h1 class="heading-md">Experience</h1>
-
-  <div class="experience-container">
-    
-  <div class="experience-box">
-  <p style="color: text-secondary; margin-bottom: 0px;" class="caption">
-  2022—26</p>
-  <div class="experience-titles flex flex-row justify-between">
-  <h1>Huddly</h1>
-  <h1>UX Designer</h1>
-  </div>
-
-  </div>
-  <h2 class="experience-desc">Leading the design process on the 
-    <span style="color: var(--text-strongest)">MTR touch panel app</span> and Crew framing experience from concept through release. </h2>
-  </div>
-
-</section> -->
+<div class="contact">
+  <form action="https://formspree.io/f/xzdolezd" method="post">
+    <input type="hidden" name="_next" value="https://carltra.com/thanks.html">
+    <div class="form-field">
+      <label for="email">What can I help with?</label>
+      <input name="Email" id="email" type="email" placeholder="your@email.com">
+    </div>
+    <div class="form-field">
+      <textarea name="message" id="message" placeholder="Type here" rows="6"></textarea>
+    </div>
+    <button type="submit">Send</button>
+  </form>
+</div>
 
 <!-- <div class="grid" id="grid"></div> -->
 <div id="footer"></div>

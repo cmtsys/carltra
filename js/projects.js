@@ -39,13 +39,14 @@ const projects = [
   title: "Teams-native touch panel app for Huddly",
   tagline: "Scoping and designing in-room camera controls",
   image: "/img/huddly.png",
-  slug: "remarkable",
-  link: "projects/remarkable.html"
+  slug: "huddly",
+  link: "projects/huddly.html"
   },
   {
   title: "UI Concept for reMarkable",
   tagline: "Reimagining navigation on a paper tablet",
-  image: "/img/remarkable.jpeg",
+  image: "/img/rmgif.gif",
+  // image: "/img/remarkable.jpeg",
   slug: "remarkable",
   link: "projects/remarkable.html"
   },
