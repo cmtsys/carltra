@@ -122,8 +122,6 @@ h1, h2, h3, h4, p { margin: 0; font-size: var(--text-m); }
   --space-xxl: 72px;
 }
 
-
-
 .page {
   min-height: 100vh;
   display: flex;
@@ -697,6 +695,10 @@ textarea::placeholder {
   footer { padding-top: var(--space-l); padding-bottom: var(--space-s); }
   .grid { grid-template-columns: repeat(2, 1fr); }
   
+
+  .cm2 {
+  width: 180px;
+}
 }
 
 @media (max-width: 600px) {
@@ -720,4 +722,20 @@ textarea::placeholder {
   .links.open {
     display: flex;
   }
+
+  .heading-md{
+  font-weight: 400;
+  font-size: var(--text-m);
+  max-width: 600px;
+  margin-bottom: var(--space-m); 
+  letter-spacing: -0.02em;
+}
+
+.aboutme {
+  gap: 30px;
+}
+
+.cm2 {
+  width: 120px;
+}
 }
