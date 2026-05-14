@@ -20,16 +20,24 @@
 <header>
   <nav class="nav">
     <a href="/" class="">Carl Traberg</a>
-    <div class="links">
-      <a style="color: var(--text-primary)" href="/">Work</a>
-      <a style="color: var(--text-primary)" href="/about.html">About</a>
-      <a style="text-decoration: underline;" href="/contact.html">Contact</a>
+    <div class="links" id="nav-links">
+      <a href="/">Work</a>
+      <a href="/about.html">About</a>
+      <a class="active" href="/contact.html">Contact</a>
     </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
   </nav>
 </header>
 
-    <div class="contact">
+    <div class="contact flex flex-col">
       <p class="heading-lg">Thanks, I'll be in touch!</p>
+      <p class="return-link" href="/">Return</p>
     </div>
 
 
@@ -37,6 +45,17 @@
 <!-- <div class="grid" id="grid"></div> -->
 <div id="footer"></div>
 </div>
+
+  <script>
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('nav-links');
+    
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        navLinks.classList.toggle('open');
+      });
+    </script>
+
       <script src="js/typewriter.js"></script>
       <script src="js/projects.js"></script>
       <script src="js/grid.js"></script>

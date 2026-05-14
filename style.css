@@ -160,6 +160,7 @@ body{
 }
 
 .heading-lg{
+  /* font-family: 'Instrument Serif', Georgia, serif; */
   font-family: 'PP Editorial New', Georgia, serif;
   font-weight: 400;
   font-size: var(--text-xxl);
@@ -585,7 +586,14 @@ font-weight: 500;
   align-items: center;     /* Centers vertically */
   width: 100%;
   flex: 1;
-  
+}
+p.contact:hover{
+  text-decoration: underline;
+}
+
+.return-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 form {
