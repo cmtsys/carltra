@@ -720,6 +720,10 @@ textarea::placeholder {
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
   .hamburger { display: flex; }
+  
+   .intro-text {
+    display: block;
+  }
 
   .links {
    display: none;
