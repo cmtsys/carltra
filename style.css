@@ -757,4 +757,8 @@ textarea::placeholder {
 .cm2 {
   width: 120px;
 }
+
+.submit-btn{
+  width: 60%;
+}
 }
