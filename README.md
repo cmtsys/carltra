@@ -1,3 +1,5 @@
 # Welcome to carltra.no
 
-## This is my personal website
+## You have found my github repo, feel free to look around! 
+
+### Here is a drink for you while you browse 🍹
