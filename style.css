@@ -273,7 +273,7 @@ body{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-m);
-  /* max-width: 1300px;
+  /* max-width: 1100px;
   margin: 0 auto; */
 }
 
