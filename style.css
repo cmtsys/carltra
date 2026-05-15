@@ -366,7 +366,7 @@ footer {
    HEADER
    ============ */
 
-   .hamburger {
+  .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
@@ -378,6 +378,7 @@ footer {
   width: auto;
   text-align: left;
   border-bottom: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger:hover {
@@ -511,13 +512,13 @@ a:link, a:visited {
 /* ABOUT ME PAGE */
 
 .aboutme {
-  margin: 206px auto;
+  margin: auto;
   display: grid;
   grid-template-columns: auto minmax(0, 379px);
-  gap: 60px;
+  gap: clamp(24px, 4vw, 60px);
   justify-content: center;
   align-items: start;
-  flex: 1;
+  padding: clamp(16px, 4vw, 40px);
 }
 
 .cm2 {
@@ -701,7 +702,15 @@ textarea::placeholder {
   .page { padding: var(--space-s) var(--space-s) 0; }
   footer { padding-top: var(--space-l); padding-bottom: var(--space-s); }
   .grid { grid-template-columns: repeat(2, 1fr); }
-  
+
+
+  .aboutme {
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 300px);
+  justify-content: center;
+  align-items: start;
+}
 
   .cm2 {
   width: 180px;
@@ -739,8 +748,9 @@ textarea::placeholder {
 }
 
 .aboutme {
-  gap: 30px;
-}
+    grid-template-columns: 1fr;
+    margin: var(--space-xl) auto;
+  }
 
 .cm2 {
   width: 120px;
