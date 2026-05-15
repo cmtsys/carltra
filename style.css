@@ -354,6 +354,7 @@ footer {
   font-size: var(--text-xs);
   padding-top: var(--space-l);
   padding-bottom: var(--space-m);
+  flex-shrink: 0;
 }
 
 .cm {

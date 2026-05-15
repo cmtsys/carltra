@@ -38,7 +38,7 @@ function type() {
 
   if (!isDeleting && j === currentWord.length) {
     isDeleting = true;
-    setTimeout(type, 1500);
+    setTimeout(type, 1200);
     return;
   }
 
@@ -47,7 +47,7 @@ function type() {
     i = (i + 1) % words.length;
   }
 
-  setTimeout(type, isDeleting ? 40 : 70);
+  setTimeout(type, isDeleting ? 20 : 80);
 }
 
 type();
