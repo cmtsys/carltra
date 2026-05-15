@@ -744,11 +744,9 @@ textarea::placeholder {
   }
 
   .heading-md{
-  font-weight: 400;
-  font-size: var(--text-m);
-  max-width: 600px;
-  margin-bottom: var(--space-m); 
-  letter-spacing: -0.02em;
+  /* font-size: var(--text-l); */
+  max-width: 600px; 
+  letter-spacing: -0.01em;
 }
 
 .aboutme {
