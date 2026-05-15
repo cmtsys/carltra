@@ -95,6 +95,16 @@
 html, body { height: 100%; }
 h1, h2, h3, h4, p { margin: 0; font-size: var(--text-m); }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+button, input, textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 400;
+  font-family: 'ABC Diatype', sans-serif;
+}
 
 :root{
   --background: #FCFCFC;
@@ -214,6 +224,9 @@ body{
   display: block;
 }
 
+.prose, .intro { margin: 0 auto; margin-bottom: var(--space-s); }
+
+
 .intro{
   font-weight: 400;
   font-size: var(--text-xl);
@@ -221,16 +234,12 @@ body{
   line-height: 1.3;
   margin-bottom: var(--space-m); /* space below */
   letter-spacing: -0.01em;
-  margin: 0 auto; /* center within content column */
-  margin-bottom: var(--space-s);  
 }
 
 .prose{
   font-size: var(--text-l);
   line-height: 149%;
   max-width: 700px;
-  margin: 0 auto; /* center within content column */
-  margin-bottom: var(--space-s);  
 }
 
 .two-col{
@@ -239,11 +248,11 @@ body{
   margin-bottom: var(--space-s);  
 }
 
-.two-col--equal{
+.two-col-equal{
   grid-template-columns: 1fr 1fr;
 }
 
-  .two-col--offset{
+  .two-col-offset{
     grid-template-columns: 1fr 2fr;
   }
 
@@ -367,10 +376,7 @@ footer {
   margin-top: 0;
   width: auto;
   text-align: left;
-    border-bottom: none;
-  margin-top: 0;
-  width: auto;
-  padding: 0;
+  border-bottom: none;
 }
 
 .hamburger:hover {
@@ -649,10 +655,10 @@ button {
   transition: border-color 0.15s ease, color 0.15s ease;
   margin-top: var(--space-l);
   text-align: left;
-}
 
-button:hover {
-  border-bottom-color: var(--text-strongest);
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 400;
 }
 
 button:hover {
