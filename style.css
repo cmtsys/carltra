@@ -115,7 +115,7 @@ button, input, textarea {
   --text-secondary: #aaaaaa;
   --component-bg: #FCFCFC;
   --box-shadow: #e6e6e6;
-
+  --tropical: rgb(23, 219, 23);
 
   --text-xxl: 38px;
   --text-xl: 26px;
@@ -287,8 +287,22 @@ body{
 } */
 
 
+a.weblink {
+  transition: color 0.1s ease;
+  color: inherit;
+  text-decoration: underline;
+}
+
+a.weblink:hover {
+  color: var(--tropical);
+}
+
+/* a.weblink.active {
+
+} */
+
 .card{
-  pointer-events: none;
+  /* pointer-events: none; */
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -427,9 +441,9 @@ a {
     text-decoration: none;
 }
 
-a:link, a:visited {
+/* a:link, a:visited {
     color: var(--text-strongest);
-}
+} */
 
 
 .links {
