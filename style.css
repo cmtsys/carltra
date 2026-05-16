@@ -337,7 +337,7 @@ a.weblink:hover {
   transition: border-radius 0.15s ease-out;
 }
 .card:hover img {
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .card img{
@@ -446,6 +446,19 @@ header {
   justify-content: space-between;
   color: var(--text-primary);
   position: relative;
+}
+
+.logo-link{
+  color: var(--text-strongest)
+}
+
+.logo-link,
+.logo-link:visited {
+  color: var(--text-strongest);
+}
+
+.logo-link:hover {
+
 }
 
 .nav {
