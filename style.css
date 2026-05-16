@@ -436,6 +436,7 @@ footer {
 header {
   display: flex;
   flex-direction: row;
+   align-items: flex-end; 
   /* position: fixed; */
   font-size: var(--text-l);
   font-weight: 400;
@@ -446,20 +447,28 @@ header {
   justify-content: space-between;
   color: var(--text-primary);
   position: relative;
+  line-height: 1;
 }
 
-/* .logo-link{
-  color: var(--text-strongest)
+.logo-link{
+font-family: Instrument Serif;
+font-size: var(--text-xl);
+/* font-size: 32px; */
+letter-spacing: -0.01em;
 }
+
+/* .logo-link:hover {
+  filter: drop-shadow(0 0 12px var(--tropical));
+}  */
+
+/* 
 
 .logo-link,
 .logo-link:visited {
   color: var(--text-strongest);
 }
 
-.logo-link:hover {
-  text-decoration: underline;
-} */
+*/
 
 .logo-link,
 .logo-link:visited {
@@ -539,6 +548,12 @@ a {
   animation: blink 2s infinite;
 }
 
+.typewriter{
+  /* filter: drop-shadow(0 0 8px purple);
+  color: purple; */
+  overflow: visible;
+}
+
 /* NEXTPROJEC.JS CLASSES */
 
 .project-nav {
@@ -589,6 +604,7 @@ a {
   justify-content: center;
   align-items: start;
   padding: clamp(16px, 4vw, 40px);
+  overflow: visible;
 }
 
 .cm2 {
@@ -597,6 +613,12 @@ a {
   height: auto;
   display: block;
   object-fit: contain;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  overflow: visible;
+}
+
+.cm2:hover {
+   filter: drop-shadow(0 0 12px var(--tropical));
 }
 
 .title-serif{
@@ -738,10 +760,23 @@ button:hover {
   background: var(--box-shadow);
 }
 
+button span {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+button:hover span {
+  transform: translateX(5px);
+}
+
+button:active span{
+  transform: scale(0.96) translateX(5px);
+}
+
 button:active {
-  /* transform: scale(0.99); */
   background: #cccccc;
 }
+
 
 textarea {
   background: none;
