@@ -41,17 +41,17 @@ navEl.innerHTML = `
 
     <a class="project-link" href="${previous.link}">
       <p>← Previous</p>
-      <img class="project-img" src="${previous.image}" alt="${previous.title}">
-    </a>
-
-    <a class="project-link next" href="${next.link}">
+      </a>
+      
+      <a class="project-link next" href="${next.link}">
       <p>Next →</p>
-      <img class="project-img" src="${next.image}" alt="${next.title}">
-    </a>
-
-  </div>
-`;
+      </a>
+      
+      </div>
+      `;
 }
+      // <img class="project-img" src="${previous.image}" alt="${previous.title}">
+      // <img class="project-img" src="${next.image}" alt="${next.title}">
 
 renderProjectNav();
 

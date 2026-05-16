@@ -5,7 +5,7 @@ if (grid) {
   projects.forEach(project => {
     const card = document.createElement("a");
     card.className = "card";
-    card.href = project.link;
+    // card.href = project.link; // ENABLE TO TURN ON PROJECT CARD LINKS
 
     card.innerHTML = `
       <img src="${project.image}" alt="${project.title}">
