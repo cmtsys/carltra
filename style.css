@@ -450,12 +450,12 @@ header {
   line-height: 1;
 }
 
-.logo-link{
+/* .logo-link{
 font-family: Instrument Serif;
 font-size: var(--text-xl);
-/* font-size: 32px; */
+font-size: 32px;
 letter-spacing: -0.01em;
-}
+} */
 
 /* .logo-link:hover {
   filter: drop-shadow(0 0 12px var(--tropical));
@@ -755,25 +755,25 @@ button {
   font-weight: 400;
 }
 
-button:hover {
+.contact button:hover {
   border-color: var(--text-strongest);
   background: var(--box-shadow);
 }
 
-button span {
+.contact button span {
   display: inline-block;
   transition: transform 0.15s ease;
 }
 
-button:hover span {
+.contact button:hover span {
   transform: translateX(5px);
 }
 
-button:active span{
+.contact button:active span{
   transform: scale(0.96) translateX(5px);
 }
 
-button:active {
+.contact button:active {
   background: #cccccc;
 }
 
