@@ -116,6 +116,7 @@ button, input, textarea {
   --background: #FCFCFC;
   /* --background: #F8F8F8; */
   --text-strongest: #171717;
+  --text-strong: #494949;
   --text-primary: #8F8F8F;
   /* --text-primary: #7B7B7B; */
   --text-secondary: #aaaaaa;
@@ -123,12 +124,14 @@ button, input, textarea {
   --box-shadow: #e6e6e6;
   --tropical: rgb(23, 219, 23);
 
-  --text-xxl: 38px;
+  --text-xxxl: 72px;
+  --text-xxl: 36px;
   --text-xl: 26px;
-  --text-l: 20px;
+  --text-l: 21px;
   --text-m: 17px;
   --text-s: 12px;
   --text-xs: 10px;
+  --text-xxs: 8px;
 
   --space-xs: 4px;
   --space-s: 8px;
@@ -169,6 +172,8 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: var(--space-l);
+  width: 100%;
 }
 
 .info-box {
@@ -192,18 +197,20 @@ body{
 }
 
 .heading-md{
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--text-l);
   max-width: 860px;
   margin-bottom: var(--space-xl); 
   letter-spacing: -0.02em;
+  max-width: 65ch;
+  line-height: 120%;
 }
 
 .heading-lg{
-  /* font-family: 'Instrument Serif', Georgia, serif; */
-  font-family: 'PP Editorial New', Georgia, serif;
+  font-family: 'Instrument Serif', Georgia, serif;
+  /* font-family: 'PP Editorial New', Georgia, serif; */
   font-weight: 400;
-  font-size: var(--text-xxl);
+  font-size: var(--text-xxxl);
   max-width: 860px;
   /* margin-bottom: var(--space-m);  */
   letter-spacing: -0.03em;
@@ -225,13 +232,20 @@ body{
 /* ============
    PROJECTS
    ============ */
-.content{
+.content {
   display: flex;
   flex-direction: column;
-  max-width: 1300px;
+  align-items: center; /* centers horizontally */
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%;
   padding: var(--space-xxl) 0;
+}
+
+.small-caps-heading{
+  text-transform: uppercase;
+  color: var(--text-strong);
+
 }
 
 .content2{
@@ -246,6 +260,7 @@ body{
 
 .full-bleed{
   width: 100%;
+  margin-bottom: var(--space-xl);
 }
 
 .full-bleed img {
@@ -268,9 +283,8 @@ body{
 }
 
 .prose{
-  font-size: var(--text-l);
-  line-height: 149%;
-  max-width: 700px;
+  max-width: 604px;
+  
 }
 
 .two-col{
@@ -291,13 +305,6 @@ body{
   width: 100%;
   height: auto;
   display: block;
-}
-
-.titlehover:hover {
-  font-family: "UnifrakturMaguntia", cursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 22px;
 }
 
 .grid {
@@ -872,7 +879,7 @@ textarea::placeholder {
 
   .heading-md{
   /* font-size: var(--text-l); */
-  max-width: 600px; 
+  max-width: 700px;
   letter-spacing: -0.01em;
 }
 
