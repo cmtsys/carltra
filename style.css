@@ -197,14 +197,15 @@ body{
 }
 
 .heading-md{
-  font-weight: 500;
+  font-weight: 400;
   font-size: var(--text-l);
-  max-width: 860px;
   margin-bottom: var(--space-xl); 
   letter-spacing: -0.02em;
   max-width: 65ch;
   line-height: 120%;
 }
+
+.heading-md--500 { font-weight: 500; }
 
 .heading-lg{
   font-family: 'Instrument Serif', Georgia, serif;
@@ -844,6 +845,7 @@ textarea::placeholder {
   grid-template-columns: auto minmax(0, 300px);
   justify-content: center;
   align-items: start;
+  gap: var(--space-m);
 }
 
   .cm2 {
