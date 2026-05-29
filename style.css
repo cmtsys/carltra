@@ -883,6 +883,7 @@ textarea::placeholder {
     padding: var(--space-l);
     z-index: 100;
     text-align: right;
+    
   }
 
   .links.open {
