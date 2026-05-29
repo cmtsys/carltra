@@ -7,13 +7,19 @@ if (grid) {
     card.className = "card";
     // card.href = project.link; // ENABLE TO TURN ON PROJECT CARD LINKS
 
-    card.innerHTML = `
-      <img src="${project.image}" alt="${project.title}">
-      <div class="card-text">
-      <span class="card-title">${project.title}</span>
-      <span class="tagline">${project.tagline}</span>
-      </div>
-    `;
+    const isVideo = project.image.endsWith(".mp4");
+
+    const media = isVideo
+       ? `<video src="${project.image}" autoplay loop muted playsinline></video>`
+        : `<img src="${project.image}" alt="${project.title}">`;
+
+      card.innerHTML = `
+        ${media}
+        <div class="card-text">
+        <span class="card-title">${project.title}</span>
+        <span class="tagline">${project.tagline}</span>
+        </div>
+      `;
 
     grid.appendChild(card);
 

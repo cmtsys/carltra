@@ -362,6 +362,15 @@ a.weblink:hover {
   animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; */
 }
 
+.card video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
 .card:hover{
   /* text-decoration: underline; */
 }
