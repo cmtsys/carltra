@@ -896,8 +896,10 @@ textarea::placeholder {
 }
 
 .aboutme {
+    flex: 1;
+    align-content: center;
     grid-template-columns: 1fr;
-    margin: var(--space-xl) auto;
+    align-items: start;
   }
 
 .cm2 {
