@@ -53,7 +53,8 @@ const projects = [
   {
     title: "Editorial design for Kote No 14",
     tagline: "Indesign",
-    image: "/img/kote14.jpeg",
+    // image: "/img/kote14.jpeg",
+    image: "/img/kote14.mp4",
     slug: "kote14",
     link: "#"
   },
