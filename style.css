@@ -157,6 +157,7 @@ body{
   color: var(--text-strongest);
   font-size: var(--text-m);
   margin-bottom: var(--space-s);  
+  background-color: var(--background);
 }
 
 .caption{
