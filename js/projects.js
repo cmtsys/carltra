@@ -79,6 +79,13 @@ const projects = [
     slug: "analog",
     link: "#"
   },
+  // {
+  //   title: "Action",
+  //   image: "/img/action.mp4",
+  //   tagline: "Exhibition AD",
+  //   slug: "action",
+  //   link: "#"
+  // },
 ];
 
 
