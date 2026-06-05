@@ -5,15 +5,16 @@ import { usePathname } from "next/navigation";
 
 export default function Header (){
     return (
-    <header>
-        <nav className="nav">
-            <Link className="logo-link" href="/">
-            
-            </Link>
-
-        </nav>
-
-    </header>
+<header>
+  <nav className="nav">
+    <a href="/" className="">Carl Traberg</a>
+    <div className="links">
+      <a href="/">Work</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </nav>
+</header>
     )
 }
 
