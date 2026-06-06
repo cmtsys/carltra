@@ -22,7 +22,6 @@ export default function Page() {
   return (
     <div className="contact">
       <form id="contact-form" onSubmit={handleSubmit}>
-        <input type="hidden" value="/thanks" />
         <div className="form-field">
           <label htmlFor="email">How can I help?</label>
           <input style={{fontSize: "20px"}} name="Email" id="email" type="email" placeholder="your@email.com" />
