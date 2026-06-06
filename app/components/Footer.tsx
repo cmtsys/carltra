@@ -14,34 +14,62 @@ export function Clock () {
   return () => clearInterval(interval)
 }, [])
 
-    return <p>{clock}</p>
+    return <span>{clock}</span>
 }
 
 
-export function Day () {
-    return <p>dagen</p>
+export function Day() {
+  const [day, setDay] = useState("");
+
+  useEffect(() => {
+    setDay(new Date().toLocaleDateString("en-US", { weekday: "long" }));
+  }, []);
+
+  return <span>{day}</span>;
 }
 
+export function CurrentDate() {
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString("en-US", { month: "long", day:"numeric" }));
+  }, []);
+
+  return <span>{date}</span>;
+}
+
+export function WindowSize() {
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const update = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    update(); // set on mount
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update); // cleanup
+  }, []);
+
+  return <span>{size.width} x {size.height}</span>;
+}
 
 
 export default function Footer () {
     return (
-         <footer>
-                <div>
-                    <Clock></Clock>
-                    {/* <div id="clock"></div> */}
-                    <div style={{display: "flex", gap: "var(--space-xs)"}}>
-                        <Day></Day>
-                        <div id="day"></div>
-                        <div id="date"></div>
-                    </div>
-                </div>
+        <footer>
+        <div>
+            <Clock></Clock>
+            <div style={{display: "flex", gap: "var(--space-xs)"}}>
+                <Day></Day>
+                <CurrentDate></CurrentDate>
+                <div id="date"></div>
+            </div>
+        </div>
 
-                 <img className="cm" src="/img/cm.png" alt=""></img>
+                 {/* <img className="cm" src="/img/cm.png" alt=""></img> */}
                 
                 <div style={{textAlign: "right"}}>
-                <p style={{fontSize: "10px"}}>window size</p>
-                <div id="window-size"></div>
+                {/* <p style={{fontSize: "10px"}}>window size</p> */}
+                <section>window size</section>
+                <WindowSize></WindowSize>
                 </div>
 
                 </footer>

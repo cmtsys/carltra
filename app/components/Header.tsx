@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -7,14 +7,21 @@ export default function Header (){
     return (
 <header>
   <nav className="nav">
-    <a href="/" className="">Carl Traberg</a>
+    <Link href="/" className="logo-link">Carl Traberg</Link>
     <div className="links">
-      <a href="/">Work</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
+      <Link href="/">Work</Link>
+      <Link href="/about">About</Link>
+      <Link href="/contact">Contact</Link>
     </div>
   </nav>
 </header>
     )
 }
 
+
+
+    //   <button class="hamburger" id="hamburger" aria-label="Menu">
+    //   <span></span>
+    //   <span></span>
+    //   <span></span>
+    // </button>
