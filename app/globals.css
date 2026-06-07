@@ -441,17 +441,18 @@ footer {
    HEADER
    ============ */
 
-  .hamburger {
+.hamburger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   margin-top: 0;
-  width: auto;
-  text-align: left;
+  width: 32px;
+  height: 32px;
+  color: var(--text-strongest);
   border-bottom: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -461,21 +462,49 @@ footer {
   border: none;
 }
 
-.hamburger:active {
+.hamburger:active .t-icon-swap {
   background: none;
+  border: none;
 }
 
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 1px;
-  background: var(--text-strongest);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+.t-icon-swap {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
 }
 
-.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.t-icon {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  line-height: 0;
+  transition:
+    opacity 200ms ease-in-out,
+    filter 200ms ease-in-out,
+    transform 200ms ease-in-out;
+}
+
+.t-icon-swap[data-state="a"] .t-icon[data-icon="a"],
+.t-icon-swap[data-state="b"] .t-icon[data-icon="b"] {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.t-icon-swap[data-state="a"] .t-icon[data-icon="b"],
+.t-icon-swap[data-state="b"] .t-icon[data-icon="a"] {
+  opacity: 0;
+  filter: blur(2px);
+  transform: scale(0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-icon {
+    transition: none;
+  }
+}
 
 header {
   display: flex;
