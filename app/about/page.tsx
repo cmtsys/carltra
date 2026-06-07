@@ -1,7 +1,5 @@
+import AboutMe from "../components/AboutMe";
 
-
-export default function Page() {
-  return <div>
-    <p>This is the about page</p>
-  </div>
+export default function Page () {
+  return <section className="about-page"><AboutMe /></section>
 }

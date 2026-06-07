@@ -143,6 +143,8 @@ button, input, textarea {
   --space-xxl: 72px;
 }
 
+
+/* PAGE - THE WHOLE SITE COLUMN */
 .page {
   min-height: 100vh;
   display: flex;
@@ -153,6 +155,13 @@ button, input, textarea {
   max-width: 1600px;
   margin: 0 auto;
   background-color: var(--background);
+  
+}
+
+/* MAIN - THE AVAILABLE CONTENT AREA */
+.main {
+  flex: 1;
+  display: flex;
 }
 
 body{
@@ -642,10 +651,17 @@ a {
   overflow: visible;
 }
 
+.about-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .cm2 {
-  width: 205px;
-  max-width: 100%;
+  width: clamp(120px, 22vw, 205px);
   height: auto;
+  max-width: 100%;
   display: block;
   object-fit: contain;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -661,7 +677,7 @@ a {
   font-weight: 500;
   font-style: normal;
   font-size: 48px;
-  padding-bottom: var(--space-m);
+  padding-bottom: var(--space-xs); 
   letter-spacing: -0.01em;
 }
 
@@ -847,12 +863,12 @@ textarea::placeholder {
   grid-template-columns: auto minmax(0, 300px);
   justify-content: center;
   align-items: start;
-  gap: var(--space-m);
+  /* gap: var(--space-m); */
 }
 
-  .cm2 {
+  /* .cm2 {
   width: 180px;
-}
+} */
 }
 
 @media (max-width: 600px) {
@@ -892,9 +908,9 @@ textarea::placeholder {
     margin: var(--space-xl) auto;
   }
 
-.cm2 {
+/* .cm2 {
   width: 120px;
-}
+} */
 }
 
 /* ARCHIVE GRID */
@@ -913,12 +929,4 @@ textarea::placeholder {
   display: block;
   margin-bottom: var(--space-m);
   border-radius: 4px;
-}
-
-.masonry-card{
-
-}
-
-.masonry-card.img{
-
 }
