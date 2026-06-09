@@ -6,14 +6,17 @@ import Link from "next/link";
 export default function ProjectCard ({ slug, tagline, title, image }: Project) {
 
     return (
-        
-        <Link href={`/projects/${slug}`}>
-      <Image className="card" src={image} alt={title} fill/>
+        <div>
+        <Link className="card" href={`/projects/${slug}`}>      
+            <div className="cardImage">
+            <Image src={image} alt={title} fill />
+            </div>
       <div className="card-text">
-      <span className="card-title">{title}</span>
-      <span className="tagline">{tagline}</span>
+        <span className="card-title">{title}</span>
+        <span className="tagline">{tagline}</span>
       </div>
       </Link>
+      </div>
     )
 }
     
