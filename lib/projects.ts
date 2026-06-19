@@ -44,6 +44,13 @@ const projects: Project[] = [
     tagline: "Art-direction for urbanism",
     image: "/img/kote.jpg",
     slug: "kote12",
+    link: "#"
+  },
+  {
+    title: "Magasinet Kote",
+    tagline: "Editorial design for urbanism and landscape",
+    image: "/img/kote.jpg",
+    slug: "kote12",
     link: "#",
     featured: true
   },
@@ -61,7 +68,8 @@ const projects: Project[] = [
   image: "/img/rmgif.gif",
   // image: "/img/remarkable.jpeg",
   slug: "remarkable",
-  link: "projects/remarkable.html"
+  link: "projects/remarkable.html",
+  featured: true
   },
   {
     title: "Editorial design for Kote No 14",
