@@ -672,7 +672,7 @@ a {
 .aboutme {
   margin: auto;
   display: grid;
-  grid-template-columns: auto minmax(0, 379px);
+  grid-template-columns: auto minmax(0, 460px);
   gap: clamp(24px, 4vw, 60px);
   justify-content: center;
   align-items: start;
@@ -711,7 +711,7 @@ a {
 }
 
 .about-text{
-  max-width: 379px;
+  max-width: 420px;
 }
 
 .experience{
@@ -889,7 +889,7 @@ textarea::placeholder {
   .aboutme {
   margin: auto;
   display: grid;
-  grid-template-columns: auto minmax(0, 300px);
+  grid-template-columns: auto minmax(0, 320px);
   justify-content: center;
   align-items: start;
   /* gap: var(--space-m); */

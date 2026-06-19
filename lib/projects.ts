@@ -9,6 +9,14 @@ export type Project = {
 
 const projects: Project[] = [
   {
+  title: "Teams-native touch panel app for Huddly",
+  tagline: "Scoping and designing in-room camera controls",
+  image: "/img/huddly.png",
+  slug: "huddly",
+  link: "projects/huddly.html",
+    featured: true
+  },
+  {
   title: "Artwork production for Damla Kilickiran",
   tagline: "Bridging art and engineering at A-blokka",
   image: "/img/nordic.jpeg",
@@ -33,7 +41,7 @@ const projects: Project[] = [
   },
   {
     title: "Kote 12",
-    tagline: "Art-direction",
+    tagline: "Art-direction for urbanism",
     image: "/img/kote.jpg",
     slug: "kote12",
     link: "#",
@@ -46,14 +54,6 @@ const projects: Project[] = [
   image: "/img/short480.mp4",
   slug: "error",
   link: "#"
-  },
-  {
-  title: "Teams-native touch panel app for Huddly",
-  tagline: "Scoping and designing in-room camera controls",
-  image: "/img/huddly.png",
-  slug: "huddly",
-  link: "projects/huddly.html",
-    featured: true
   },
   {
   title: "UI Concept for reMarkable",
