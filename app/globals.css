@@ -324,7 +324,7 @@ body{
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-m);
+  gap: var(--space-l);
   max-width: 940px;
   margin: 0 auto;
 }

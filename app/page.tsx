@@ -7,6 +7,7 @@ export default function Page() {
   return <>
     <Typewriter></Typewriter>
     <MainProjects />
+    <p>Other cool projects</p>
   </>
   
 
