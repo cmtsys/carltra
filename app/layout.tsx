@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+// THIS IS THE CONTAINER FOR PAGES
+// It displays the page.tsx in same folder automatically
 
 export const metadata: Metadata = {
   title: "carl traberg",
