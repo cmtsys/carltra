@@ -13,7 +13,8 @@ const projects: Project[] = [
   tagline: "Bridging art and engineering at A-blokka",
   image: "/img/nordic.jpeg",
   slug: "artwork",
-  link: "projects/artwork.html"
+  link: "projects/artwork.html",
+  featured: true
 },
   {
     title: "Daydreams & doomscrolling",
@@ -35,7 +36,8 @@ const projects: Project[] = [
     tagline: "Art-direction",
     image: "/img/kote.jpg",
     slug: "kote12",
-    link: "#"
+    link: "#",
+    featured: true
   },
   {
   title: "Exploring VR and shaders in Unity",
@@ -50,7 +52,8 @@ const projects: Project[] = [
   tagline: "Scoping and designing in-room camera controls",
   image: "/img/huddly.png",
   slug: "huddly",
-  link: "projects/huddly.html"
+  link: "projects/huddly.html",
+    featured: true
   },
   {
   title: "UI Concept for reMarkable",
