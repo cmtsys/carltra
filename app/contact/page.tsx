@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 export default function Page() {
     const router = useRouter()
 
-     async function handleSubmit(e) {
+async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = new FormData(e.target)
+    const data = new FormData(e.currentTarget as HTMLFormElement)
     const response = await fetch('https://formspree.io/f/xzdolezd', {
       method: 'POST',
       body: data,
