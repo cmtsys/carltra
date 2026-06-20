@@ -1,4 +1,3 @@
-import Link from "next/link";
 import projects from "../../lib/projects"
 import ProjectCard from "./ProjectCard"
 
@@ -10,7 +9,14 @@ export default function MainProjects () {
         <section className="grid">
 
         {featured.map( p =>
-            <ProjectCard key={p.slug} title={p.title} tagline={p.tagline} image={p.image} ></ProjectCard>
+            <ProjectCard 
+                key={p.slug} 
+                slug={p.slug}
+                title={p.title} 
+                tagline={p.tagline} 
+                image={p.image}
+                link={p.link} 
+                 />
         )}
         
         </section>

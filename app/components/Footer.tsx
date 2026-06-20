@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
@@ -19,21 +18,15 @@ export function Clock () {
 
 
 export function Day() {
-  const [day, setDay] = useState("");
 
-  useEffect(() => {
-    setDay(new Date().toLocaleDateString("en-US", { weekday: "long" }));
-  }, []);
+  const day = new Date().toLocaleDateString("en-GB", { weekday: "long" })
 
   return <span>{day}</span>;
 }
 
 export function CurrentDate() {
-  const [date, setDate] = useState("");
 
-  useEffect(() => {
-    setDate(new Date().toLocaleDateString("en-US", { month: "long", day:"numeric" }));
-  }, []);
+  const date = new Date().toLocaleDateString("en-GB", { day:"numeric", month: "long", year: "numeric" })
 
   return <span>{date}</span>;
 }

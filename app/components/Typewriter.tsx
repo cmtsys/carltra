@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 
-export default function Typewriter() {
       const words = [
                 "UX",
                 "code",  
@@ -21,7 +20,9 @@ export default function Typewriter() {
                 "microinteractions",
                 "post-it notes",
                 ];
-  
+
+export default function Typewriter() {
+
   const [displayed, setDisplayed] = useState("");
   const i = useRef(0);
   const j = useRef(0);
@@ -49,7 +50,7 @@ export default function Typewriter() {
     }
 
     type();
-  }, [])
+  }, [words])
 
   return (
     <h1 className="heading-md">

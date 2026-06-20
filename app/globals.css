@@ -470,7 +470,7 @@ footer {
   border: none;
 }
 
-.hamburger:active .t-icon-swap {
+.hamburger:active .t-icon-sfridwap {
   background: none;
   border: none;
 }
@@ -676,8 +676,9 @@ a {
   gap: clamp(24px, 4vw, 60px);
   justify-content: center;
   align-items: start;
-  padding: clamp(16px, 4vw, 40px);
+  /* padding: clamp(16px, 4vw, 40px); */
   overflow: visible;
+  padding: var(--space-xxl) 0;
 }
 
 .about-page {
@@ -935,6 +936,7 @@ textarea::placeholder {
 .aboutme {
     grid-template-columns: 1fr;
     margin: var(--space-xl) auto;
+    padding: var(--space-m) 0;
   }
 
 /* .cm2 {

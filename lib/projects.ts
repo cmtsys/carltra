@@ -3,7 +3,7 @@ export type Project = {
     tagline: string
     image: string
     slug: string
-    link: string
+    link?: string
     featured?: boolean
 }
 
