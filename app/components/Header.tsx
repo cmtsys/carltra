@@ -33,7 +33,7 @@ export default function Header() {
 
         <div id="site-links" className={`links ${menuOpen ? "open" : ""}`}>
           <Link href="/" className={pathname === "/" ? "active" : ""}>Work</Link>
-          <Link href="/about" className={pathname === "/about" ? "active" : ""}>About</Link>
+          {/* <Link href="/about" className={pathname === "/about" ? "active" : ""}>About</Link> */}
           <Link href="/contact" className={pathname === "/contact" ? "active" : ""}>Contact</Link>
         </div>
 
