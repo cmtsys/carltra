@@ -264,27 +264,23 @@ body {
   letter-spacing: -0.01em;
   max-width: 860px;
   max-width: 45ch;
-  /* padding-bottom: var(--space-xs); */
-  /* margin-bottom: var(--space-s); */
-  /* line-height: 1.05; */
+  line-height: 1.05;
+}
+
+.body-xl {
+  font-weight: 400;
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+  max-width: 65ch;
+  line-height: 1.34;
 }
 
 .body-l {
   font-weight: 400;
   font-size: var(--text-l);
-  margin-bottom: var(--space-xl);
   letter-spacing: -0.02em;
   max-width: 65ch;
-  line-height: 120%;
-}
-
-.body-md {
-  font-weight: 400;
-  font-size: var(--text-l);
-  margin-bottom: var(--space-xl);
-  letter-spacing: -0.02em;
-  max-width: 65ch;
-  line-height: 120%;
+  line-height: 1.2;
 }
 
 .body-s {
@@ -292,6 +288,7 @@ body {
   font-size: var(--text-s);
   letter-spacing: -0.01em;
   max-width: 45ch;
+  /* line-height: 1.2; */
 }
 
 .body-xs {
@@ -318,13 +315,6 @@ body {
   letter-spacing: -0.01em;
   max-width: 45ch;
 }
-
-/* .label-s {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--text-secondary);
-} */
 
 /* EDITORIAL NEW FONT - NOT IN USE */
 /* .editorial{
@@ -359,22 +349,15 @@ body {
   padding: var(--space-xxl);
 }
 
-/* IMAGE */
-
 .title-image {
-  width: 90%;
+  width: 100%;
   height: auto;
   display: block;
   margin-bottom: var(--space-xl);
+  border-radius: 4px;
 }
 
 /* TEXT PROJECTS */
-
-.prose,
-.intro {
-  margin: 0 auto;
-  margin-bottom: var(--space-s);
-}
 
 .intro {
   font-weight: 400;
@@ -387,7 +370,12 @@ body {
 }
 
 .prose {
-  max-width: 604px;
+  display: flex;
+  flex-direction: column;
+  max-width: 660px;
+  gap: var(--space-l);
+  margin: 0 auto;
+  margin-bottom: var(--space-s);
 }
 
 .two-col {
@@ -784,10 +772,9 @@ a {
   grid-template-columns: auto minmax(0, 460px);
   gap: clamp(24px, 4vw, 60px);
   justify-content: center;
-  align-items: start;
-  /* padding: clamp(16px, 4vw, 40px); */
   overflow: visible;
   padding: var(--space-xxl) 0;
+  align-items: center;
 }
 
 .about-page {
@@ -815,6 +802,15 @@ a {
 
 .about-text {
   max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l); 
+}
+
+.about-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
 }
 
 .experience {
