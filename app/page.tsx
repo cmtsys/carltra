@@ -10,5 +10,5 @@ export default function Page() {
     <section className="about-page"><AboutMe /></section>
     <MainProjects />
   </>
-  
+
 }
