@@ -1,6 +1,3 @@
-
-// import Image from "next/image";
-
 export default function AboutMe() {
     return (
         <section className="aboutme">
