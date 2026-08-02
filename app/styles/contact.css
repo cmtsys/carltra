@@ -1,0 +1,121 @@
+/* CONTACT FORM */
+
+.contact {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+  /* Centers vertically */
+  width: 100%;
+  flex: 1;
+  font-size: var(--text-l);
+}
+
+p.contact:hover {
+  text-decoration: underline;
+}
+
+.return-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+  max-width: 400px;
+  width: 100%;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+label {
+  color: var(--text-strongest);
+  letter-spacing: -0.01em;
+}
+
+input {
+  background: none;
+  border: none;
+  padding: var(--space-s) 0;
+  font-family: 'ABC Diatype', sans-serif;
+  color: var(--text-strongest);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+input:focus {
+  border-bottom-color: var(--text-strongest);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+}
+
+
+button {
+  background: none;
+  border: none;
+  border-bottom: 0.5px solid var(--text-secondary);
+  width: 100%;
+  padding: 10px 0;
+  height: auto;
+  font-family: 'ABC Diatype', sans-serif;
+  font-size: var(--text-m);
+  color: var(--text-strongest);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  margin-top: var(--space-l);
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 400;
+}
+
+.contact button:hover {
+  border-color: var(--text-strongest);
+  background: var(--box-shadow);
+}
+
+.contact button span {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.contact button:hover span {
+  transform: translateX(5px);
+}
+
+.contact button:active span {
+  transform: scale(0.96) translateX(5px);
+}
+
+.contact button:active {
+  background: #cccccc;
+}
+
+textarea {
+  background: none;
+  border: none;
+  padding: var(--space-s) 0;
+  font-family: 'ABC Diatype', sans-serif;
+  color: var(--text-strongest);
+  outline: none;
+  width: 100%;
+  resize: none;
+  transition: border-color 0.15s ease;
+}
+
+textarea:focus {
+  border-bottom-color: var(--text-strongest);
+}
+
+textarea::placeholder {
+  color: var(--text-secondary);
+}

@@ -1,0 +1,17 @@
+/* footer.css */
+
+footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  padding-top: var(--space-l);
+  padding-bottom: var(--space-m);
+  flex-shrink: 0;
+}
+
+.cm {
+  width: 48px;
+  height: auto;
+}

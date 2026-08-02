@@ -39,13 +39,12 @@ export default function daydream() {
 
     </div>
 
-    <div className="prose">
+    <div className='project-blocks'>
+      <div className='prose'>
+        <p className='body-xl'>Digital introspection is an interaction design project looking at new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p></div>
 
-      <p className='body-xl'>Digital introspection is an interaction design project looking at new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p>
+      <div className='prose--narrow'>
+        <p className='body-l'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing, displaying a breadth of possibilities and new opportunities for how we define our relationship to our devices.</p></div>
 
-      <p className='body-l'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing, displaying a breadth of possibilities and new opportunities for how we define our relationship to our devices.</p>
-
-    </div>
-
-  </div>
+    </div></div>
 }

@@ -1,0 +1,89 @@
+/* ABOUT PAGE */
+
+.about-text {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l); 
+}
+
+.about-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.experience {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.experience-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.experience-heading h1 {
+  font-weight: 500;
+}
+
+.experience-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: var(--space-m);
+}
+
+.experience-titles h1 {
+  font-weight: 500;
+}
+
+.experience-desc {
+  border-top: 0.5px solid var(--text-secondary);
+  padding-top: 8px;
+  font-weight: 400;
+  font-size: var(--text-m);
+  color: var(--text-primary);
+}
+
+.small-text {
+  font-weight: 400;
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.aboutme {
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 460px);
+  gap: clamp(24px, 4vw, 60px);
+  justify-content: center;
+  overflow: visible;
+  padding: var(--space-xxl) 0;
+  align-items: center;
+}
+
+.about-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cm2 {
+  width: clamp(120px, 22vw, 205px);
+  height: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  overflow: visible;
+}
+
+.cm2:hover {
+  filter: drop-shadow(0 0 12px var(--tropical));
+}

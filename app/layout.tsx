@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./styles/globals.css";
+import "./styles/typography.css";
+import "./styles/fontimports.css";
+import "./styles/header.css";
+import "./styles/reset.css";
+import "./styles/aboutme.css";
+import "./styles/contact.css";
+import "./styles/footer.css";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
