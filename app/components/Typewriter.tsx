@@ -46,7 +46,8 @@ export default function Typewriter() {
         i.current = (i.current + 1) % words.length;
       }
 
-      setTimeout(type, isDeleting.current ? 30 : 80);
+      setTimeout(type, isDeleting.current ? 20 : 80);
+      
     }
 
     type();

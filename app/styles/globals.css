@@ -135,8 +135,8 @@ body {
   border-radius: 4px;
 }
 
-.full-image--narrow {
-  max-width: var(--prose-width); /* 660px, matches .prose */
+.full-image--text-width {
+  max-width: var(--prose-width); /* matches .prose, 660px */
   margin-left: auto;
   margin-right: auto;
 }
@@ -146,7 +146,7 @@ body {
 .project-blocks {
   display: flex;
   flex-direction: column;
-  gap: var(--space-l);
+  gap: var(--space-xl);
   margin: 0 auto;
   margin-bottom: var(--space-s);
   align-items: center
@@ -160,7 +160,7 @@ body {
 }
 
 .prose--narrow {
-  max-width: 58ch;
+  max-width: 56ch;
 }
 
 

@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import One from "../../../public/img/daydream/scenario1/01.png";
+import Two from "../../../public/img/daydream/scenario1/02.png";
 
 export default function daydream() {
   return <div className="content">
@@ -43,12 +45,22 @@ export default function daydream() {
       <div className='prose'>
         <p className='body-xl'>Digital introspection is an interaction design project looking at new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p></div>
 
-      <div className='prose--narrow'>
-        <p className='body-l'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing, displaying a breadth of possibilities and new opportunities for how we define our relationship to our devices.</p></div>
 
-    </div>
-    
-    
-    
-    </div>
+    <Image
+      src={One}
+      className="full-image"
+      alt="Scenario 1 – My screen-time doesn't understand me"
+      sizes="(max-width: 900px) 100vw, 1000px"
+      />
+      <div className='prose prose--narrow'>
+        <p className='body-xl'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing.</p></div>
+    <Image
+      src={Two}
+      className="full-image"
+      alt="Scenario 1 – My screen-time doesn't understand me"
+      sizes="(max-width: 900px) 100vw, 1000px"
+      />
+
+      </div>
+  </div>
 }
