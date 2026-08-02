@@ -8,14 +8,14 @@ export default function daydream() {
 
     <Image
       src="/img/daydream2.png"
-      className='title-image'
+      className='full-image'
       alt="Main image"
       width={8640}
       height={4860}
       sizes="(max-width: 900px) 100vw, 1000px"
     />
 
-    <div className="info">
+    <dl className="info">
 
       <div className="info-box">
         <dt className="label-s">Year</dt>
@@ -37,7 +37,7 @@ export default function daydream() {
         <dd className="body-s">Oslo School of Architecture and Design</dd>
       </div>
 
-    </div>
+    </dl>
 
     <div className='project-blocks'>
       <div className='prose'>
@@ -46,5 +46,9 @@ export default function daydream() {
       <div className='prose--narrow'>
         <p className='body-l'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing, displaying a breadth of possibilities and new opportunities for how we define our relationship to our devices.</p></div>
 
-    </div></div>
+    </div>
+    
+    
+    
+    </div>
 }

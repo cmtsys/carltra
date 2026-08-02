@@ -16,7 +16,6 @@
   color: var(--text-strongest);
   border-bottom: none;
   -webkit-tap-highlight-color: transparent;
-
 }
 
 .hamburger:hover {
@@ -24,7 +23,7 @@
   border: none;
 }
 
-.hamburger:active .t-icon-sfridwap {
+.hamburger:active .t-icon-swap {
   background: none;
   border: none;
 }
@@ -165,3 +164,29 @@ a {
   padding-bottom: var(--space-m);
   letter-spacing: -0.01em;
 } */
+
+@media (max-width: 600px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+.links {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-m);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    background: var(--background);
+    padding: var(--space-l);
+    z-index: 100;
+    text-align: right;
+  }
+
+  .links.open {
+    display: flex;
+  }
+
+}
