@@ -370,14 +370,6 @@ a.weblink:hover {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .aboutme {
-    margin: auto;
-    display: grid;
-    grid-template-columns: auto minmax(0, 320px);
-    justify-content: center;
-    align-items: start;
-  }
 }
 
 @media (max-width: 600px) {
@@ -392,12 +384,6 @@ a.weblink:hover {
   .heading-md {
     max-width: 700px;
     letter-spacing: -0.01em;
-  }
-
-  .aboutme {
-    grid-template-columns: 1fr;
-    margin: var(--space-xl) auto;
-    padding: var(--space-m) 0;
   }
 
 }

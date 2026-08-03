@@ -56,7 +56,7 @@
   text-align: right;
 }
 
-.aboutme {
+/* .aboutme {
   margin: auto;
   display: grid;
   grid-template-columns: auto minmax(0, 460px);
@@ -65,6 +65,16 @@
   overflow: visible;
   padding: var(--space-xxl) 0;
   align-items: center;
+} */
+
+.aboutme {
+  display: grid;
+  grid-template-columns: auto minmax(0, 460px);
+  gap: clamp(24px, 4vw, 60px);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 760px;
 }
 
 .about-page {
@@ -72,6 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-xxl) 0;
 }
 
 .cm2 {
@@ -86,4 +97,36 @@
 
 .cm2:hover {
   filter: drop-shadow(0 0 12px var(--tropical));
+}
+
+
+@media (max-width: 900px) {
+
+  .aboutme {
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 320px);
+    justify-content: center;
+    align-items: start;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  /* .aboutme {
+    grid-template-columns: 1fr;
+    margin: var(--space-xl) auto;
+    padding: var(--space-s) 0;
+  } */
+
+   .about-page {
+    align-items: flex-start;
+    padding: var(--space-xl) 0;
+  }
+
+    .small-text {
+    text-align: left;
+  }
+
 }
