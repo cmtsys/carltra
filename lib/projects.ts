@@ -13,15 +13,15 @@ const projects: Project[] = [
     tagline: "Scoping and designing in-room camera controls",
     image: "/img/huddly.png",
     slug: "huddly",
-    link: "projects/huddly.html",
+    link: "/projects/huddly",
     featured: true
   },
   {
     title: "Artwork production for Damla Kilickiran",
     tagline: "Bridging art and engineering at A-blokka",
     image: "/img/nordic.jpeg",
-    slug: "artwork",
-    link: "projects/artwork.html",
+    slug: "damla",
+    link: "/projects/damla",
     featured: true
   },
   {
@@ -29,7 +29,7 @@ const projects: Project[] = [
     tagline: "Exploring mind-wandering on smart phones",
     image: "/img/daydream/daydream.png",
     slug: "daydream",
-    link: "projects/daydream",
+    link: "/projects/daydream",
     featured: true
   },
   {
@@ -50,8 +50,8 @@ const projects: Project[] = [
     title: "Magasinet Kote",
     tagline: "Editorial design for urbanism and landscape",
     image: "/img/kote.jpg",
-    slug: "kote12",
-    link: "#",
+    slug: "kote",
+    link: "/projects/kote",
     featured: true
   },
   {
@@ -68,7 +68,7 @@ const projects: Project[] = [
     image: "/img/rmgif.gif",
     // image: "/img/remarkable.jpeg",
     slug: "remarkable",
-    link: "projects/remarkable.html",
+    link: "/projects/remarkable",
     featured: true
   },
   {

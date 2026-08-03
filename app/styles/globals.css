@@ -10,20 +10,28 @@
   --tropical: rgb(23, 219, 23);
 
   /* TYPE PRIMITIVES STATIC */
-  --text-xxs: 0.5rem;   /* 8px */
-  --text-xs: 0.625rem;  /* 10px */
-  --text-s: 0.75rem;    /* 12px */
+  --text-xxs: 0.5rem;
+  /* 8px */
+  --text-xs: 0.625rem;
+  /* 10px */
+  --text-s: 0.75rem;
+  /* 12px */
   --text-m: 1.0625rem;
   /* 17px */
 
   /* TYPE PRIMITIVES FLUID — interpolated between 400px and 1600px viewport */
-  --text-l: clamp(1.125rem, 1.0625rem + 0.25vw, 1.3125rem);   /* 18px → 21px */
-  --text-xl: clamp(1.3125rem, 1.208rem + 0.417vw, 1.625rem);  /* 21px → 26px */
-  --text-xxl: clamp(1.625rem, 1.417rem + 0.833vw, 2.25rem);   /* 26px → 36px */
-  --text-xxxl: clamp(2.5rem, 1.833rem + 2.667vw, 4.5rem);     /* 40px → 72px */
+  --text-l: clamp(1.125rem, 1.0625rem + 0.25vw, 1.3125rem);
+  /* 18px → 21px */
+  --text-xl: clamp(1.3125rem, 1.208rem + 0.417vw, 1.625rem);
+  /* 21px → 26px */
+  --text-xxl: clamp(1.625rem, 1.417rem + 0.833vw, 2.25rem);
+  /* 26px → 36px */
+  --text-xxxl: clamp(2.5rem, 1.833rem + 2.667vw, 4.5rem);
+  /* 40px → 72px */
 
   /* SERIF / DISPLAY SCALE */
-  --serif-l: clamp(2.125rem, 1.833rem + 1.167vw, 3rem); /* 34px → 48px */
+  --serif-l: clamp(2.125rem, 1.833rem + 1.167vw, 3rem);
+  /* 34px → 48px */
 
   /* SPACING PRIMITIVES */
   --space-xs: 4px;
@@ -33,14 +41,16 @@
   --space-xl: 40px;
   --space-xxl: 72px;
 
-  --content-width: 1000px;    /* Case study layout images */
-  --prose-width: 660px;       /* Case study narrow text field + small images */
+  --content-width: 1000px;
+  /* Case study layout images */
+  --prose-width: 660px;
+  /* Case study narrow text field + small images */
 
 
   /* BREAKPOINTS */
-     --mobile: 600px;
-     --tablet: 900px;
-     --desktop: 1200px;
+  --mobile: 600px;
+  --tablet: 900px;
+  --desktop: 1200px;
 
   /* 
   --text-xxl: 36px;
@@ -93,9 +103,17 @@ body {
   align-items: center;
   max-width: 860px;
   margin: 0 auto;
-  width: 100%;  /* centers horizontally */
+  width: 100%;
+  /* centers horizontally */
   padding-top: 0;
-  padding-bottom: var(--space-xxl);
+  padding-bottom: var(--space-xl);
+}
+
+@media (max-width: 900px) {
+  .content{padding-bottom: var(--space-l);}
+}
+@media (max-width: 600px) {
+  .content{padding-bottom: var(--space-m);}
 }
 
 /* .content2 {
@@ -136,7 +154,8 @@ body {
 }
 
 .full-image--text-width {
-  max-width: var(--prose-width); /* matches .prose, 660px */
+  max-width: var(--prose-width);
+  /* matches .prose, 660px */
   margin-left: auto;
   margin-right: auto;
 }
@@ -215,7 +234,8 @@ HOMEPAGE PROJECT CARDS
 
 .card-title {
   margin-top: var(--space-s);
-  font-size: var(--text-m);
+  /* font-size: var(--text-m); */
+
   display: block;
 }
 
@@ -225,12 +245,14 @@ HOMEPAGE PROJECT CARDS
   font-weight: 400;
 }
 
-/* NEXT PROJECT - JS format, not ready for next.js component */
+/* NEXT PROJECT Component */
 .project-nav {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-xl);
+  width: 100%;
+  padding-top: var(--space-xl);
 }
 
 .project-link {
@@ -251,6 +273,8 @@ HOMEPAGE PROJECT CARDS
   object-fit: cover;
 }
 
+@media ( max-width: 600px ) {}
+
 /* ============
    WEBLINKS
    ============ */
@@ -268,13 +292,33 @@ a.weblink:hover {
 
 /* ── Layout helpers ─────────────────────────────────────── */
 
-.flex { display: flex; }
-.flex-col {flex-direction: column;}
-.items-center {align-items: center;}
-.items-start {align-items: flex-start;}
-.justify-between {justify-content: space-between;}
-.flex-wrap {flex-wrap: wrap;}
-.grid {display: grid;}
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+}
 
 /* ===================================
    MEDIA QUERIES & MOBILE
