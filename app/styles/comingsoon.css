@@ -1,0 +1,17 @@
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(252, 252, 252, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card--disabled {
+  cursor: default;
+}
+
+.card--disabled .card-title,
+.card--disabled .tagline {
+  color: var(--text-secondary); /* dim the text too, signals "not active" */
+}

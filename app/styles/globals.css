@@ -128,10 +128,21 @@ body {
 
 /* CASE STUDY META BOX */
 
-.info {
+/* .info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: var(--space-l);
+  margin-top: var(--space-l);
+  width: 100%;
+  max-width: var(--prose-width);
+} */
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  gap: var(--space-l) var(--space-xl);
   margin-bottom: var(--space-l);
   margin-top: var(--space-l);
   width: 100%;
@@ -141,8 +152,30 @@ body {
 .info-box {
   display: flex;
   flex-direction: column;
-  margin-bottom: var(--space-m);
 }
+
+@media (max-width: 660px) {
+  .info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: var(--space-m) var(--space-xl);
+
+  }
+}
+
+.info-box dt {
+  white-space: nowrap;
+}
+
+.info-box dd {
+  white-space: normal;
+}
+
+/* .info-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-m);
+} */
 
 /* IMAGES IN CASE STUDY */
 .full-image {

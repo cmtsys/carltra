@@ -5,6 +5,12 @@ export type Project = {
   slug: string
   link?: string
   featured?: boolean
+  comingSoon?: boolean
+  description?: string
+
+  eyebrow?: string
+  heading?: string
+  heroImage?: string
 }
 
 const projects: Project[] = [
@@ -14,7 +20,8 @@ const projects: Project[] = [
     image: "/img/huddly.png",
     slug: "huddly",
     link: "/projects/huddly",
-    featured: true
+    featured: true,
+    comingSoon: true
   },
   {
     title: "Artwork production for Damla Kilickiran",
@@ -30,7 +37,10 @@ const projects: Project[] = [
     image: "/img/daydream/daydream.png",
     slug: "daydream",
     link: "/projects/daydream",
-    featured: true
+    featured: true,
+    eyebrow: "Master's thesis at AHO",
+    heading: "Daydreams & Doomscrolling",
+    heroImage: "/img/daydream/daydream2.png",
   },
   {
     title: "Website for Rosa Collective",
@@ -101,4 +111,4 @@ const projects: Project[] = [
   },
 ];
 
-export default projects
+export default projects;

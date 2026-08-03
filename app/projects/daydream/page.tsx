@@ -4,10 +4,16 @@ import MetaData from '../../components/MetaData';
 import One from "../../../public/img/daydream/scenario1/01.png";
 import Two from "../../../public/img/daydream/scenario1/02.png";
 
+
+export const metadata = {
+  title: "Daydreams & Doomscrolling | Carl Traberg",
+  description: "Interaction design project exploring digital wellbeing.",
+};
+
 export default function daydream() {
   return <div className="content">
 
-    <p className="label">Master's thesis at aho</p>
+    <p className="label">Master&apos;s thesis at aho</p>
     <h1 className="heading-serif">Daydreams & Dommscroll</h1>
 
     <Image
@@ -30,7 +36,7 @@ export default function daydream() {
 
       <div className='prose'>
 
-        <p className='body-xl'><i>Digital introspection</i> is an interaction design project looking at new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p></div>
+        <p className='body-xl'><i>Digital introspection</i> is a design project exploring new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p></div>
 
 
       <Image
