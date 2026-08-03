@@ -7,7 +7,7 @@ export default function Page() {
   return <>
     {/* <Typewriter></Typewriter> */}
     {/* <div style={{ padding: "var(--space-xxl) 0" }}> <AboutMe /> </div> */}
-    <section className="about-page"><AboutMe /></section>
+    <section className="about-section"><AboutMe /></section>
     <MainProjects />
   </>
 
