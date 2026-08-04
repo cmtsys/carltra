@@ -22,7 +22,7 @@
   width: 100%;
   max-width: 400px;
   font-size: var(--text-l);
-  padding: 0 var(--space-xl);
+  padding: 0 var(--space-l);
 }
 
 p.contact:hover {
