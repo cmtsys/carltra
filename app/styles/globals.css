@@ -98,6 +98,10 @@ body {
   background-color: var(--background);
 }
 
+body.menu-open {
+  overflow: hidden;
+}
+
 /* ============
    PROJECT CASE STUDY
    ============ */

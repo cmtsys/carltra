@@ -1,4 +1,4 @@
-import { project } from "@/lib/projects";
+// import { project } from "@/lib/projects";
 import Image from 'next/image'
 import NextProject from '@/app/components/NextProject';
 import MetaData from '@/app/components/MetaData';
