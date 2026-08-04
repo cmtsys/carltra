@@ -430,3 +430,21 @@ a.weblink:hover {
   color: purple; */
   overflow: visible;
 }
+
+
+/* MAIN ANIMATION FADE IN */
+.main {
+  animation: pageIn 1000ms ease both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
