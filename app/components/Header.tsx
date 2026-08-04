@@ -1,9 +1,8 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 
 function IconSwap({
   iconA,
@@ -23,10 +22,19 @@ function IconSwap({
 }
 
 export default function Header() {
+
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+  document.body.classList.toggle("menu-open", menuOpen);
+
+  return () => {
+    document.body.classList.remove("menu-open");
+  };
+}, [menuOpen]);
 
   return (
     <header>
