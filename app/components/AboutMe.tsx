@@ -1,8 +1,9 @@
 export default function AboutMe() {
     return (
         <section className="about-card">
-            <img className="about-portrait" src="img/cm.png" alt="I look something like this" />
 
+            <img className="about-portrait" src="img/cm.png" alt="I look something like this" />
+    
             <section className="about-copy">
                 <div className="about-intro">
                     <h1 className="heading-serif">Hi there!</h1>

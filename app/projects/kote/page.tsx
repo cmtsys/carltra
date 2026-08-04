@@ -12,7 +12,6 @@ export const metadata = {
 export default function kote() {
   return <div className="content">
 
-
     <ProjectHero
       label="Master's thesis at AHO"
       title="Daydreams & Doomscrolling"
