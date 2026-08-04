@@ -1,14 +1,28 @@
 /* CONTACT FORM */
 
-.contact {
+/* .contact {
   display: flex;
   justify-content: center;
-  /* Centers horizontally */
+  
   align-items: center;
-  /* Centers vertically */
+  
   width: 100%;
   flex: 1;
   font-size: var(--text-l);
+} */
+
+.contact-page {
+  flex: 1;
+  display: grid;
+  align-items: start;
+  place-items: center;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 400px;
+  font-size: var(--text-l);
+  padding: 0 var(--space-xl);
 }
 
 p.contact:hover {
@@ -59,7 +73,7 @@ input::placeholder {
 }
 
 
-.contact button {
+.contact-form button {
   background: none;
   border: none;
   border-bottom: 0.5px solid var(--text-secondary);
@@ -78,25 +92,25 @@ input::placeholder {
   font-weight: 400;
 }
 
-.contact button:hover {
+.contact-form button:hover {
   border-color: var(--text-strongest);
   background: var(--box-shadow);
 }
 
-.contact button span {
+.contact-form button span {
   display: inline-block;
   transition: transform 0.15s ease;
 }
 
-.contact button:hover span {
+.contact-form button:hover span {
   transform: translateX(5px);
 }
 
-.contact button:active span {
+.contac-form button:active span {
   transform: scale(0.96) translateX(5px);
 }
 
-.contact button:active {
+.contact-form button:active {
   background: #cccccc;
 }
 
