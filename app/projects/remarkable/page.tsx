@@ -35,7 +35,7 @@ export default function remarkable() {
 
     </div>
 
-    <NextProject currentSlug="remarkable" />
+    <NextProject />
 
   </div>
 }

@@ -5,6 +5,6 @@ export default function kote() {
   return <div className="content">
 
 
-    <NextProject currentSlug="kote" />
+    <NextProject />
   </div>
 }
