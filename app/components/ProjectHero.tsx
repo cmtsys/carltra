@@ -21,7 +21,7 @@ export default function ProjectHero({
     return (
         <>
             {label && <p className="label">{label}</p>}
-            <h1 className="heading-serif">{title}</h1>
+            <h1 className="heading-serif heading-serif--centered">{title}</h1>
 
             <Image
                 src={imageSrc}
