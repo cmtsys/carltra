@@ -134,9 +134,16 @@ header {
   transition: transform 0.15s ease;
 }
 
-.underline-link:hover::after {
-  transform: scaleX(1);
+/* added to avoid hover bug on mobile */
+@media (hover: hover) and (pointer: fine) {
+  .underline-link:hover::after {
+    transform: scaleX(1);
+  }
 }
+/* removed to try to fix */
+/* .underline-link:hover::after {
+  transform: scaleX(1);
+} */
 
 .nav {
   display: flex;
