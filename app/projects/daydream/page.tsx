@@ -3,6 +3,7 @@ import NextProject from '../../components/NextProject';
 import MetaData from '../../components/MetaData';
 import One from "../../../public/img/daydream/scenario1/01.png";
 import Two from "../../../public/img/daydream/scenario1/02.png";
+import ProjectHero from '@/app/components/ProjectHero';
 
 
 export const metadata = {
@@ -13,16 +14,13 @@ export const metadata = {
 export default function daydream() {
   return <div className="content">
 
-    <p className="label">Master&apos;s thesis at aho</p>
-    <h1 className="heading-serif">Daydreams & Dommscroll</h1>
-
-    <Image
-      src="/img/daydream/daydream2.png"
-      className='full-image'
-      alt="Main image"
-      width={8640}
-      height={4860}
-      sizes="(max-width: 900px) 100vw, 1000px"
+    <ProjectHero
+      label="Master's thesis at AHO"
+      title="Daydreams & Doomscrolling"
+      imageSrc="/img/daydream/daydream2.png"
+      imageAlt="Daydreams & Doomscrolling hero image"
+      imageWidth={8640}
+      imageHeight={4860}
     />
 
     <MetaData
@@ -59,7 +57,8 @@ export default function daydream() {
 
     </div>
 
-    <NextProject currentSlug="daydream" />
+    {/* <NextProject currentSlug="daydream" /> */}
+    <NextProject />
 
   </div>
 }

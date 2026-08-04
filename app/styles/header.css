@@ -84,21 +84,30 @@ header {
   line-height: 1;
 }
 
-
-.logo-link,
-.logo-link:visited {
-  display: inline-block;
+.site-logo {
   color: var(--text-strongest);
+}
+
+.underline-link,
+.underline-link:visited {
+  display: inline-block;
   position: relative;
   text-decoration: none;
+  line-height: 1;
+  color: inherit;
   transition: color 0.15s ease, transform 120ms ease;
 }
 
-.logo-link:active {
+.underline-link:active {
   transform: scale(0.98);
 }
 
-.logo-link::after {
+.site-logo,
+.site-logo:visited {
+  color: var(--text-strongest);
+}
+
+/* .underline-link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -110,9 +119,22 @@ header {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.15s ease;
+} */
+
+.underline-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3em;
+  width: 100%;
+  height: 0.09em;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.15s ease;
 }
 
-.logo-link:hover::after {
+.underline-link:hover::after {
   transform: scaleX(1);
 }
 
@@ -120,6 +142,19 @@ header {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link.active {
+  color: var(--text-strongest);
 }
 
 a {
@@ -137,6 +172,8 @@ a {
 }
 
 .links a {
+  display: inline-block;
+  transform-origin: center;
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.15s ease;
@@ -145,13 +182,9 @@ a {
 .links a:hover {
   color: var(--text-primary);
 }
-
-.links a:active {
+  
+  .links a.active {
   transform: scale(0.98);
-  color: var(--text-secondary);
-}
-
-.links a.active {
   color: var(--text-strongest);
   text-decoration: underline;
 }
@@ -171,7 +204,7 @@ a {
     display: flex;
   }
 
-.links {
+  .links {
     display: none;
     flex-direction: column;
     gap: var(--space-m);
@@ -180,13 +213,19 @@ a {
     right: 0;
     left: 0;
     background: var(--background);
-    padding: var(--space-l);
+    padding: var(--space-l) 0;
     z-index: 100;
-    text-align: right;
+    text-align: left;
+    /* text-align: right; */
   }
 
   .links.open {
     display: flex;
+  }
+
+  .links a {
+    /* align-self: flex-end; */
+    transform-origin: center;
   }
 
 }

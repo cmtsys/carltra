@@ -59,7 +59,7 @@ input::placeholder {
 }
 
 
-button {
+.contact button {
   background: none;
   border: none;
   border-bottom: 0.5px solid var(--text-secondary);

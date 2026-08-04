@@ -17,7 +17,7 @@ const projects: Project[] = [
   {
     title: "Teams-native touch panel app for Huddly",
     tagline: "Scoping and designing in-room camera controls",
-    image: "/img/huddly.png",
+    image: "/img/huddly/huddly.png",
     slug: "huddly",
     link: "/projects/huddly",
     featured: true,

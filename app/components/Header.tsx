@@ -26,15 +26,25 @@ export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header>
       <nav className="nav">
-        <Link href="/" className="logo-link">Carl Traberg</Link>
+        <Link href="/" className="underline-link site-logo">Carl Traberg</Link>
 
         <div id="site-links" className={`links ${menuOpen ? "open" : ""}`}>
-          <Link href="/" className={pathname === "/" ? "active" : ""}>Work</Link>
+          {/* <Link href="/" className={pathname === "/" ? "active" : ""}>Work</Link> */}
+          <Link
+            href="/"
+            className={` nav-link ${pathname === "/" ? "active" : ""}`}
+>
+            Work
+          </Link>
+          
           {/* <Link href="/about" className={pathname === "/about" ? "active" : ""}>About</Link> */}
-          <Link href="/contact" className={pathname === "/contact" ? "active" : ""}>Contact</Link>
+          <Link href="/contact" className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
+          >Contact</Link>
         </div>
 
         <button
