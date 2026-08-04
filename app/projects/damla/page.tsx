@@ -3,6 +3,11 @@ import ProjectHero from '@/app/components/ProjectHero'
 import MetaData from '@/app/components/MetaData'
 import NextProject from '@/app/components/NextProject'
 
+export const metadata = {
+  title: "Project Name | Carl Traberg",
+  description: "Short specific description.",
+};
+
 export default function damla() {
   return <div className="content">
 

@@ -2,6 +2,11 @@ import Image from 'next/image'
 import NextProject from '../../components/NextProject';
 import MetaData from '../../components/MetaData';
 
+export const metadata = {
+  title: "Project Name | Carl Traberg",
+  description: "Short specific description.",
+};
+
 export default function remarkable() {
   return <div className="content">
 

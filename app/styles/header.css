@@ -209,14 +209,18 @@ a {
   }
 
   .links {
-    display: none;
+    display: flex;
+    /* display: none; */
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-s);
     position: absolute;
     top: 60px;
-    right: 0;
-    left: 0;
+    /* right: 0;
+    left: 0; */
+    /* These two make the box expand */
+    left: calc(-1 * var(--space-s));
+    right: calc(-1 * var(--space-s));
     background: var(--background);
     /*  */
     z-index: 100;
@@ -224,21 +228,30 @@ a {
     border-bottom: 0.5px solid var(--box-shadow);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
     /* text-align: right; */
-    left: calc(-1 * var(--space-s));
-    right: calc(-1 * var(--space-s));
-
     padding: var(--space-l) var(--space-s) var(--space-xl);
+
+
+    opacity: 0;
+    transform: translateY(-18px);
+    pointer-events: none;
+    transition:
+      opacity 140ms ease,
+      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  
-  /* .links {
-    padding: var(--space-l) 0 var(--space-xl);
-    align-items: flex-start;
-    } */
+
+  /* .links.open {
+  display: flex;
+} */
+
+  .links.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 
   .links a {
     /* align-self: flex-end; */
-    transform-origin: center;
-
+    /* transform-origin: center; */
     font-size: var(--text-xl);
     line-height: 1;
   }
@@ -247,9 +260,56 @@ a {
     transform: none;
   }
 
-  .links.open {
-    display: flex;
-  }
 
 
 }
+
+/* 
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+    position: absolute;
+    top: 60px;
+    left: calc(-1 * var(--space-s));
+    right: calc(-1 * var(--space-s));
+    background: var(--background);
+    z-index: 100;
+    text-align: left;
+    border-bottom: 0.5px solid var(--box-shadow);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+    padding: var(--space-l) var(--space-s) var(--space-xl);
+  }
+
+  .links.open {
+    display: flex;
+    animation: menuIn 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .links a {
+    font-size: var(--text-xl);
+    line-height: 1;
+  }
+
+  .links a:active {
+    transform: none;
+  }
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} */
