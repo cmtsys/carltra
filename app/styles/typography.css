@@ -34,6 +34,10 @@
   line-height: 1.2;
 }
 
+.body-l--narrow {
+  max-width: 28ch;
+}
+
 .prose--narrow .body-l {
   line-height: 1.3;
 }

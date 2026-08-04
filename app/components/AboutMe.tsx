@@ -6,7 +6,7 @@ export default function AboutMe() {
             <section className="about-copy">
                 <div className="about-intro">
                     <h1 className="heading-serif">Hi there!</h1>
-                    <p className="body-l">
+                    <p className="body-l body-l--narrow">
                         My name is Carl, I do UX, interaction design, graphics, a touch of coding, and a lot more.
                         <br /><br />
                         I built this thing myself*, have a look{" "}

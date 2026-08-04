@@ -140,6 +140,7 @@ header {
     transform: scaleX(1);
   }
 }
+
 /* removed to try to fix */
 /* .underline-link:hover::after {
   transform: scaleX(1);
@@ -215,26 +216,34 @@ a {
     display: flex;
   }
 
+  /* HOW THE LINKS SHOULD LOOK ON MOBILE */
   .links {
-    display: flex;
+
+    /* background: var(--background); */
+    background: rgba(248, 247, 244, 0.2);
+    backdrop-filter: blur(14px);
+
     /* display: none; */
+    display: flex;
+    position: fixed;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-s);
     position: absolute;
     top: 60px;
+    left: calc(-1 * var(--space-s));
+    right: calc(-1 * var(--space-s));
+    min-height: calc(100dvh - 60px);
+    z-index: 100;
+
     /* right: 0;
     left: 0; */
     /* These two make the box expand */
-    left: calc(-1 * var(--space-s));
-    right: calc(-1 * var(--space-s));
-    background: var(--background);
     /*  */
-    z-index: 100;
     text-align: left;
     border-bottom: 0.5px solid var(--box-shadow);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
-    /* text-align: right; */
+
     padding: var(--space-l) var(--space-s) var(--space-xl);
 
     opacity: 0;
@@ -244,28 +253,14 @@ a {
     transition:
       opacity .18s ease,
       transform .18s ease;
-
-
-    /* opacity: 0;
-    transform: translateY(-18px);
-    pointer-events: none;
-    transition: all 180ms cubic-bezier(0.2, 0.8, 0.2, 1); */
-
-    /* transition:
-      opacity 140ms ease,
-      transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1); */
   }
-
-  /* .links.open {
-  display: flex;
-} */
 
   .links.open {
     opacity: 1;
     transform: scale(1);
     pointer-events: auto;
+    overflow: auto;
   }
-
 
   .links a {
     font-size: var(--text-xl);
