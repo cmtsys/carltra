@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-
+import Commit from "./Commit";
 
 export function Clock () {
     const [clock, setClock] = useState("");
@@ -56,6 +56,8 @@ export default function Footer () {
                 <div id="date"></div>
             </div>
         </div>
+
+        <Commit />
 
                  {/* <img className="cm" src="/img/cm.png" alt=""></img> */}
                 
