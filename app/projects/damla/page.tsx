@@ -3,6 +3,8 @@ import ProjectHero from '@/app/components/ProjectHero'
 import MetaData from '@/app/components/MetaData'
 import NextProject from '@/app/components/NextProject'
 
+import { ExternalLink } from "lucide-react";
+
 export const metadata = {
   title: "Artworkproduction for the government quarter | Carl Traberg",
   description: "Short specific description.",
@@ -47,9 +49,7 @@ export default function damla() {
             target="_blank"
             rel="noopener noreferrer"
           >
-
-            Read more about the project here.
-
+            Read more about the project here <ExternalLink size={16} />
           </a>
         </p>
       </div>
