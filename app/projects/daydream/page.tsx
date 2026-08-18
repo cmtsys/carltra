@@ -45,7 +45,8 @@ export default function daydream() {
         sizes="(max-width: 900px) 100vw, 1000px"
       />
       <div className='prose prose'>
-        <p className='body-xl'>The project consists of three scenarios, each exploring a theme relating to digital wellbeing.</p></div>
+        <p className='body-l--title'>What is the problem?</p>
+        <p className='body-l'>Screens bad blablbabla... write out this later</p></div>
 
       <Image
         src={Two}

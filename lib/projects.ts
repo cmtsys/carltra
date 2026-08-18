@@ -21,7 +21,15 @@ const projects: Project[] = [
     slug: "huddly",
     link: "/projects/huddly",
     featured: true,
-    comingSoon: true
+  },
+    {
+    title: "UI Concept for reMarkable",
+    tagline: "Reimagining navigation on a paper tablet",
+    image: "/img/rmgif.gif",
+    // image: "/img/remarkable.jpeg",
+    slug: "remarkable",
+    link: "/projects/remarkable",
+    featured: true
   },
   {
     title: "Artwork production for Damla Kilickiran",
@@ -71,15 +79,6 @@ const projects: Project[] = [
     image: "/img/short480.mp4",
     slug: "error",
     link: "#"
-  },
-  {
-    title: "UI Concept for reMarkable",
-    tagline: "Reimagining navigation on a paper tablet",
-    image: "/img/rmgif.gif",
-    // image: "/img/remarkable.jpeg",
-    slug: "remarkable",
-    link: "/projects/remarkable",
-    featured: true
   },
   {
     title: "Editorial design for Kote No 14",

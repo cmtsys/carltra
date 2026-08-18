@@ -17,7 +17,7 @@ export default function AboutMe() {
                 </div>
 
                 <p className="about-note">
-                    *ok, I might have asked claude for help a few times, but no vibecode, I promise!
+                    *ok, a lot of copy & pasting, but no vibe coding!
                 </p>
             </section>
         </section>

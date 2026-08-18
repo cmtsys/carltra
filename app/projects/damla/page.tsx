@@ -16,7 +16,7 @@ export default function damla() {
     <ProjectHero
       label="Bridging art and engineering"
       title="Artworkproduction for Damla Kilickiran"
-      imageSrc="/img/huddly/huddly.png"
+      imageSrc="/img/damla/montering-vinter-25.jpg"
       imageAlt="3D"
       imageWidth={8640}
       imageHeight={4860}
@@ -24,7 +24,7 @@ export default function damla() {
 
     <MetaData
       year="2023—25"
-      role="Designer"
+      role="3D Design & production"
       skills="Blender, Keyshot, Autodesk Fusion"
       client="Damla Kilickiran"
     />
@@ -32,17 +32,17 @@ export default function damla() {
     <div className="project-blocks">
       <div className="prose">
         <p className="body-xl">
-          Sites of a Breach, Delays in a Dream; A Surface Half Asleep is an artwork by artist Damla Killickiran, for the new government quarter in Oslo.
+         <i>Sites of a Breach, Delays in a Dream</i> is an artwork by artist Damla Killickiran, for the new government quarter in Oslo.
         </p>
       </div>
 
-
       <div className="prose">
         <p className="body-l">
-          It consists of 10 figurative concrete plates, placed alongside the facade of the A-block building. <br /><br />
-          My role was to translate 2D collages provided by the artist into 3D shapes for production as well as coordinating with Statsbygg, KORO, Team Urbis, Hent, and the manufacturing team for the realization of the project.
+         The artwork consists of 10 sculptural concrete panels integrated into the facade of the A-block building. <br /><br />
+
+          My role was to translate 2D collages provided by the artist into 3D forms for production. Ialso coordinating the design and production process between Damla Kilickiran, Statsbygg, KORO, Team Urbis, Hent, and the manufacturing team.
           <br /><br />
-          The project is in the final stage of production and set to gradually be unveiled in 2025 and 2029.
+          The project was developed from 2023—2024, with the panels installed in 2025. The artwork will gradually be unveiled as the new Government Quarter is completed.
           <br /><br />
           <a className='underline-link'
             href="https://koro.no/prosjekter/sites-of-a-breach-delays-in-a-dream-a-surface-half-asleep-arbeidstittel-a-blokk/"
@@ -72,12 +72,6 @@ export default function damla() {
         sizes="(max-width: 900px) 100vw, 1000px"
       />
 
-      <div className="prose">
-        <p className="body-l">
-          Closing text. Mention result, learning, nomination, launch, or what
-          makes the project relevant.
-        </p>
-      </div>
     </div>
 
 

@@ -13,26 +13,33 @@ export default function kote() {
   return <div className="content">
 
     <ProjectHero
-      label="Master's thesis at AHO"
-      title="Daydreams & Doomscrolling"
-      imageSrc="/img/daydream/daydream2.png"
+      label="Editorial design"
+      title="Art Direction for Kote"
+      imageSrc="/img/kote/kote_14.jpg"
       imageAlt="Daydreams & Doomscrolling hero image"
       imageWidth={8640}
       imageHeight={4860}
     />
 
     <MetaData
-      year="2023"
-      role="Student project"
-      skills="Research, UX, UI, Prototyping"
-      client="Oslo School of Architecture and Design"
+      year="2020—21"
+      role="Art Director"
+      skills="Editorial Design, InDesign"
+      client="+Kote"
     />
 
     <div className='project-blocks'>
 
       <div className='prose'>
+        <p className='body-xl'>
+          +KOTE is an independent student-led publication exploring our physical surroundings through architecture, urbanism, landscape and design.
+        </p></div>
 
-        <p className='body-xl'><i>Digital introspection</i> is a design project exploring new ways of contextualizing screen usage, disconnecting, and preserve introspective mind-states.</p></div>
+      <div className='prose'>
+        <p className='body-l'>
+          As Art Director, I developed the visual identity for three issues, translating each theme into a distinct visual language.
+        </p></div>
+
 
 
     </div>
