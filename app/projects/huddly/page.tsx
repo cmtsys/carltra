@@ -4,20 +4,20 @@ import MetaData from '@/app/components/MetaData'
 import NextProject from '@/app/components/NextProject'
 
 export const metadata = {
-  title: "Project Name | Carl Traberg",
-  description: "Short specific description.",
+  title: "Huddly Room Control App | Carl Traberg",
+  description: "UX and interaction design for Huddly's Teams-native room control app.",
 };
 
-export default function huddly() {
+export default function Huddly() {
   return <div className="content">
 
     <ProjectHero
       label="In-room experience"
       title="Teams-native touch panel app"
       imageSrc="/img/huddly/huddly.png"
-      imageAlt="Daydreams & Doomscrolling hero image"
-      imageWidth={8640}
-      imageHeight={4860}
+      imageAlt="Huddly Touch Panel App"
+      imageWidth={2104}
+      imageHeight={1600}
     />
 
     <MetaData
@@ -30,19 +30,16 @@ export default function huddly() {
     <div className="project-blocks">
       <div className="prose">
         <p className="body-xl">
-          The Huddly Touch Panel app let users control their Huddly Crew cameras during meetings on Microsoft Teams devices. 
+          The Huddly Room Control App lets users control their Huddly cameras during meetings on Microsoft Teams devices.
         </p>
       </div>
 
       <div className="prose">
         <p className="body-l">
-          I was responsible for the interaction and UX of the app, working alongside a visual designer and a team of developers. 
-        </p>
-      </div>
-
-      <div className="prose">
-        <p className="body-l">
-          The challenge was to make camera controls easy to understand and quick to use during a meeting, without interrupting the conversation. 
+          I led the UX work on the project, from research through implementation alongside a visual designer and a team of developers.
+          </p>
+      <p className="body-l">
+          A key part of my role was aligning design, product management and engineering teams around user needs, product requirements and technical constraints.
         </p>
       </div>
 
@@ -55,6 +52,12 @@ export default function huddly() {
         sizes="(max-width: 900px) 100vw, 1000px"
       />
 
+      <div className="prose">
+        <p className="body-l">
+          The challenge was to make camera controls easy to understand and quick to use during a meeting, without interrupting the conversation.
+        </p>
+      </div>
+
       <Image
         src="/img/project-folder/image-02.png"
         className="full-image"
@@ -64,17 +67,21 @@ export default function huddly() {
         sizes="(max-width: 900px) 100vw, 1000px"
       />
 
-      {/* <div className="prose">
+      <div className="prose">
         <p className="body-l">
-          The project gave me the opportunity to design across the boundaries of software, hardware, and the physical meeting room.
+          The app shipped in 2025.
         </p>
-      </div> */}
+      </div>
+
+      <div className="prose">
+        <p className="body-m">
+          <i>Some parts of the design process are omitted due to confidentiality.</i>
+        </p>
+      </div>
+
     </div>
 
-
-
-
-  <NextProject />
+    <NextProject />
 
   </div>
 }
