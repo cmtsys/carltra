@@ -106,6 +106,8 @@ body.menu-open {
    PROJECT CASE STUDY
    ============ */
 
+
+   /* Whole page structure for case studies */
 .content {
   display: flex;
   flex-direction: column;
@@ -191,12 +193,18 @@ body.menu-open {
   width: 100%;
   height: auto;
   display: block;
-  /* margin-bottom: var(--space-xl); */
   border-radius: 4px;
 }
 
 .small-image {
-  width: 50%;
+  width: 60%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.split-image {
+  width: 100%;
   height: auto;
   display: block;
   border-radius: 4px;
@@ -209,41 +217,55 @@ body.menu-open {
   margin-right: auto;
 }
 
-/* CASE STUDY LAYOUT BLOCK */
-
+/* CASE STUDY LAYOUT BLOCKS */
 .project-blocks {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
-  margin: 0 auto;
-  margin-bottom: var(--space-s);
-  align-items: center
+  gap: var(--space-xxl);
+  width: 100%;
+  align-items: center;
 }
 
-/* .prose {
+.case-section {
   width: 100%;
-  max-width: var(--prose-width);
-  
-  margin: 0 auto;
-  gap: var(--space-xl);
-} */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-l);
+}
 
 .prose {
   width: 100%;
   max-width: var(--prose-width);
-  /* 660px default reading width */
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   gap: var(--space-m);
+}
+
+.image-block {
+  width: 100%;
+  max-width: var(--prose-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.image-block--small {
+  max-width: 520px;
+}
+
+.caption {
+  margin: 0;
+  font-size: var(--text-s);
+  color: var(--text-primary);
 }
 
 .prose--narrow {
   max-width: 56ch;
 }
 
-/* Two-column editorial block */
+/* Two-column block */
 
 .split {
   width: 100%;
@@ -252,7 +274,10 @@ body.menu-open {
 
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-xl);
+
+  column-gap: var(--space-xl);
+  row-gap: var(--space-m);
+
   align-items: center;
 }
 
