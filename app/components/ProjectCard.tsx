@@ -7,18 +7,30 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const isVideo = project.image.endsWith(".mp4") || project.image.endsWith(".mov");
 
-  return (
+
+return (
     <Link className="card" href={`/projects/${project.slug}`}>
-
       <div className="cardImage">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          sizes="(max-width: 900px) 100vw, 50vw"
-        />
+        {isVideo ? (
+          <video
+            src={project.image}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
+        )}
       </div>
+
       <div>
         <span className="card-title">{project.title}</span>
         <span className="tagline">{project.tagline}</span>

@@ -197,8 +197,8 @@ export default function Remarkable() {
               src="/img/remarkable/hidden-sidepanels.jpg"
               className="full-image"
               alt="Hidden sidepanels"
-              width={1600}
-              height={1000}
+              width={900}
+              height={1200}
               sizes="(max-width: 900px) 100vw, 1000px"
               style={{ border: "1px solid #e6e6e6" }}
             />
@@ -209,8 +209,8 @@ export default function Remarkable() {
               src="/img/remarkable/visible-sidepanels.png"
               className="full-image"
               alt="Visible sidepanels"
-              width={1600}
-              height={1000}
+              width={900}
+              height={1200}
               sizes="(max-width: 900px) 100vw, 1000px"
               style={{ border: "1px solid #e6e6e6" }}
             />

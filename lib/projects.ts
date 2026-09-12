@@ -20,7 +20,7 @@ const projects: Project[] = [
     image: "/img/huddly/huddly.png",
     slug: "huddly",
     link: "/projects/huddly",
-    featured: true,
+    // featured: true,
   },
     {
     title: "UI Concept for reMarkable",
@@ -67,7 +67,7 @@ const projects: Project[] = [
   {
     title: "Magasinet Kote",
     tagline: "Editorial design for urbanism and landscape",
-    image: "/img/kote.jpg",
+    image: "/img/kote/kote14/kote14.mp4",
     slug: "kote",
     link: "/projects/kote",
     featured: true

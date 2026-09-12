@@ -78,7 +78,7 @@
   background: var(--background);
 }
 
-html{
+html {
   background-color: var(--text-secondary);
 }
 
@@ -107,7 +107,7 @@ body.menu-open {
    ============ */
 
 
-   /* Whole page structure for case studies */
+/* Whole page structure for case studies */
 .content {
   display: flex;
   flex-direction: column;
@@ -122,14 +122,17 @@ body.menu-open {
 }
 
 @media (max-width: 900px) {
-  .content{
+  .content {
     padding-bottom: var(--space-l);
     /* padding-inline: 40px; */
   }
-  
+
 }
+
 @media (max-width: 600px) {
-  .content{padding-bottom: var(--space-m);}
+  .content {
+    padding-bottom: var(--space-m);
+  }
 }
 
 /* CASE STUDY META BOX */
@@ -197,7 +200,6 @@ body.menu-open {
 
 .full-image--text-width {
   max-width: var(--prose-width);
-  /* matches .prose, 660px */
   margin-left: auto;
   margin-right: auto;
 }
@@ -230,7 +232,6 @@ body.menu-open {
 
 .image-block {
   width: 100%;
-  max-width: var(--prose-width);
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
@@ -288,21 +289,23 @@ body.menu-open {
 }
 
 .split-image {
-    width: 100%;
-    height: auto;
-    margin-inline: auto; /* Center media when image is narrower than the figure */
-  }
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+  /* Center media when image is narrower than the figure */
+}
+
 @media (max-width: 600px) {
-  
+
   .split {
-  grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
-.split .image-block--small {
-  width: 70%;
-  max-width: 420px;
-  margin-inline: auto;
-}
+  .split .image-block--small {
+    width: 70%;
+    max-width: 420px;
+    margin-inline: auto;
+  }
 
   .split .image-block--small .split-image,
   .split .image-block--small .full-image {
@@ -390,13 +393,17 @@ HOMEPAGE PROJECT CARDS
   overflow: hidden;
 }
 
-.cardImage:hover{
-    
-}
-
-.cardImage img {
+.cardImage img,
+.cardImage video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
   object-fit: cover;
 }
+
+.cardImage:hover {}
 
 .card-title {
   margin-top: var(--space-s);

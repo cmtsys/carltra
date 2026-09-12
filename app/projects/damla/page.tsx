@@ -32,15 +32,15 @@ export default function damla() {
     <div className="project-blocks">
       <div className="prose">
         <p className="body-xl">
-         <i>Sites of a Breach, Delays in a Dream</i> is an artwork by artist Damla Killickiran, for the new government quarter in Oslo.
+         <i>Sites of a Breach, Delays in a Dream; A Surface Half Asleep</i> is an artwork by artist Damla Killickiran, for the new government quarter in Oslo.
         </p>
       </div>
 
       <div className="prose">
         <p className="body-l">
-         The artwork consists of 10 sculptural concrete panels integrated into the facade of the A-block building. <br /><br />
+          The artwork consists of 10 sculptural concrete panels integrated into the facade of the A-block building. <br /><br />
 
-          My role was to translate 2D collages provided by the artist into 3D forms for production. Ialso coordinating the design and production process between Damla Kilickiran, Statsbygg, KORO, Team Urbis, Hent, and the manufacturing team.
+          I translated 2D collages from Damla into 3D files for production. I also coordinating the design and production process between Damla Kilickiran, Statsbygg, KORO, Team Urbis, Hent, and the manufacturing team.
           <br /><br />
           The project was developed from 2023—2024, with the panels installed in 2025. The artwork will gradually be unveiled as the new Government Quarter is completed.
           <br /><br />
