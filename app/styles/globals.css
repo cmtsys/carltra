@@ -43,7 +43,7 @@
 
   --content-width: 1000px;
   /* Case study layout images */
-  --prose-width: 660px;
+  --prose-width: 560px;
   /* Case study narrow text field + small images */
 
 
@@ -118,10 +118,14 @@ body.menu-open {
   /* centers horizontally */
   padding-top: 0;
   padding-bottom: var(--space-xl);
+  padding-inline: 20px;
 }
 
 @media (max-width: 900px) {
-  .content{padding-bottom: var(--space-l);}
+  .content{
+    padding-bottom: var(--space-l);
+    padding-inline: 40px;}
+  
 }
 @media (max-width: 600px) {
   .content{padding-bottom: var(--space-m);}
@@ -265,6 +269,36 @@ body.menu-open {
   max-width: 56ch;
 }
 
+/* VIDEOS IN GRID */
+.reference-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-m);
+}
+
+.reference-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.reference-item video,
+.reference-item img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* @media (max-width: 600px) {
+  .reference-grid {
+    grid-template-columns: 1fr;
+  }
+} */
+
 /* Two-column block */
 
 .split {
@@ -286,7 +320,7 @@ body.menu-open {
   height: auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .split {
     grid-template-columns: 1fr;
   }
