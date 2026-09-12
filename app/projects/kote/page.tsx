@@ -5,8 +5,8 @@ import MetaData from '@/app/components/MetaData';
 import ProjectHero from '@/app/components/ProjectHero';
 
 export const metadata = {
-  title: "Project Name | Carl Traberg",
-  description: "Short specific description.",
+  title: "Art Direction for Kote | Carl Traberg",
+  description: "Editorial design",
 };
 
 export default function kote() {

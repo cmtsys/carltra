@@ -60,7 +60,7 @@ export default function Remarkable() {
           <p className="body-m">QUICK FIX</p>
 
           <p className="body-l">
-            Users complained about having to enter a file in order to view its content. As a quick fix for reMarkable, I prototyped a swiping gesture to preview the content of files.
+            As a quick fix, I prototyped a swiping gesture to preview the content of files. Testing convinced me that small interactions could make the experience more transparent. 
           </p>
         </div>
 

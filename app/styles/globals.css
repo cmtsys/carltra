@@ -124,34 +124,15 @@ body.menu-open {
 @media (max-width: 900px) {
   .content{
     padding-bottom: var(--space-l);
-    padding-inline: 40px;}
+    /* padding-inline: 40px; */
+  }
   
 }
 @media (max-width: 600px) {
   .content{padding-bottom: var(--space-m);}
 }
 
-/* .content2 {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xxl);
-  max-width: 1300px;
-  margin: 0 auto;
-  width: 100%;
-  padding: var(--space-xxl);
-} */
-
 /* CASE STUDY META BOX */
-
-/* .info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: var(--space-l);
-  margin-top: var(--space-l);
-  width: 100%;
-  max-width: var(--prose-width);
-} */
 
 .info {
   display: grid;
@@ -293,43 +274,42 @@ body.menu-open {
   border-radius: 4px;
 }
 
-/* @media (max-width: 600px) {
-  .reference-grid {
-    grid-template-columns: 1fr;
-  }
-} */
-
 /* Two-column block */
 
 .split {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-
   column-gap: var(--space-xl);
   row-gap: var(--space-m);
-
   align-items: center;
 }
 
 .split-image {
-  width: 100%;
-  height: auto;
-}
-
+    width: 100%;
+    height: auto;
+    margin-inline: auto; /* Center media when image is narrower than the figure */
+  }
 @media (max-width: 600px) {
+  
   .split {
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
   }
 
-  .split-image {
-    width: min(70%, 420px);
-    justify-self: center;
+.split .image-block--small {
+  width: 70%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+  .split .image-block--small .split-image,
+  .split .image-block--small .full-image {
+    width: 100%;
   }
 }
+
 
 
 /* ============

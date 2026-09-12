@@ -37,8 +37,8 @@ export default function Huddly() {
       <div className="prose">
         <p className="body-l">
           I led the UX work on the project, from research through implementation alongside a visual designer and a team of developers.
-          </p>
-      <p className="body-l">
+        </p>
+        <p className="body-l">
           A key part of my role was aligning design, product management and engineering teams around user needs, product requirements and technical constraints.
         </p>
       </div>
