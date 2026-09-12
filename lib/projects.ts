@@ -35,8 +35,8 @@ const projects: Project[] = [
     title: "Artwork production for Damla Kilickiran",
     tagline: "Bridging art and engineering at A-blokka",
     image: "/img/nordic.jpeg",
-    slug: "damla",
-    link: "/projects/damla",
+    slug: "artwork",
+    link: "/projects/artwork",
     featured: true
   },
   {
