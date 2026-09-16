@@ -57,17 +57,17 @@ const projects: Project[] = [
     slug: "rosa",
     link: "#"
   },
-  {
-    title: "Kote 12",
-    tagline: "Art-direction for urbanism",
-    image: "/img/kote.jpg",
-    slug: "kote12",
-    link: "#"
-  },
+  // {
+  //   title: "Kote 12",
+  //   tagline: "Art-direction for urbanism",
+  //   image: "/img/kote.jpg",
+  //   slug: "kote12",
+  //   link: "#"
+  // },
   {
     title: "Magasinet Kote",
     tagline: "Editorial design for urbanism and landscape",
-    image: "/img/kote/kote14/kote14.mp4",
+    image: "/img/kote/kote14/kote14-card.mp4",
     slug: "kote",
     link: "/projects/kote",
     featured: true

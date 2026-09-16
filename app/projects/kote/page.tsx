@@ -16,7 +16,7 @@ export default function kote() {
     <ProjectHero
       label="Editorial design"
       title="Art Direction for Kote"
-      imageSrc="/img/kote/kote_14.jpg"
+      imageSrc="/img/kote/kote14/kote14-0.jpeg"
       imageAlt="Kote No 14"
       imageWidth={8640}
       imageHeight={4860}
@@ -33,10 +33,7 @@ export default function kote() {
       <div className='prose'>
         <p className='body-xl'>
           +KOTE is an independent student-led publication exploring our physical surroundings through architecture, urbanism, landscape and design.
-        </p></div>
-
-
-      <div className='prose'>
+        </p>
         <p className='body-l'>
           As Art Director, I developed the visual identity and art direction for three issues, translating each theme into a visual language.
         </p></div>
