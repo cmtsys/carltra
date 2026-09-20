@@ -18,8 +18,8 @@ export default function kote() {
       title="Art Direction for Kote"
       imageSrc="/img/kote/kote14/kote14-0.jpeg"
       imageAlt="Kote No 14"
-      imageWidth={8640}
-      imageHeight={4860}
+      imageWidth={4999}
+      imageHeight={3333}
     />
 
     <MetaData
@@ -60,56 +60,56 @@ export default function kote() {
             src="/img/kote/kote12/kote12-0.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={5459}
+            height={3639}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
             <Image
               src="/img/kote/kote12/kote12-01.jpeg"
               className="full-image"
               alt=""
-              width={900}
-              height={1200}
+              width={4999}
+              height={3660}
               sizes="(max-width: 900px) 100vw, 1000px"
             />
           <Image
             src="/img/kote/kote12/kote12-02.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={4999}
+            height={3660}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote12/kote12-03.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={4999}
+            height={3660}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote12/kote12-04.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={4999}
+            height={3660}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote12/kote12-05.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={4999}
+            height={3660}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote12/kote12-06.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={4999}
+            height={3660}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
       
@@ -137,88 +137,88 @@ export default function kote() {
             src="/img/kote/kote13/kote13-0.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6000}
+            height={4000}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-00.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6000}
+            height={4000}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-01.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-02.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-03.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-04.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-05.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-06.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-07.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-08.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6250}
+            height={4083}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <Image
             src="/img/kote/kote13/kote13-09.jpeg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={6000}
+            height={4000}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
       </section>
@@ -248,8 +248,8 @@ export default function kote() {
           src="/img/kote/kote14/kote14-0.jpeg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={4999}
+          height={3333}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
 
@@ -257,64 +257,64 @@ export default function kote() {
           src="/img/kote/kote14/kote14-01.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={4698}
+          height={3693}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-02.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={4426}
+          height={3454}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-03.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-04.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-05.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-06.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-07.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <Image
           src="/img/kote/kote14/kote14-08.jpg"
           className="full-image"
           alt=""
-          width={900}
-          height={1200}
+          width={6000}
+          height={4000}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
       </section>

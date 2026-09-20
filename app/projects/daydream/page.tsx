@@ -100,8 +100,8 @@ export default function daydream() {
             src="/img/daydream/scenario1/01.png"
             className="full-image"
             alt="Scenario 1 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -111,8 +111,8 @@ export default function daydream() {
             src="/img/daydream/scenario1/02.png"
             className="full-image"
             alt="Scenario 1 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -122,8 +122,8 @@ export default function daydream() {
             src="/img/daydream/scenario1/03.png"
             className="full-image"
             alt="Scenario 1 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -132,8 +132,8 @@ export default function daydream() {
             src="/img/daydream/scenario1/04.png"
             className="full-image"
             alt="Scenario 1 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -142,8 +142,8 @@ export default function daydream() {
             src="/img/daydream/scenario1/05.png"
             className="full-image"
             alt="Scenario 1 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -167,8 +167,8 @@ export default function daydream() {
             src="/img/daydream/scenario2-taming/small/02.jpg"
             className="full-image"
             alt="Scenario 2 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -178,8 +178,8 @@ export default function daydream() {
             src="/img/daydream/scenario2-taming/small/02-1.jpg"
             className="full-image"
             alt="Scenario 2 image"
-            width={2000}
-            height={1125}
+            width={8640}
+            height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -258,8 +258,8 @@ export default function daydream() {
             src="/img/daydream/scenario3-quantified/3-03.png"
             className="full-image"
             alt="Scenario 3 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -280,8 +280,8 @@ export default function daydream() {
             src="/img/daydream/scenario3-quantified/05-w.png"
             className="full-image"
             alt="Scenario 3 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>
@@ -291,8 +291,8 @@ export default function daydream() {
             src="/img/daydream/scenario3-quantified/06-s.png"
             className="full-image"
             alt="Scenario 3 image"
-            width={8640}
-            height={4860}
+            width={2000}
+            height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
         </figure>

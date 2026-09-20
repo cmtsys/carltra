@@ -18,8 +18,8 @@ export default function artwork() {
       title="Artwork production for Damla Kilickiran"
       imageSrc="/img/artwork/00.jpeg"
       imageAlt="3D"
-      imageWidth={8640}
-      imageHeight={4860}
+      imageWidth={2048}
+      imageHeight={1536}
     />
 
     <MetaData
@@ -42,8 +42,8 @@ export default function artwork() {
           // src="/img/artwork/vinterclose.jpg"
           className="full-image"
           alt="Fra montering i vinter"
-          width={900}
-          height={1200}
+          width={2560}
+          height={1708}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
         <figcaption className="caption">
@@ -88,8 +88,8 @@ export default function artwork() {
             src="/img/artwork/04.jpg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={978}
+            height={550}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Original compositions provided by Damla Kilickiran</figcaption>
@@ -104,8 +104,8 @@ export default function artwork() {
             src="/img/artwork/03.png"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={1966}
+            height={1268}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Reworking the collages in Blender</figcaption>
@@ -122,8 +122,8 @@ export default function artwork() {
             src="/img/artwork/milling-sim.png"
             className="full-image"
             alt="Image of simulated milled surface"
-            width={900}
-            height={1200}
+            width={2278}
+            height={1676}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Simulation of milling diameters</figcaption>
@@ -138,8 +138,8 @@ export default function artwork() {
             src="/img/artwork/01.jpg"
             className="full-image"
             alt="Hidden sidepanels"
-            width={900}
-            height={1200}
+            width={3000}
+            height={2005}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Finalized plate design render</figcaption>
@@ -151,8 +151,8 @@ export default function artwork() {
             src="/img/artwork/negative.png"
             className="full-image"
             alt="Hidden sidepanels"
-            width={900}
-            height={1200}
+            width={2226}
+            height={1736}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Negative mould for production</figcaption>
@@ -163,16 +163,16 @@ export default function artwork() {
               src="/img/artwork/3.jpg"
               className="split-image"
               alt="Concrete relief installed on the A-block facade"
-              width={1536}
-              height={2048}
+              width={2560}
+              height={2272}
               sizes="(max-width: 600px) 100vw, 50vw"
             />
             <Image
               src="/img/artwork/4.jpg"
               className="split-image"
               alt="Close-up of the finished concrete relief"
-              width={1536}
-              height={2048}
+              width={2560}
+              height={2272}
               sizes="(max-width: 600px) 100vw, 50vw"
             />
 
@@ -188,8 +188,8 @@ export default function artwork() {
             src="/img/artwork/NiklasHart-KORO.jpg"
             className="full-image"
             alt="Close-up of plate 3 and 4"
-            width={900}
-            height={1200}
+            width={1782}
+            height={1138}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">
@@ -201,8 +201,8 @@ export default function artwork() {
             src="/img/artwork/NiklasHart-KORO2.jpg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={1782}
+            height={1189}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Foto: Niklas Hart, KORO
@@ -214,8 +214,8 @@ export default function artwork() {
             src="/img/artwork/vinter.jpg"
             className="full-image"
             alt=""
-            width={900}
-            height={1200}
+            width={2560}
+            height={1708}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Foto: Trond Isaksen, KORO

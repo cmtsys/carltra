@@ -16,8 +16,8 @@ export default function Remarkable() {
       title="reMarkable Stacks"
       imageSrc="/img/remarkable/0_main.JPG"
       imageAlt="reMarkable main image"
-      imageWidth={2104}
-      imageHeight={1600}
+      imageWidth={3936}
+      imageHeight={2624}
     />
 
     <MetaData
@@ -49,8 +49,8 @@ export default function Remarkable() {
             src="/img/remarkable/rigid.png"
             className="full-image"
             alt="The existing reMarkable folder interface"
-            width={1600}
-            height={1000}
+            width={893}
+            height={703}
             sizes="(max-width: 900px) 100vw, 640px"
           />
           <figcaption className="caption">A rigid interface</figcaption>
@@ -73,8 +73,8 @@ export default function Remarkable() {
             src="/img/remarkable/quickfix.gif"
             className="full-image"
             alt="Swiping gesture to preview files"
-            width={1600}
-            height={1000}
+            width={600}
+            height={338}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className='caption'>Swipe to preview</figcaption>
@@ -100,8 +100,8 @@ export default function Remarkable() {
               src="/img/remarkable/stacking.gif"
               className="split-image"
               alt="Stacking papers gif"
-              width={1600}
-              height={1000}
+              width={441}
+              height={339}
               sizes="(max-width: 900px) 100vw, 1000px"
             />
             <figcaption className="caption">Old → New</figcaption>
@@ -121,8 +121,8 @@ export default function Remarkable() {
             <Image
               src="/img/remarkable/videos/timemachine.png"
               alt="Apple Time Machine"
-              width={1600}
-              height={1000}
+              width={1044}
+              height={650}
             />
             {/* <p className="body-s">Time Machine</p> */}
           </div>
@@ -175,8 +175,8 @@ export default function Remarkable() {
             src="/img/remarkable/sketches.png"
             className="split-image"
             alt="Stacking papers gif"
-            width={1600}
-            height={1000}
+            width={1974}
+            height={1110}
             sizes="(max-width: 900px) 100vw, 1000px"
           />
           <figcaption className="caption">Hand sketches</figcaption>
@@ -241,8 +241,8 @@ export default function Remarkable() {
               src="/img/remarkable/preview-content.gif"
               className="full-image"
               alt="Previewing file content in reMarkable Stacks"
-              width={1600}
-              height={1000}
+              width={720}
+              height={470}
               sizes="(max-width: 900px) 100vw, 1000px"
             />
             <figcaption></figcaption>
@@ -269,8 +269,8 @@ export default function Remarkable() {
               src="/img/remarkable/stacks.gif"
               className="full-image"
               alt="reMarkable Stacks tagging system"
-              width={1600}
-              height={1000}
+              width={562}
+              height={398}
               sizes="(max-width: 900px) 100vw, 1000px"
             />
 
