@@ -30,8 +30,12 @@ export default function Remarkable() {
     <div className='project-blocks'>
 
       <section className='case-section'>
+        <div className="prose">
         <p className='body-xl'><i>Stacks</i> is an exploratory concept for the UX of the reMarkable 2 device, exploring a more visual and transparent approach to navigating files.
-        </p></section>
+      
+        </p>
+        </div>
+        </section>
 
       <section className='case-section'>
         <div className="prose">

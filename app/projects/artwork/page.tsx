@@ -16,7 +16,7 @@ export default function artwork() {
     <ProjectHero
       label="Bridging art and engineering"
       title="Artworkproduction for Damla Kilickiran"
-      imageSrc="/img/artwork/vinter.jpg"
+      imageSrc="/img/artwork/00.jpeg"
       imageAlt="3D"
       imageWidth={8640}
       imageHeight={4860}
@@ -39,6 +39,7 @@ export default function artwork() {
       <figure className="image-block">
         <Image
           src="/img/artwork/vinterclose.jpg"
+          // src="/img/artwork/vinterclose.jpg"
           className="full-image"
           alt="Fra montering i vinter"
           width={900}
@@ -47,7 +48,7 @@ export default function artwork() {
         />
         <figcaption className="caption">
           Fra monteringen av verket vinteren 2025. Foto: Trond Isaksen, Koro
-</figcaption>
+        </figcaption>
       </figure>
 
       <div className="prose">
@@ -61,59 +62,141 @@ export default function artwork() {
           The project was developed from 2023—2024, with the panels installed in 2025. The artwork will gradually be unveiled as the new Government Quarter is completed. </p>
 
         <p>
-          Read more about the project on   <a className='underline-link'
+          Read more about the project on {" "}
+          <a className='underline-link external-link'
             href="https://koro.no/prosjekter/sites-of-a-breach-delays-in-a-dream-a-surface-half-asleep-arbeidstittel-a-blokk/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Koro.no
-          </a>, or see the feature on
-          <a className='underline-link'
+            Koro.no <ExternalLink size={16} aria-hidden="true" />
+          </a> and{" "}
+          <a className='underline-link external-link'
             href="https://nordicarch.com/reads/stories/damla-kilickirans-art-for-the-new-government-quarter"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Nordic Office of Architecture
+            Nordic Office of Architecture <ExternalLink size={16} aria-hidden="true" />
           </a>.
         </p>
       </div>
 
-<section className='case-section'>
+      <section className='case-section'>
+
         <figure className="image-block">
-        <Image
-          src="/img/artwork/01.jpg"
-          className="full-image"
-          alt="Hidden sidepanels"
-          width={900}
-          height={1200}
-          sizes="(max-width: 900px) 100vw, 1000px"
-        />
-        <figcaption className="caption">Rendering of plate 5</figcaption>
+          <Image
+            src="/img/artwork/04.jpg"
+            className="full-image"
+            alt=""
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Original drawings provided by Damla Kilickiran</figcaption>
         </figure>
 
         <figure className="image-block">
-        <Image
-          src="/img/artwork/03.png"
-          className="full-image"
-          alt=""
-          width={900}
-          height={1200}
-          sizes="(max-width: 900px) 100vw, 1000px"
-        />
-        <figcaption className="caption"> </figcaption>
-      </figure>
+          <Image
+            src="/img/artwork/03.png"
+            className="full-image"
+            alt=""
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Reworking the collages in Blender</figcaption>
+        </figure>
+
+
         <figure className="image-block">
-        <Image
-          src="/img/artwork/04.jpg"
-          className="full-image"
-          alt=""
-          width={900}
-          height={1200}
-          sizes="(max-width: 900px) 100vw, 1000px"
-        />
-        <figcaption className="caption">Original drawings provided by Damla Kilickiran</figcaption>
-      </figure>
-</section>
+          <Image
+            src="/img/artwork/01.jpg"
+            className="full-image"
+            alt="Hidden sidepanels"
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Finalized plate design</figcaption>
+        </figure>
+
+
+        <figure className="image-block">
+          <Image
+            src="/img/artwork/negative.png"
+            className="full-image"
+            alt="Hidden sidepanels"
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Negative mould for production</figcaption>
+        </figure>
+        <figure className="split-figure">
+          <div className="split">
+            <Image
+              src="/img/artwork/detail-3.jpeg"
+              className="split-image"
+              alt="Close-up of the finished concrete relief"
+              width={1536}
+              height={2048}
+              sizes="(max-width: 600px) 100vw, 50vw"
+            />
+
+            <Image
+              src="/img/artwork/detail-4.jpeg"
+              className="split-image"
+              alt="Concrete relief installed on the A-block facade"
+              width={1536}
+              height={2048}
+              sizes="(max-width: 600px) 100vw, 50vw"
+            />
+          </div>
+          <figcaption className="caption">
+            Details from the completed artwork in Grubbegata.
+          </figcaption>
+        </figure>
+
+
+        <figure className="image-block">
+          <Image
+            src="/img/artwork/NiklasHart-KORO.jpg"
+            className="full-image"
+            alt=""
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Fra monteringen av verket vinteren 2025. Foto: Niklas Hart, Koro
+          </figcaption>
+        </figure>
+        <figure className="image-block">
+          <Image
+            src="/img/artwork/NiklasHart-KORO2.jpg"
+            className="full-image"
+            alt=""
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Fra monteringen av verket vinteren 2025. Foto: Niklas Hart, Koro
+          </figcaption>
+        </figure>
+
+        <figure className="image-block">
+          <Image
+            src="/img/artwork/vinter.jpg"
+            className="full-image"
+            alt=""
+            width={900}
+            height={1200}
+            sizes="(max-width: 900px) 100vw, 1000px"
+          />
+          <figcaption className="caption">Fra monteringen av verket vinteren 2025. Foto: Trond Isaksen, Koro
+          </figcaption>
+        </figure>
+
+
+      </section>
     </div>
 
 

@@ -14,14 +14,6 @@ export type Project = {
 }
 
 const projects: Project[] = [
-  {
-    title: "Teams-native touch panel app for Huddly",
-    tagline: "Scoping and designing in-room camera controls",
-    image: "/img/huddly/huddly.png",
-    slug: "huddly",
-    link: "/projects/huddly",
-    // featured: true,
-  },
     {
     title: "UI Concept for reMarkable",
     tagline: "Reimagining navigation on a paper tablet",
@@ -34,6 +26,9 @@ const projects: Project[] = [
   {
     title: "Artwork production for Damla Kilickiran",
     tagline: "Bridging art and engineering at A-blokka",
+    
+    // image: "/img/artwork/vinterclose.jpg",
+    // image: "/img/artwork/detail.jpeg",
     image: "/img/nordic.jpeg",
     slug: "artwork",
     link: "/projects/artwork",
@@ -49,6 +44,14 @@ const projects: Project[] = [
     eyebrow: "Master's thesis at AHO",
     heading: "Daydreams & Doomscrolling",
     heroImage: "/img/daydream/daydream2.png",
+  },
+    {
+    title: "Teams-native touch panel app for Huddly",
+    tagline: "Scoping and designing in-room camera controls",
+    image: "/img/huddly/huddly.png",
+    slug: "huddly",
+    link: "/projects/huddly",
+    featured: true,
   },
   {
     title: "Website for Rosa Collective",

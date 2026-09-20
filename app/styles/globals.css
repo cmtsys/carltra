@@ -43,7 +43,7 @@
 
   --content-width: 1000px;
   /* Case study layout images */
-  --prose-width: 560px;
+  --prose-width: 640px;
   /* Case study narrow text field + small images */
 
 
@@ -120,6 +120,10 @@ body.menu-open {
   padding-bottom: var(--space-xl);
   padding-inline: 20px;
 }
+
+/* .content--wide {
+  max-width: 1000px;
+} */
 
 @media (max-width: 900px) {
   .content {
@@ -213,6 +217,10 @@ body.menu-open {
   width: 100%;
   align-items: center;
 }
+/* 
+.project-blocks--wide {
+  width: 1000px;
+} */
 
 .case-section {
   width: 100%;
@@ -314,7 +322,23 @@ body.menu-open {
   }
 }
 
+.split-figure {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
 
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.external-link svg {
+  flex-shrink: 0;
+  transform: translateY(0.1em);
+}
 
 /* ============
 HOMEPAGE PROJECT CARDS
@@ -327,7 +351,14 @@ HOMEPAGE PROJECT CARDS
   width: 100%;
   max-width: 840px;
   margin: 0 auto;
+  padding-inline: 20px;
 }
+@media (max-width: 600px) {
+  .grid {
+    padding-inline: 12px;
+  }
+}
+
 
 .card {
   display: flex;
@@ -492,9 +523,9 @@ a.weblink:hover {
   flex-wrap: wrap;
 }
 
-.grid {
+/* .grid {
   display: grid;
-}
+} */
 
 /* ===================================
    MEDIA QUERIES & MOBILE

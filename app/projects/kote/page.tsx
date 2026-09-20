@@ -245,7 +245,7 @@ export default function kote() {
         </div>
 
         <Image
-          src="/img/kote/kote14/kote14-0.jpg"
+          src="/img/kote/kote14/kote14-0.jpeg"
           className="full-image"
           alt=""
           width={900}

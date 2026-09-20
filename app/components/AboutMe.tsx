@@ -15,7 +15,6 @@ export default function AboutMe() {
                         if you want proof.
                     </p>
                 </div>
-
                 <p className="about-note">
                     *ok, a lot of copy & pasting, but no vibe coding!
                 </p>
