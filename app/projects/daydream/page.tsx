@@ -66,16 +66,16 @@ export default function daydream() {
           {/* <p className="body-m">CONTEXT</p> */}
 
 <p className='body-l'>
-                    Most digital wellbeing tools interpret healthy usage as reducing screen time and staying productive. But what if time itself is an incomplete lens to understand healthy usage?
+                    Most digital wellbeing tools interpret healthy use as reducing screen time and staying productive. But what if time itself is an incomplete lens for understanding digital wellbeing?
                     </p>
 <p className='body-l'>
                     What if frequency, fragmentation, and pace of our usage mattered as much as the amount of time we spend on a device.
                     </p>
                     <p className='body-l'>
-               <i>Digital Introspection</i> explores how we might leave more room for pauses, mind-wandering, reflection, and the mental downtime we use to process our thoughts, without necessarily reducing screen time. 
+               <i>Digital Introspection</i> explores through three scenarios, how we might leave more room for mental downtime, mind-wandering and reflection, without necessarily reducing screen time.
                     </p>
 
-                  <p className='body-l'>The project explores three different scenarios in which the smartphone could support introspection as an alternative paradigm for digital wellbeing.</p>
+                  {/* <p className='body-l'>The project explores three different scenarios in which the smartphone could support introspection as an alternative paradigm for digital wellbeing.</p> */}
                   
         </div>
       </section>
