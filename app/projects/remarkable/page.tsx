@@ -24,7 +24,7 @@ export default function Remarkable() {
       year="2023"
       role="UX / Interaction designer"
       skills="Figma, user testing, wireframing"
-      client="Oslo School of Architecture and Design"
+      context="Student project"
     />
 
     <div className='project-blocks'>

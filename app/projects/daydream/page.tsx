@@ -24,29 +24,26 @@ export default function daydream() {
 
     <MetaData
       year="2023"
-      role="Student project"
+      role="UX / Interaction Designer"
       skills="Research, UX, UI, Prototyping"
-      client="Oslo School of Architecture and Design"
+      context="Diploma Project"
     />
 
     <div className='project-blocks'>
 
       <div className='prose'>
 
-        <p className='body-xl'><i>Digital introspection</i> is my diploma project at AHO, exploring new ways of contextualizing screen usage and preserve introspective mind-states.</p>
+        <p className='body-xl'><i>Digital introspection</i> is my diploma project at AHO, exploring new ways of contextualizing screen usage and preserving introspective mind-states.</p>
+
+           <p className='body-l'>
+                    What do we lose when we reach for our phone during idle moments? Productivity, focus, or something else entirely?
+                    </p>
 
         {/* <p className="body-l">
             Most digital wellbeing tools focus on reducing screen time, maintaining focus or improving productivity. What other values we could support?
           </p> */}
 
-        <p className='body-l'>The project won Best Design Diploma at the AHO WORKS AWARDS.</p>
-
-          
-        <p className='body-l'>Many people struggle to balance their screen use. Most digital wellbeing tools focus on reducing screen time, maintaining focus, or improving productivity.
-
-But is productivity the only thing we lose through excessive screen use? What other values could we design for, and what does “healthy use” actually mean?</p>
-
-
+        {/* <p className='body-l'>The project won Best Design Diploma at the AHO WORKS AWARDS.</p> */}
 
       </div>
 
@@ -54,89 +51,44 @@ But is productivity the only thing we lose through excessive screen use? What ot
         <Image
           src="/img/daydream/overview.jpg"
           className="full-image"
-          alt="Daydreams & Doomscrolling scenario 2 screen 1"
+          alt="Overview image"
           width={8640}
           height={4860}
           sizes="(max-width: 900px) 100vw, 1000px"
         />
       </figure>
 
+
+
       {/* CONTEXT  */}
       <section className='case-section'>
         <div className="prose">
-          <p className="body-m">CONTEXT</p>
-          <p className='body-l'></p>
+          {/* <p className="body-m">CONTEXT</p> */}
 
-        </div>
-      </section>
+<p className='body-l'>
+                    Most digital wellbeing tools interpret healthy usage as reducing screen time and staying productive. But what if time itself is an incomplete lens to understand healthy usage?
+                    </p>
+<p className='body-l'>
+                    What if frequency, fragmentation, and pace of our usage mattered as much as the amount of time we spend on a device.
+                    </p>
+                    <p className='body-l'>
+               <i>Digital Introspection</i> explores how we might leave more room for pauses, mind-wandering, reflection, and the mental downtime we use to process our thoughts, without necessarily reducing screen time. 
+                    </p>
 
-
-      {/* PROBLEM FRAMING  */}
-      <section className='case-section'>
-        <div className="prose">
-          <p className="body-m">WHAT IS THE PROBLEM?</p>
-
-          <p className="body-l">
-            How do we hold onto mind-wandering and daydreaming in a world built around the smartphone?
-          </p>
-        </div>
-      </section>
-
-
-      {/* RESERACH AND EXPLORATION  */}
-      <section className='case-section'>
-        <div className="prose">
-          <p className="body-m">RESERACH & EXPLORATION</p>
-
-          <p className="body-l">
-            Here I will write what I found and what it meant for the process.
-          </p>
-        </div>
-      </section>
-
-      {/* RESERACH AND EXPLORATION  */}
-      <section className='case-section'>
-        <div className="prose">
-          <p className="body-m">THE THREE SCENARIOS</p>
-
-          <p className="body-l">
-            Here I will write what I found and what it meant for the process.
-          </p>
+                  <p className='body-l'>The project explores three different scenarios in which the smartphone could support introspection as an alternative paradigm for digital wellbeing.</p>
+                  
         </div>
       </section>
 
       {/* WHY DAYDREAMING?  */}
-      <section className='case-section'>
+      {/* <section className='case-section'>
         <div className="prose">
           <p className="body-m">BUT WHY DAYDREAMING?</p>
 
           <p className="body-l">
             I found that daydreaming worked as a more tangible way of communicating ideas from psychology and neuroscience around introspection and the brain’s default mode network.  </p>
         </div>
-      </section>
-
-      {/* RESERACH AND EXPLORATION  */}
-      <section className='case-section'>
-        <div className="prose">
-          <p className="body-m">RESEARCH & EXPLORATION</p>
-
-          <p className="body-l">
-            Research stuff here
-          </p>
-        </div>
-      </section>
-
-
-      {/* OUTCOME  */}
-      <section className='case-section'>
-        <div className="prose">
-          <p className="body-m">WHAT I LEARNED & THE OUTCOME</p>
-
-          <p className="body-l">
-            Outcome?
-          </p>
-        </div>
-      </section>
+      </section> */}
 
       {/* IMAGES */}
 
@@ -147,7 +99,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario1/01.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 1 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -158,7 +110,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario1/02.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 1 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -169,7 +121,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario1/03.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 1 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -179,7 +131,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario1/04.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 1 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -189,7 +141,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario1/05.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 1 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -203,7 +155,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/01.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 2 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -214,7 +166,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/02.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 alternate screen"
+            alt="Scenario 2 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -225,7 +177,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/02-1.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 2"
+            alt="Scenario 2 image"
             width={2000}
             height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -237,7 +189,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/03.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 3"
+            alt="Scenario 2 image"
             width={2000}
             height={1125}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -248,7 +200,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/04.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 4"
+            alt="Scenario 2 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -259,7 +211,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/05.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 5"
+            alt="Scenario 2 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -270,7 +222,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario2-taming/small/06.jpg"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 6"
+            alt="Scenario 2 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -283,7 +235,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/01.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -294,7 +246,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/02.1.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -305,7 +257,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/3-03.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -316,7 +268,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/04.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -327,7 +279,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/05-w.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -338,7 +290,7 @@ But is productivity the only thing we lose through excessive screen use? What ot
           <Image
             src="/img/daydream/scenario3-quantified/06-s.png"
             className="full-image"
-            alt="Daydreams & Doomscrolling scenario 2 screen 1"
+            alt="Scenario 3 image"
             width={8640}
             height={4860}
             sizes="(max-width: 900px) 100vw, 1000px"
@@ -362,8 +314,11 @@ But is productivity the only thing we lose through excessive screen use? What ot
             </a>
             .
           </p>
+            <p className='body-l'>The project won Best Design Diploma at the AHO WORKS AWARDS.</p>
         </div>
       </section>
+
+        
 
     </div>
 
