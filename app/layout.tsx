@@ -16,8 +16,8 @@ import Footer from "./components/Footer";
 // It displays the page.tsx in same folder automatically
 
 export const metadata: Metadata = {
-  title: "carl traberg",
-  description: "designer",
+  title: "Carl Traberg",
+  description: "Product and interaction designer who codes",
 };
 
 export default function RootLayout({

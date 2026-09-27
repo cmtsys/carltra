@@ -91,7 +91,7 @@ export default function Remarkable() {
               The task from reMarkable was to explore <i>time</i> as an organisational paradigm for the UI.
             </p>
             <p className="body-l">
-              I interpreted time as chronology, which lead me to the idea of a stack of paper: older drawings at the bottom, newer on top.
+              I interpreted time as chronology, which led me to the idea of a stack of paper: older drawings at the bottom, newer on top.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export default function Remarkable() {
       <section className='case-section'>
         <div className='prose'>
           <p className="body-l">
-            I looked at several examples of how time and chronology is represented, from physical objects, to futuristic UI. Some used direct sequencing, while others used spatial relationships.
+            I looked at several examples of how time and chronology are represented, from physical objects, to futuristic UI. Some used direct sequencing, while others used spatial relationships.
           </p>
         </div>
 

@@ -32,7 +32,7 @@ export default function artwork() {
     <div className="project-blocks">
       <div className="prose">
         <p className="body-xl">
-          <i>Sites of a Breach, Delays in a Dream; A Surface Half Asleep</i> is an artwork Damla Kilickiran, for the new government quarter in Oslo.
+          <i>Sites of a Breach, Delays in a Dream; A Surface Half Asleep</i> is an artwork by Damla Kilickiran, for the new government quarter in Oslo.
         </p>
       </div>
 
@@ -112,7 +112,7 @@ export default function artwork() {
         </figure>
 
         <div className="prose">
-          <p className="body-l">The main challenge was to give the images physical depth while keeping the character of Damla's original compositions within the constraints of large-scale fabrication.
+          <p className="body-l">The main challenge was to give the images physical depth while keeping the character of Damla’s original compositions within the constraints of large-scale fabrication.
            </p>
           <p className="body-l"> Working with the milling team in Sweden, I tested tool diameters to balance detail and production time. Smaller tool diameters was more truthful to the source material, but increased milling time exponentially, while larger were faster but diluted the character of the forms.</p>
              </div>

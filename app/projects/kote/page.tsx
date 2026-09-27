@@ -42,7 +42,7 @@ export default function kote() {
       <section className="case-section">
         <div className='prose'>
           <p className="body-l">
-            Kote No 12 — <i>Inkludering / Ekskludering</i>, explored inclusion and exclusion in urban settings. I created a simple, flexible typography system as the baseline for future editions.
+            Kote No 12 — <i>Inkludering / Ekskludering</i> explored inclusion and exclusion in urban settings. I created a simple, flexible typography system as the baseline for future editions.
           </p>
           <p className='body-s'>
             <a className='underline-link'

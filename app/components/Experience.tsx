@@ -1,5 +1,7 @@
 import { experience } from '@/lib/resume'
 
+// WORK IN PROGRESS - Finished design for implementation is in Figma
+
 export default function Experience () {
  return (
     <section className='experience'>

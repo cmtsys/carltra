@@ -69,7 +69,7 @@ export default function daydream() {
                     Most digital wellbeing tools interpret healthy use as reducing screen time and staying productive. But what if time itself is an incomplete lens for understanding digital wellbeing?
                     </p>
 <p className='body-l'>
-                    What if frequency, fragmentation, and pace of our usage mattered as much as the amount of time we spend on a device.
+                    What if frequency, fragmentation, and pace of our usage mattered as much as the amount of time we spend on a device?
                     </p>
                     <p className='body-l'>
                <i>Digital Introspection</i> explores through three scenarios, how we might leave more room for mental downtime, mind-wandering and reflection, without necessarily reducing screen time.
