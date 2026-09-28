@@ -96,7 +96,7 @@ export default function artwork() {
         </figure>
 
         <div className="prose">
-          <p className="body-l">Damla developed the compositions from a photographic archive of urban spaces, traces and disappearing structures, transforming them into abstract 2D collages. </p>
+          <p className="body-l">Damla developed the images from an archive of photos of urban spaces, transforming them into abstract 2D collages. </p>
         </div>
 
         <figure className="image-block">
@@ -114,7 +114,7 @@ export default function artwork() {
         <div className="prose">
           <p className="body-l">The main challenge was to give the images physical depth while keeping the character of Damla’s original compositions within the constraints of large-scale fabrication.
            </p>
-          <p className="body-l"> Working with the milling team in Sweden, I tested tool diameters to balance detail and production time. Smaller tool diameters was more truthful to the source material, but increased milling time exponentially, while larger were faster but diluted the character of the forms.</p>
+          <p className="body-l"> Working with the milling team in Sweden, I tested tool diameters to find out the optimal size for production. Smaller diameters were more faithful to the source material but increased milling time exponentially, while larger diameters were faster but diluted the character of the forms.</p>
              </div>
 
        <figure className="image-block">
