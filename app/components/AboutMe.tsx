@@ -12,11 +12,11 @@ export default function AboutMe() {
                         <br /><br />
                         I built this thing myself*, have a look{" "}
                         <a className="weblink" href="https://github.com/cmtsys/carltra" target="_blank">here</a>{" "}
-                        if you want proof.
+                        if you want to see.
                     </p>
                 </div>
                 <p className="about-note">
-                    *ok, a lot of copy & pasting, but no vibe coding!
+                    *okay, a lot of copy & pasting, but no vibe code. I know how everything is connected. 
                 </p>
             </section>
         </section>
