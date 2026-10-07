@@ -38,10 +38,10 @@
 }
 
 
-.about-portrait:hover {
+/* .about-portrait:hover {
   filter: drop-shadow(0 0 12px var(--tropical));
   transform: translateY(-3px) rotate(-1deg);
-}
+} */
 
 
 .about-copy {
@@ -53,7 +53,7 @@
 .about-note {
   font-size: var(--text-xs);
   color: var(--text-primary);
-  text-align: right;
+  /* text-align: right; */
 }
 
 @media (max-width: 900px) {
@@ -68,22 +68,26 @@
 
     .about-section {
     align-items: flex-start;
-    padding: var(--space-l);
+    /* padding: var(--space-l); */
   }
 
 }
 
 @media (max-width: 600px) {
 
-  /* .about-card {
-    grid-template-columns: 1fr;
-    margin: var(--space-xl) auto;
-    padding: var(--space-s) 0;
-  } */
+  .about-card {
+    /* grid-template-columns: 1fr; */
+    /* margin: var(--space-xl) auto; */
+    padding-block: var(--space-m);
+  }
+
+.about-portrait {
+  width: clamp(65px, 12vw, 205px);
+}
 
    .about-section {
     align-items: flex-start;
-    padding: var(--space-l);
+    padding: var(--space-m);
   }
 
     .about-note {

@@ -15,9 +15,9 @@ export default function AboutMe() {
                         if you want to see.
                     </p>
                 </div>
-                <p className="about-note">
+                {/* <p className="about-note">
                     *okay, a lot of copy & pasting, but no vibe code. I know how everything is connected. 
-                </p>
+                </p> */}
             </section>
         </section>
     )

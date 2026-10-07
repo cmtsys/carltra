@@ -217,6 +217,13 @@ body.menu-open {
   width: 100%;
   align-items: center;
 }
+
+@media (max-width: 600px) {
+.project-blocks {
+  gap: var(--space-xl);
+}
+}
+
 /* 
 .project-blocks--wide {
   width: 1000px;
@@ -352,6 +359,7 @@ HOMEPAGE PROJECT CARDS
   max-width: 840px;
   margin: 0 auto;
   padding-inline: 20px;
+  padding-block-start: var(--space-m);
 }
 @media (max-width: 600px) {
   .grid {
