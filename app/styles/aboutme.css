@@ -225,13 +225,7 @@
 
 /* Lets not bother mobile folks with hover */
 @media (max-width: 900px) {
-  .tooltip {
-    display: none;
-  }
 
-.about-portrait:hover {
-  transform: none;
-}
 
 }
 
@@ -240,6 +234,13 @@
     .tooltip-wrapper {
     display: none;
   }
+    .tooltip {
+    display: none;
+  }
+
+.about-portrait:hover {
+  transform: none;
+}
 
 }
 
