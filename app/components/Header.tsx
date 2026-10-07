@@ -73,8 +73,8 @@ export default function Header() {
         >
           <IconSwap
             state={menuOpen ? "b" : "a"}
-            iconA={<Menu size={26} strokeWidth={2} aria-hidden="true" />}
-            iconB={<X size={26} strokeWidth={2} aria-hidden="true" />}
+            iconA={<Menu size={32} strokeWidth={2} aria-hidden="true" />}
+            iconB={<X size={32} strokeWidth={2} aria-hidden="true" />}
           />
         </button>
       </nav>

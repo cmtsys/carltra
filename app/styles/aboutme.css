@@ -75,11 +75,34 @@
 }
 
 @media (max-width: 600px) {
+  
+  /* Bigger text on mobile */
+  .about-copy .body-l--narrow {
+    max-width: 30ch;
+    /* text-wrap: balance; */
+    font-size: var(--text-xl);
+    line-height: 1.35;
+  }
 
+    .about-copy .heading-serif {
+    font-family: inherit;
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+
+  }
+
+  .about-copy .heading-serif {
+    /* font-size: clamp(2.5rem, 12vw, 3rem); */
+    /* font-size: var(--text-xxxl); */
+    /* font-size: 3rem;
+    line-height: 1; */
+  }
+  
   .about-card {
-    /* grid-template-columns: 1fr; */
+    grid-template-columns: 1fr;
     /* margin: var(--space-xl) auto; */
-    padding-block: var(--space-m);
+    padding-block: var(--space-s);
   }
 
   .about-portrait {
@@ -88,7 +111,7 @@
 
   .about-section {
     align-items: flex-start;
-    padding: var(--space-m);
+    padding: var(--space-s);
   }
 
   .about-note {
@@ -142,8 +165,6 @@
   color: var(--text-primary);
   text-align: right;
 }
-
-
 
 /* TOOLTIP */
 
@@ -204,13 +225,22 @@
 
 /* Lets not bother mobile folks with hover */
 @media (max-width: 900px) {
-  .tooltip {
+
+
+}
+
+@media (max-width: 600px) {
+ /* HIDES PORTRAIT */
+    .tooltip-wrapper {
     display: none;
   }
-
+    .tooltip {
+    display: none;
+  }
 
 .about-portrait:hover {
   transform: none;
 }
 
 }
+

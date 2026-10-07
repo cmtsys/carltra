@@ -365,7 +365,7 @@ HOMEPAGE PROJECT CARDS
 }
 @media (max-width: 600px) {
   .grid {
-    padding-inline: 12px;
+    padding-inline: var(--space-s);
   }
 }
 

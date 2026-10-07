@@ -11,8 +11,8 @@
   cursor: pointer;
   padding: 0;
   margin-top: 0;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   color: var(--text-strongest);
   border-bottom: none;
   -webkit-tap-highlight-color: transparent;
@@ -32,8 +32,8 @@
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
 }
 
 .t-icon {
@@ -89,7 +89,7 @@ header {
 
 @media (max-width: 900px) {
 header{
-padding-block: var(--space-l);
+padding-block: var(--space-m);
 }
 }
 
