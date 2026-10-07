@@ -1,22 +1,70 @@
-export default function AboutMe() {
+import Tooltip from "./Tooltip";
 
 const tooltips = [
-  "Text here",
-  "Another text here",
-  "A third text here",
-  "A fourth text here",
+    "I look something like this",
+    "Yep, that's me",
+    "100% the real deal",
+    "An exact replica",
+
+    "Maybe not photorealistic, but pretty close",
+    "Drawn on a productive afternoon",
+    "Might have aged a bit since then",
+    "But still pretty close",
+    // "For a drawing",
+    "Mom agrees",
+    "Yep",
+
+    "Ok now",
+    "Right",
+    "...",
+    "*checks watch*",
+    "...",
+
+    "Still going, huh",
+    "Hover all you want, I'm not going anywhere",
+    "Please stop poking me",
+    "I mean it",
+    "...Fine",
+    
+    // "You know this loops, right?",
+    "Why not check out some of my projects?",
+    "The Artwork thing is pretty neat",
+    "Or check out the GitHub repo",
+    "If you want to see how I made this tooltip",
+    "But for real now, this is the end",
+    "Nothing more to see",
+    "Time to move on",
+    "It's over",
+    "Finito",
+    "Done",
+    ".",
+    "bye",
+    ".",
+    "Well now it starts again",
+    "In 3",
+    "2",
+    "1",
+    "0",
+    "I look something like this",
+    "PSYCH!",
+    "Can't believe you fell for that",
+    "Ok this is the real end, now it starts over",
 ];
+
+
+export default function AboutMe() {
 
     return (
         <section className="about-card">
 
 
-        <div className="tooltip-wrapper">
-              <span className="tooltip">
-                I look something like this
-            </span>
-            <img className="about-portrait" src="/img/cm.png" alt="I look something like this" />
-                </div>
+            <Tooltip messages={tooltips}>
+                <img
+                    className="about-portrait"
+                    src="/img/cm.png"
+                    alt="Portrait illustration"
+                />
+            </Tooltip>
 
 
             <section className="about-copy">
