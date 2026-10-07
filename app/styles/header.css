@@ -67,6 +67,8 @@
   }
 }
 
+/* MAIN CSS HERE FOR THE HEADER */
+
 header {
   display: flex;
   flex-direction: row;
@@ -83,6 +85,14 @@ header {
   position: relative;
   line-height: 1;
 }
+
+
+@media (max-width: 900px) {
+header{
+padding-block: var(--space-l);
+}
+}
+
 
 .site-logo {
   color: var(--text-strongest);

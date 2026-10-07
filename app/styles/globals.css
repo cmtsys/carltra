@@ -5,7 +5,9 @@
   --text-strong: #494949;
   --text-primary: #8F8F8F;
   --text-secondary: #aaaaaa;
+  --text-inverted: #f2f2f2;
   --component-bg: #FCFCFC;
+  --component-bg-inverted: #171717;
   --box-shadow: #e6e6e6;
   --tropical: rgb(23, 219, 23);
 
@@ -217,6 +219,13 @@ body.menu-open {
   width: 100%;
   align-items: center;
 }
+
+@media (max-width: 600px) {
+.project-blocks {
+  gap: var(--space-xl);
+}
+}
+
 /* 
 .project-blocks--wide {
   width: 1000px;
@@ -352,6 +361,7 @@ HOMEPAGE PROJECT CARDS
   max-width: 840px;
   margin: 0 auto;
   padding-inline: 20px;
+  padding-block-start: var(--space-m);
 }
 @media (max-width: 600px) {
   .grid {
