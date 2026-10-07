@@ -78,16 +78,24 @@
   
   /* Bigger text on mobile */
   .about-copy .body-l--narrow {
-    max-width: 28ch;
-    font-size: var(--text-xxl);
+    max-width: 30ch;
+    font-size: var(--text-xl);
     line-height: 1.35;
+  }
+
+    .about-copy .heading-serif {
+    font-family: inherit;
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+
   }
 
   .about-copy .heading-serif {
     /* font-size: clamp(2.5rem, 12vw, 3rem); */
     /* font-size: var(--text-xxxl); */
-    font-size: 3rem;
-    line-height: 1;
+    /* font-size: 3rem;
+    line-height: 1; */
   }
   
   .about-card {
