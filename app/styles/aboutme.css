@@ -75,9 +75,23 @@
 }
 
 @media (max-width: 600px) {
+  
+  /* Bigger text on mobile */
+  .about-copy .body-l--narrow {
+    max-width: 28ch;
+    font-size: var(--text-xxl);
+    line-height: 1.35;
+  }
 
+  .about-copy .heading-serif {
+    /* font-size: clamp(2.5rem, 12vw, 3rem); */
+    /* font-size: var(--text-xxxl); */
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
   .about-card {
-    /* grid-template-columns: 1fr; */
+    grid-template-columns: 1fr;
     /* margin: var(--space-xl) auto; */
     padding-block: var(--space-m);
   }
@@ -143,8 +157,6 @@
   text-align: right;
 }
 
-
-
 /* TOOLTIP */
 
 .tooltip-wrapper {
@@ -208,9 +220,17 @@
     display: none;
   }
 
-
 .about-portrait:hover {
   transform: none;
 }
 
 }
+
+@media (max-width: 600px) {
+ /* HIDES PORTRAIT */
+    .tooltip-wrapper {
+    display: none;
+  }
+
+}
+
