@@ -5,7 +5,9 @@
   --text-strong: #494949;
   --text-primary: #8F8F8F;
   --text-secondary: #aaaaaa;
+  --text-inverted: #f2f2f2;
   --component-bg: #FCFCFC;
+  --component-bg-inverted: #171717;
   --box-shadow: #e6e6e6;
   --tropical: rgb(23, 219, 23);
 
