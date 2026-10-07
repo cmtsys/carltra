@@ -207,4 +207,10 @@
   .tooltip {
     display: none;
   }
+
+
+.about-portrait:hover {
+  transform: none;
+}
+
 }
