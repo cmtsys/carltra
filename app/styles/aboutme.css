@@ -79,6 +79,7 @@
   /* Bigger text on mobile */
   .about-copy .body-l--narrow {
     max-width: 30ch;
+    /* text-wrap: balance; */
     font-size: var(--text-xl);
     line-height: 1.35;
   }
@@ -101,7 +102,7 @@
   .about-card {
     grid-template-columns: 1fr;
     /* margin: var(--space-xl) auto; */
-    padding-block: var(--space-m);
+    padding-block: var(--space-s);
   }
 
   .about-portrait {
@@ -110,7 +111,7 @@
 
   .about-section {
     align-items: flex-start;
-    padding: var(--space-m);
+    padding: var(--space-s);
   }
 
   .about-note {
