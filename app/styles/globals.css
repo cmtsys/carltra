@@ -81,7 +81,7 @@
 }
 
 html {
-  background-color: var(--text-secondary);
+  background-color: var(--background);
 }
 
 /* MAIN - THE AVAILABLE CONTENT AREA */

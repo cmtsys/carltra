@@ -1,3 +1,4 @@
+import PortraitTooltip from "./PortraitTooltip";
 import Tooltip from "./Tooltip";
 
 const tooltips = [
@@ -25,7 +26,7 @@ const tooltips = [
     "Please stop poking me",
     "I mean it",
     "...Fine",
-    
+
     // "You know this loops, right?",
     "Why not check out some of my projects?",
     "The Artwork thing is pretty neat",
@@ -57,15 +58,13 @@ export default function AboutMe() {
     return (
         <section className="about-card">
 
-
-            <Tooltip messages={tooltips}>
+            <PortraitTooltip messages={tooltips}>
                 <img
                     className="about-portrait"
                     src="/img/cm.png"
                     alt="Portrait illustration"
                 />
-            </Tooltip>
-
+            </PortraitTooltip>
 
             <section className="about-copy">
                 <div className="about-intro">
@@ -74,7 +73,15 @@ export default function AboutMe() {
                         My name is Carl, I am a product & interaction designer who does graphics and a touch of coding.
                         <br /><br />
                         I built this thing myself, have a look{" "}
-                        <a className="weblink" href="https://github.com/cmtsys/carltra" target="_blank">here</a>{" "}
+                        <Tooltip message="github.com/cmtsys/carltra">
+                            <a
+                                className="weblink"
+                                href="https://github.com/cmtsys/carltra"
+                                target="_blank"
+                            >
+                                here
+                            </a>
+                        </Tooltip>{" "}
                         if you want to see.
                     </p>
                 </div>
