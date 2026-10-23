@@ -170,6 +170,12 @@
 
 
 .tooltip-wrapper {
+  /* Adjust the animation here; hover transitions and click replays share these values. */
+  --tooltip-start-y: 6px; /* Starting vertical offset. */
+  --tooltip-end-y: 0px; /* Resting vertical position while visible. */
+  --tooltip-duration: 200ms;
+  --tooltip-easing: ease;
+
   position: relative;
   display: inline-flex;
 }
@@ -178,7 +184,7 @@
   position: absolute;
   bottom: calc(100% + var(--space-xs));
   left: 50%;
-  transform: translate(-50%, 6px);
+  transform: translate(-50%, var(--tooltip-start-y));
 
   padding: 8px 12px;
   border-radius: var(--space-xs);
@@ -198,15 +204,15 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   transition:
-    opacity 200ms ease,
-    transform 200ms ease,
-    visibility 200ms ease;
+    opacity var(--tooltip-duration) var(--tooltip-easing),
+    transform var(--tooltip-duration) var(--tooltip-easing),
+    visibility var(--tooltip-duration) var(--tooltip-easing);
 }
 
 .tooltip-wrapper:hover .tooltip {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0px);
+  transform: translate(-50%, var(--tooltip-end-y));
 }
 
 /* TRIANGLE IN BOTTOM */
@@ -237,6 +243,24 @@
 }
 .tooltip-wrapper button:active {
   transform: scale(0.97);
+}
+
+.portrait-tooltip-wrapper .tooltip {
+  /* The portrait uses keyframes for replay; leaving hover hides it immediately. */
+  transition: none;
+}
+
+.portrait-tooltip-wrapper:hover .tooltip {
+  /* React recreates the tooltip span on click, restarting this CSS animation. */
+  animation: tooltipIn var(--tooltip-duration) var(--tooltip-easing);
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, var(--tooltip-start-y));
+  }
+  /* No "to" block: the hover rule above supplies the final visible appearance. */
 }
 
 /* Lets not bother mobile folks with hover */
