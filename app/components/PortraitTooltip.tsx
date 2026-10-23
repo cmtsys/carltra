@@ -1,5 +1,7 @@
 "use client";
 
+// CSS LIVES IN ABOUT.ME
+
 import { useRef, useState, type ReactNode } from "react";
 
 type PortraitTooltipProps = {
@@ -13,6 +15,12 @@ export default function PortraitTooltip({
 }: PortraitTooltipProps) {
   const [message, setMessage] = useState(messages[0]);
   const messageIndex = useRef(-1);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  function handleClick() {
+    nextMessage();
+    setAnimationKey((key) => key + 1);
+  }
 
   function nextMessage() {
     messageIndex.current =
@@ -26,12 +34,12 @@ export default function PortraitTooltip({
       className="tooltip-wrapper portrait-tooltip-wrapper"
       onMouseEnter={nextMessage}
     >
-      <span className="tooltip" role="tooltip">
+      <span key={animationKey} className="tooltip" role="tooltip">
         {message}
       </span>
 
-      <button type="button" onClick={nextMessage}>
-      {children}
+      <button type="button" onClick={handleClick}>
+        {children}
       </button>
     </div>
   );
