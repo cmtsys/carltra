@@ -106,8 +106,13 @@ input::placeholder {
   transform: translateX(5px);
 }
 
-.contac-form button:active span {
+.contact-form button:active span {
   transform: scale(0.96) translateX(5px);
+}
+
+.contact-form button:disabled {
+  opacity: 0.55;
+  cursor: wait;
 }
 
 .contact-form button:active {
