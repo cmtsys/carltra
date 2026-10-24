@@ -54,19 +54,11 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/archive"
-            className={`nav-link ${pathname === "/archive" ? "active" : ""}`}
-            onClick={closeMenu}
-          >
-            Fun stuff
-          </Link>
-
-          <Link
             href="/waterfall"
             className={`nav-link ${pathname === "/waterfall" ? "active" : ""}`}
             onClick={closeMenu}
           >
-            Waterfall
+            Fun stuff
           </Link>
 
           <Link

@@ -10,6 +10,7 @@ function git(command: string) {
 }
 
 const nextConfig: NextConfig = {
+  experimental: { viewTransition: true },
   images: {
     remotePatterns: [new URL("https://freight.cargo.site/**")],
   },
