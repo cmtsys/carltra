@@ -10,6 +10,9 @@ function git(command: string) {
 }
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [new URL("https://freight.cargo.site/**")],
+  },
   env: {
     NEXT_PUBLIC_SITE_VERSION: "v0.8.7",
     NEXT_PUBLIC_COMMIT_HASH: git("git rev-parse --short HEAD"),

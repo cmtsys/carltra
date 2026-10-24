@@ -612,24 +612,6 @@ a.weblink:active {
 
 }
 
-/* ARCHIVE GRID */
-
-/* .archive{
-
-}
-
-.masonry{
-  columns: 4;
-  column-gap: var(--space-m);
-}
-
-.masonry img {
-  width: 100%;
-  display: block;
-  margin-bottom: var(--space-m);
-  border-radius: 4px;
-} */
-
 /* TYPEWRITER */
 @keyframes blink {
 

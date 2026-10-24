@@ -8,6 +8,7 @@ import "./styles/aboutme.css";
 import "./styles/contact.css";
 import "./styles/footer.css";
 import "./styles/comingsoon.css";
+import "./styles/archive.css";
 
 
 import Header from "./components/Header";
