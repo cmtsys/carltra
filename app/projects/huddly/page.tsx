@@ -27,11 +27,17 @@ export default function Huddly() {
       client="Huddly"
     />
 
+
     <div className="project-blocks">
       <div className="prose">
         <p className="body-xl">
           The Huddly Room Control App lets users control their Huddly cameras during meetings on Microsoft Teams devices.
         </p>
+
+        <p className="body-m">
+          <i>Some parts of the design process are omitted due to confidentiality.</i>
+        </p>
+
             <p className="body-l">
           I led the UX work on the project, from research through implementation alongside a visual designer and a team of developers.
         </p>
@@ -45,9 +51,7 @@ export default function Huddly() {
             <p className="body-l">
           The app shipped in 2025.
         </p>
-         <p className="body-m">
-          <i>Some parts of the design process are omitted due to confidentiality.</i>
-        </p>
+
       </div>
     
 

@@ -24,6 +24,7 @@ function IconSwap({
 export default function Header() {
 
   const pathname = usePathname();
+  const workActive = pathname === "/" || pathname.startsWith("/projects/");
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -44,16 +45,14 @@ export default function Header() {
         </Link>
 
         <div id="site-links" className={`links ${menuOpen ? "open" : ""}`}>
-          {/* <Link href="/" className={pathname === "/" ? "active" : ""}>Work</Link> */}
           <Link
             href="/"
-            className={`nav-link ${pathname === "/" ? "active" : ""}`}
+            className={`nav-link ${workActive ? "active" : ""}`}
             onClick={closeMenu}
           >
             Work
           </Link>
 
-          {/* <Link href="/about" className={pathname === "/about" ? "active" : ""}>About</Link> */}
           <Link
             href="/contact"
             className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
