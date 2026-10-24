@@ -1,13 +1,5 @@
 "use client";
 
-
-const repoUrl = "https://github.com/cmtsys/carltra";
-const hash = process.env.NEXT_PUBLIC_COMMIT_HASH;
-// const date = process.env.NEXT_PUBLIC_COMMIT_DATE
-
-const commitUrl = `${repoUrl}/commit/${hash}`;
-
-
 import { useEffect, useState } from "react";
 
 function timeAgo(dateString: string) {
@@ -32,42 +24,35 @@ function timeAgo(dateString: string) {
 }
 
 export default function Commit() {
-    const [updated, setUpdated] = useState("");
+  const hash = process.env.NEXT_PUBLIC_COMMIT_HASH;
+  const commitDate = process.env.NEXT_PUBLIC_COMMIT_DATE;
+  const [updated, setUpdated] = useState("…");
 
-    const version = process.env.NEXT_PUBLIC_SITE_VERSION;
-    const hash = process.env.NEXT_PUBLIC_COMMIT_HASH;
-    const commitDate = process.env.NEXT_PUBLIC_COMMIT_DATE;
+  useEffect(() => {
+    if (!commitDate) return;
 
-    useEffect(() => {
-        if (commitDate) {
-            setUpdated(timeAgo(commitDate));
-        }
-    }, [commitDate]);
+    const update = () => setUpdated(timeAgo(commitDate));
+    const timeout = window.setTimeout(update, 0);
+    const interval = window.setInterval(update, 60_000);
 
-    if (!hash || !commitDate) return null;
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearInterval(interval);
+    };
+  }, [commitDate]);
 
-    return (
-        <a className="underline-link"
-            href={commitUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            <span>updated {updated || "…"}</span>
-            <span aria-hidden="true"> · </span>
-            <span>{hash}</span>
-        </a>
-    );
+  if (!hash || !commitDate) return null;
+
+  return (
+    <a
+      className="underline-link"
+      href={`https://github.com/cmtsys/carltra/commit/${hash}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span>updated {updated}</span>
+      <span aria-hidden="true"> · </span>
+      <span>{hash}</span>
+    </a>
+  );
 }
-
-// export default function Commit() {
-//     return (
-//         <a className="underline-link"
-//             href={commitUrl}
-//             target="_blank"
-//             rel="noopener noreferrer"
-//         >
-//             {hash}
-//             {/* {date} */}
-//         </a>
-//     )
-// }
