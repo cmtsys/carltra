@@ -1,6 +1,6 @@
 // THIS IS WHERE THE FUN STUFF PROJECTS COME FROM
 
-type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string };
+type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string; mobilePreview?: string; galleryGroups?: number[][] };
 
 export const archiveProjects: ArchiveProject[] = [
   {
@@ -13,6 +13,7 @@ export const archiveProjects: ArchiveProject[] = [
   {
     "title": "Website for Rosa Collective",
     "videoPoster": "/img/fun-stuff/website-for-rosa-collective/cover.jpg",
+    "mobilePreview": "/img/fun-stuff/website-for-rosa-collective/preview.gif",
     "description": "Digital identity and website for an Oslo-based landscape architecture studio focused on social sustainability and public health. I designed and built the site in Framer, with a custom p5.js sketch reflecting the studio’s data-driven approach.",
     "images": [
       "/img/fun-stuff/website-for-rosa-collective/rosa.mp4"
@@ -23,6 +24,7 @@ export const archiveProjects: ArchiveProject[] = [
   {
     "title": "Stomata",
     "videoPoster": "/img/fun-stuff/stomata/cover.jpg",
+    "mobilePreview": "/img/fun-stuff/stomata/preview.gif",
     "description": "A wallpaper generator using plants and illustrations of plant biochemistry. Save images from an endless feed, then turn them into graphics made with p5.js. A concept for the Oslo Botanical Garden’s upcoming exhibition, developed at AHO.",
     "year": "2023",
     "images": [
@@ -44,27 +46,20 @@ export const archiveProjects: ArchiveProject[] = [
   },
   {
     "title": "Error 445",
+    "galleryGroups": [[0], [1, 2], [3, 4, 5, 6], [7, 8], [9, 10]],
     "description": "A VR experience where the program fails to load. Find a missing directory in a fragmented landscape of code, without textures. I built it in Unity with a custom shader that renders the world in ASCII.",
     "images": [
       "/img/fun-stuff/error-445/01.gif",
-      "/img/fun-stuff/error-445/001.jpg",
       "/img/fun-stuff/error-445/01.jpg",
-      "/img/fun-stuff/error-445/0002.jpg",
-      "/img/fun-stuff/error-445/02.jpg",
-      "/img/fun-stuff/error-445/03.jpg",
-      "/img/fun-stuff/error-445/00004.jpg",
-      "/img/fun-stuff/error-445/04.jpg",
-      "/img/fun-stuff/error-445/05.jpg",
-      "/img/fun-stuff/error-445/06.jpg",
-      "/img/fun-stuff/error-445/06.5.jpg",
-      "/img/fun-stuff/error-445/07.png",
-      "/img/fun-stuff/error-445/08.png",
-      "/img/fun-stuff/error-445/09.jpg",
-      "/img/fun-stuff/error-445/9.2.jpg",
-      "/img/fun-stuff/error-445/10.png",
-      "/img/fun-stuff/error-445/12.jpg",
-      "/img/fun-stuff/error-445/13.jpg",
-      "/img/fun-stuff/error-445/14.jpg"
+      "/img/fun-stuff/error-445/2.jpg",
+      "/img/fun-stuff/error-445/3.jpg",
+      "/img/fun-stuff/error-445/4.jpg",
+      "/img/fun-stuff/error-445/5.jpg",
+      "/img/fun-stuff/error-445/6.jpg",
+      "/img/fun-stuff/error-445/7.jpg",
+      "/img/fun-stuff/error-445/8.jpg",
+      "/img/fun-stuff/error-445/10.jpg",
+      "/img/fun-stuff/error-445/11.jpg"
     ],
     "year": "2022"
   },
@@ -106,6 +101,7 @@ export const archiveProjects: ArchiveProject[] = [
   {
     "title": "Action",
     "videoPoster": "/img/fun-stuff/action/cover.jpg",
+    "mobilePreview": "/img/fun-stuff/action/preview.gif",
     "description": "Moving graphics for a digital fabrication exhibition at AHO. I animated floating nylon models in Blender, echoing the physical prints in the exhibition.",
     "images": [
       "/img/fun-stuff/action/0.mp4",

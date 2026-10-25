@@ -10,18 +10,21 @@ import Image from "next/image";
 import GalleryImage from "./GalleryImage";
 import GalleryVideo from "./GalleryVideo";
 import { archiveProjects } from "../../lib/archive";
+import previewData from "../../lib/archive-previews.json";
 import { AnimatePresence, motion, useAnimationFrame, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 const captionFade = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
 const PHOTO_COUNT = archiveProjects.length;
+const previews: Record<string, { src: string; width: number; height: number; poster?: string }> = previewData;
 const photos = archiveProjects.map((project, index) => {
   const y = 1 - 2 * (index + 0.5) / PHOTO_COUNT;
   const ring = Math.sqrt(1 - y * y);
   const angle = index * GOLDEN_ANGLE;
   const x = Math.cos(angle) * ring;
   const z = Math.sin(angle) * ring;
-  return { ...project, src: project.images[0], x, y, z,
+  const gallery = project.galleryGroups?.map((group) => group.map((index) => project.images[index])) ?? project.images.map((src) => [src]);
+  return { ...project, gallery, src: project.images[0], x, y, z,
     yaw: Math.atan2(x, z) * 180 / Math.PI, pitch: Math.asin(y) * 180 / Math.PI };
 });
 
@@ -36,10 +39,10 @@ type DragState = {
 
 // Three portrait posters presented as one composition, including the gutters.
 const POSTER_ROW_RATIO = 2.35;
-const imageCount = (photo: typeof photos[number]) => photo.mediaLayout === "row" ? 1 : photo.images.length;
-function PosterRow({ images, title }: { images: string[]; title: string }) {
+const imageCount = (photo: typeof photos[number]) => photo.mediaLayout === "row" ? 1 : photo.gallery.length;
+function PosterRow({ images, title, preview = false }: { images: string[]; title: string; preview?: boolean }) {
   return <span className="archive-poster-row">{images.map((src, index) => (
-    <Image key={src} src={src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
+    <Image key={src} src={preview ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
   ))}</span>;
 }
 
@@ -51,6 +54,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const stream = useMotionValue(0);
   const streamStep = 240;
   const [atStreamEnd, setAtStreamEnd] = useState(false);
+  const [streamIndex, setStreamIndex] = useState(0);
+  const offscreenCards = useRef(new Set<number>());
   const endRef = useRef<HTMLDivElement>(null);
   const introStreamOpacity = useTransform(stream, [0, 180], [1, 0]);
   const introStreamY = useTransform(stream, [0, 240], [0, -56]);
@@ -64,7 +69,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   // Stop earlier on mobile so the final card and closing copy share the viewport.
   const streamEnd = PHOTO_COUNT * streamStep - (stageSize.width < 700 ? clamp(stageSize.height * 0.16, 72, 140) : 0);
   const [origin, setOrigin] = useState({ left: 0, top: 0, width: 100, height: 100 });
-  const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
+  const [imageRatios, setImageRatios] = useState<Record<string, number>>(() =>
+    Object.fromEntries(Object.entries(previews).map(([src, media]) => [src, media.width / media.height])));
   const [hovered, setHovered] = useState<number | null>(null);
   const hoveredPhoto = useRef<number | null>(null);
   const scrollTitle = useRef<number | null>(null);
@@ -125,9 +131,10 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   useEffect(() => {
     if (selected === null) return;
     let cancelled = false;
-    const images = photos[selected].images;
+    const images = photos[selected].gallery;
     const adjacent = [galleryIndex - 1, galleryIndex + 1]
       .map((index) => images[(index + images.length) % images.length])
+      .flat()
       .filter((src) => !src.endsWith(".mp4"));
     adjacent.forEach((src) => {
       const image = new window.Image();
@@ -164,6 +171,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     const update = () => {
       const distance = track.scrollTop;
       stream.set(distance);
+      setStreamIndex(Math.round(distance / streamStep));
       setAtStreamEnd(distance >= streamEnd - 80);
       scrollTitle.current = distance > 40 && distance < streamEnd - 80
         ? clamp(Math.round(distance / streamStep), 0, PHOTO_COUNT - 1) : null;
@@ -234,6 +242,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   };
 
   useAnimationFrame((time, delta) => {
+    if (document.hidden) return;
     if (isFunStuff) {
       const offset = stream.get();
       photos.forEach((photo, index) => {
@@ -241,6 +250,16 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         if (!card) return;
         const depth = [80, -140, 20, -220][index % 4];
         const y = index * streamStep - offset + stageSize.height * 0.05;
+        // Keep geometry available for entry/exit, but don't animate distant cards.
+        if (Math.abs(y) > stageSize.height * 0.9 + 480 && index !== selectedRef.current && index !== returning) {
+          if (!offscreenCards.current.has(index)) {
+            card.style.opacity = "0";
+            card.style.pointerEvents = "none";
+            offscreenCards.current.add(index);
+          }
+          return;
+        }
+        offscreenCards.current.delete(index);
         const x = Math.sin(index * 2.1 - 0.8) * Math.min(stageSize.width * (stageSize.width < 700 ? 0.13 : 0.28), 260);
         const float = reduceMotion ? 0 : Math.sin(time / 2200 + index * 1.7) * 8;
         const tilt = reduceMotion ? 0 : Math.sin(index * 1.9) * 12;
@@ -273,7 +292,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         const ending = endRef.current;
         if (ending) {
           const lastCard = photoRefs.current[PHOTO_COUNT - 1]?.getBoundingClientRect();
-          if (mobile && lastCard) {
+          if (mobile && lastCard && offset > (PHOTO_COUNT - 4) * streamStep) {
             ending.style.top = `${lastCard.bottom - frame.top + 40}px`;
           } else {
             ending.style.removeProperty("top");
@@ -476,12 +495,13 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   };
 
   const compact = stageSize.width < 700;
-  const selectedSrc = selected === null ? "" : photos[selected].images[galleryIndex];
+  const selectedImages = selected === null ? [] : photos[selected].gallery[galleryIndex];
+  const selectedSrc = selectedImages[0] ?? "";
   const selectedRow = selected !== null && photos[selected].mediaLayout === "row";
   const showThumbnails = !isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const galleryHeight = showThumbnails ? 72 : 0;
-  const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
+  const selectedRatio = selectedRow ? POSTER_ROW_RATIO : selectedImages.length > 1 ? (selectedImages.length === 2 ? 2 : 1) : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width - 32 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(370, stageSize.height * 0.46, stageSize.height - 280)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   // The gallery keeps one frame; individual media contain their natural proportions.
@@ -510,7 +530,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
       aria-hidden={selected !== null ? true : undefined}
       style={isFunStuff ? { y: introStreamY } : undefined}>
-      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of fun, wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
+      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>Like any designer, I have a bunch of fun, weird, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
       {isFunStuff && !compact && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
@@ -582,6 +602,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           style={isFunStuff ? { scale: smoothZoom } : { transform: sphereTransform }}
         >
           {radius > 0 && photos.map((photo, index) => {
+            const preview = previews[photo.src];
+            const nearViewport = !isFunStuff || Math.abs(index - streamIndex) <= Math.ceil(stageSize.height * 0.75 / streamStep) + 1;
+            const showMedia = nearViewport && selected !== index;
+            const cardSrc = compact && photo.mobilePreview
+              ? (reduceMotion ? photo.videoPoster! : photo.mobilePreview)
+              : reduceMotion && preview?.poster ? preview.poster : preview?.src ?? photo.src;
             const ratio = photo.mediaLayout === "row" ? POSTER_ROW_RATIO : imageRatios[photo.src] ?? 1;
             const width = Math.min(cardWidth * 1.35, cardWidth * 1.4 * ratio);
             const height = width / ratio;
@@ -656,15 +682,15 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   transition={isFunStuff ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
-                  {photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} /> : photo.src.endsWith(".mp4") && !compact ? (
-                    <video poster={photo.videoPoster} src={photo.src} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
+                  {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : cardSrc.endsWith(".mp4") ? (
+                    <video poster={preview?.poster ?? photo.videoPoster} src={cardSrc} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
                       onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
                   ) : (
-                    <Image src={compact && photo.videoPoster ? photo.videoPoster : photo.src} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
+                    <Image src={cardSrc} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
                       onLoad={(event) => { const image = event.currentTarget; const ratio = image.naturalWidth / image.naturalHeight;
                         if (ratio > 0) setImageRatios((current) => current[photo.src] === ratio ? current : { ...current, [photo.src]: ratio }); }}
                       loading="eager" unoptimized draggable={false} />
-                  )}
+                  ))}
                   {isFunStuff && <span className="t-tilt-glare" aria-hidden="true" />}
                   </span>
                 </motion.span>
@@ -748,7 +774,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   title={photos[selected].title} reducedMotion={!!reduceMotion}
                   onRatio={(ratio) => setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio })} />
               ) : (
-                <GalleryImage src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
+                <GalleryImage src={selectedSrc} sources={selectedImages} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
               )}
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {
@@ -774,8 +800,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 exit={{ opacity: 0, transition: { duration: 0.1 } }}
                 transition={{ top: { duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }, opacity: { delay: reduceMotion ? 0 : 0.3 } }}
                 onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
-                {photos[selected].images.map((src, index) => (
-                  <button key={src} type="button" aria-label={`Show image ${index + 1} of ${photos[selected].images.length}`}
+                {photos[selected].gallery.map(([src], index) => (
+                  <button key={src} type="button" aria-label={`Show view ${index + 1} of ${imageCount(photos[selected])}`}
                     aria-pressed={galleryIndex === index} onClick={() => setGalleryIndex(index)}>
                     {src.endsWith(".mp4") ? (
                       <video src={src} muted playsInline preload="metadata" aria-hidden="true"
@@ -805,11 +831,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 {photos[selected].link && <a className="archive-project-link body-m" href={photos[selected].link} target="_blank" rel="noreferrer">visit website</a>}
               {showGalleryDots && (
                 <motion.div className="archive-gallery-dots" role="img"
-                  aria-label={`Item ${galleryIndex + 1} of ${photos[selected].images.length}`}
+                  aria-label={`Item ${galleryIndex + 1} of ${imageCount(photos[selected])}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
-                  {photos[selected].images.map((src, index) => (
+                  {photos[selected].gallery.map(([src], index) => (
                     <span key={src} className={index === galleryIndex ? "is-active" : undefined} aria-hidden="true" />
                   ))}
                 </motion.div>

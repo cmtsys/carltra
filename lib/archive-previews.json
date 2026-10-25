@@ -1,0 +1,85 @@
+{
+  "/img/fun-stuff/scripting-in-indesign/grids.gif": {
+    "src": "/img/fun-stuff/scripting-in-indesign/previews/grids.gif",
+    "width": 600,
+    "height": 851,
+    "poster": "/img/fun-stuff/scripting-in-indesign/previews/grids.jpg"
+  },
+  "/img/fun-stuff/website-for-rosa-collective/rosa.mp4": {
+    "src": "/img/fun-stuff/website-for-rosa-collective/previews/rosa.mp4",
+    "width": 1920,
+    "height": 1080,
+    "poster": "/img/fun-stuff/website-for-rosa-collective/previews/rosa.jpg"
+  },
+  "/img/fun-stuff/stomata/Stomata-video.mp4": {
+    "src": "/img/fun-stuff/stomata/previews/Stomata-video.mp4",
+    "width": 924,
+    "height": 1824,
+    "poster": "/img/fun-stuff/stomata/previews/Stomata-video.jpg"
+  },
+  "/img/fun-stuff/posters/Il dolce far niente1.png": {
+    "src": "/img/fun-stuff/posters/previews/Il dolce far niente1.webp",
+    "width": 1181,
+    "height": 1575
+  },
+  "/img/fun-stuff/posters/Il dolce far niente2.png": {
+    "src": "/img/fun-stuff/posters/previews/Il dolce far niente2.webp",
+    "width": 1181,
+    "height": 1575
+  },
+  "/img/fun-stuff/posters/Il dolce far niente3.png": {
+    "src": "/img/fun-stuff/posters/previews/Il dolce far niente3.webp",
+    "width": 1772,
+    "height": 2362
+  },
+  "/img/fun-stuff/error-445/01.gif": {
+    "src": "/img/fun-stuff/error-445/previews/01.gif",
+    "width": 400,
+    "height": 400,
+    "poster": "/img/fun-stuff/error-445/previews/01.jpg"
+  },
+  "/img/fun-stuff/experimental-type/02.png": {
+    "src": "/img/fun-stuff/experimental-type/previews/02.webp",
+    "width": 1556,
+    "height": 954
+  },
+  "/img/fun-stuff/abstract-weather/abstract-weather-2x.gif": {
+    "src": "/img/fun-stuff/abstract-weather/previews/abstract-weather-2x.gif",
+    "width": 600,
+    "height": 341,
+    "poster": "/img/fun-stuff/abstract-weather/previews/abstract-weather-2x.jpg"
+  },
+  "/img/fun-stuff/face-tracking/face-tracking.gif": {
+    "src": "/img/fun-stuff/face-tracking/previews/face-tracking.gif",
+    "width": 600,
+    "height": 374,
+    "poster": "/img/fun-stuff/face-tracking/previews/face-tracking.jpg"
+  },
+  "/img/fun-stuff/variable-type/var-font.gif": {
+    "src": "/img/fun-stuff/variable-type/previews/var-font.gif",
+    "width": 600,
+    "height": 398,
+    "poster": "/img/fun-stuff/variable-type/previews/var-font.jpg"
+  },
+  "/img/fun-stuff/action/0.mp4": {
+    "src": "/img/fun-stuff/action/previews/0.mp4",
+    "width": 1280,
+    "height": 720,
+    "poster": "/img/fun-stuff/action/previews/0.jpg"
+  },
+  "/img/fun-stuff/accidental-exposures/4.jpg": {
+    "src": "/img/fun-stuff/accidental-exposures/previews/4.webp",
+    "width": 2211,
+    "height": 3448
+  },
+  "/img/fun-stuff/ruter-zine/1.jpg": {
+    "src": "/img/fun-stuff/ruter-zine/previews/1.webp",
+    "width": 6000,
+    "height": 4000
+  },
+  "/img/fun-stuff/cmyk-prints/02.jpg": {
+    "src": "/img/fun-stuff/cmyk-prints/previews/02.webp",
+    "width": 3024,
+    "height": 4032
+  }
+}
