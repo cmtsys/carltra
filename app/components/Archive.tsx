@@ -383,12 +383,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     stageRef.current?.focus({ preventScroll: true });
   };
 
-  const browseImage = (direction: number) => {
-    if (selected === null) return;
-    const count = photos[selected].images.length;
-    setGalleryIndex((index) => (index + direction + count) % count);
-  };
-
   const browseSequence = (direction: number) => {
     const project = selectedRef.current;
     if (project === null) {
@@ -412,6 +406,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       if (target.closest("input, textarea, select, [contenteditable='true'], video, a, .hamburger")) return;
       event.preventDefault();
       const direction = event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 1;
+      if (target.closest(".archive-image-navigation")) {
+        stageRef.current?.focus({ preventScroll: true });
+      }
       browseSequence(direction);
     };
     window.addEventListener("keydown", navigate);
@@ -481,12 +478,16 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const selectedRow = selected !== null && photos[selected].mediaLayout === "row";
   const showThumbnails = !isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
-  const galleryHeight = showThumbnails ? 72 : showGalleryDots ? 32 : 0;
+  const galleryHeight = showThumbnails ? 72 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width - 40 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(340, stageSize.height * 0.42, stageSize.height - 300)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
-  const mediaWidth = Math.min(maxWidth, maxHeight * selectedRatio);
-  const mediaHeight = mediaWidth / selectedRatio;
+  // The gallery keeps one frame; individual media contain their natural proportions.
+  const mediaWidth = maxWidth;
+  const mediaHeight = maxHeight;
+  const fittedWidth = Math.min(mediaWidth, mediaHeight * selectedRatio);
+  const fittedHeight = fittedWidth / selectedRatio;
+  const openingScale = origin.width / fittedWidth;
   const textWidth = compact ? Math.min(300, stageSize.width - 48) : Math.min(310, stageSize.width * 0.28);
   const gap = compact ? 24 : 48;
   const slotLeft = compact ? (stageSize.width - maxWidth) / 2 : (stageSize.width - maxWidth - gap - textWidth) / 2;
@@ -507,7 +508,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
       aria-hidden={selected !== null ? true : undefined}
       style={isFunStuff ? { y: introStreamY } : undefined}>
-      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
+      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of fun, wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
       {isFunStuff && !compact && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
@@ -707,17 +708,17 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
             <div className="archive-feature-media-slot">
             <motion.div className="archive-feature-media" initial={reduceMotion ? false : {
                 ...featureBounds,
-                x: origin.left - featureBounds.left,
-                y: origin.top - featureBounds.top,
-                scaleX: origin.width / featureBounds.width,
-                scaleY: origin.height / featureBounds.height,
+                x: origin.left - featureBounds.left - (mediaWidth - fittedWidth) / 2 * openingScale,
+                y: origin.top - featureBounds.top - (mediaHeight - fittedHeight) / 2 * openingScale,
+                scaleX: openingScale,
+                scaleY: openingScale,
               }}
               animate={{ ...featureBounds, x: 0, y: 0, scaleX: 1, scaleY: 1 }}
               style={{ transformOrigin: "0 0" }}
               transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
               onPointerDown={(event) => {
                 event.stopPropagation();
-                if (isFunStuff && event.pointerType === "touch" && !selectedSrc.endsWith(".mp4")) {
+                if (isFunStuff && event.pointerType === "touch") {
                   gallerySwipe.current = { x: event.clientX, y: event.clientY };
                   suppressGalleryClick.current = false;
                 }
@@ -740,8 +741,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 }
               }}
               onClick={(event) => event.stopPropagation()}>
+              <AnimatePresence initial={false}>
+                <motion.div key={selectedSrc} className="archive-gallery-frame"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
               {selectedRow ? <PosterRow images={photos[selected].images} title={photos[selected].title} /> : selectedSrc.endsWith(".mp4") ? (
-                <video key={selectedSrc} src={selectedSrc} poster={photos[selected].videoPoster} preload={compact ? "none" : "metadata"} muted playsInline loop autoPlay={!compact && !reduceMotion} controls aria-label={photos[selected].title}
+                <video key={selectedSrc} src={selectedSrc} poster={photos[selected].videoPoster} preload={compact ? "none" : "metadata"} muted playsInline loop autoPlay={!reduceMotion} aria-label={photos[selected].title}
                   onLoadedMetadata={(event) => {
                     const video = event.currentTarget;
                     const ratio = video.videoWidth / video.videoHeight;
@@ -755,34 +760,22 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                     if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
                   }} />
               )}
-              {!selectedSrc.endsWith(".mp4") && imageCount(photos[selected]) > 1 && (
+                </motion.div>
+              </AnimatePresence>
+              {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {
                   if (isFunStuff) return;
                   if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                     event.preventDefault(); event.stopPropagation();
-                    browseImage(event.key === "ArrowLeft" ? -1 : 1);
+                    browseSequence(event.key === "ArrowLeft" ? -1 : 1);
                   }
                 }}>
-                  <button type="button" className="archive-image-previous" aria-label="Previous image" onClick={() => isFunStuff ? browseSequence(-1) : browseImage(-1)}><span aria-hidden="true">←</span></button>
-                  <button type="button" className="archive-image-next" aria-label="Next image" onClick={() => isFunStuff ? browseSequence(1) : browseImage(1)}><span aria-hidden="true">→</span></button>
+                  <button type="button" className="archive-image-previous" aria-label={galleryIndex > 0 ? "Previous image" : "Previous project"} onClick={() => browseSequence(-1)}><span aria-hidden="true">←</span></button>
+                  <button type="button" className="archive-image-next" aria-label={galleryIndex < imageCount(photos[selected]) - 1 ? "Next image" : "Next project"} onClick={() => browseSequence(1)}><span aria-hidden="true">→</span></button>
                 </div>
               )}
-              {isFunStuff && compact && selectedSrc.endsWith(".mp4") && (
-                <div className="archive-mobile-video-navigation" role="group" aria-label="Gallery navigation">
-                  <button type="button" aria-label="Previous gallery item" onClick={() => browseSequence(-1)}>←</button>
-                  <button type="button" aria-label="Next gallery item" onClick={() => browseSequence(1)}>→</button>
-                </div>
-              )}
-              {showGalleryDots && (
-                <motion.div className="archive-gallery-dots" role="img"
-                  aria-label={`Item ${galleryIndex + 1} of ${photos[selected].images.length}`}
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  transition={{ duration: reduceMotion ? 0 : 0.2 }}>
-                  {photos[selected].images.map((src, index) => (
-                    <span key={src} className={index === galleryIndex ? "is-active" : undefined} aria-hidden="true" />
-                  ))}
-                </motion.div>
-              )}
+
+
             </motion.div>
             </div>
             {showThumbnails && (
@@ -825,6 +818,17 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 <p className="body-m">{photos[selected].description}</p>
                 {photos[selected].year && <p className="archive-project-year smallcase">{photos[selected].year}</p>}
                 {photos[selected].link && <a className="archive-project-link body-m" href={photos[selected].link} target="_blank" rel="noreferrer">visit website</a>}
+              {showGalleryDots && (
+                <motion.div className="archive-gallery-dots" role="img"
+                  aria-label={`Item ${galleryIndex + 1} of ${photos[selected].images.length}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
+                  {photos[selected].images.map((src, index) => (
+                    <span key={src} className={index === galleryIndex ? "is-active" : undefined} aria-hidden="true" />
+                  ))}
+                </motion.div>
+              )}
               </motion.div>
             </motion.aside>
           </motion.div>
