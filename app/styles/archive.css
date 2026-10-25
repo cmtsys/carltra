@@ -483,3 +483,13 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 
 /* Crossfade inside a fixed gallery frame without moving the copy or dots. */
 .archive-gallery-frame { position: absolute; inset: 0; }
+
+.archive-video-play {
+  position: absolute;
+  left: 50%; top: 50%; translate: -50% -50%;
+  z-index: 2;
+  border: 0; padding: 12px 20px;
+  background: rgb(252 252 252 / .9);
+  color: var(--text-strongest); font: inherit;
+  cursor: pointer;
+}

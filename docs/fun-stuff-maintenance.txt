@@ -34,4 +34,17 @@ Suggested future refactor:
 Mobile video covers
 - videoPoster in lib/archive.ts points to cover.jpg beside each MP4 (Action, Stomata, Rosa).
 - These JPEGs are frames extracted at 2 seconds from the original videos; original media is unchanged.
-- Mobile stream cards render the JPEG instead of mounting a video. Opened videos show the poster and load on play (preload=none, no autoplay). Error 445 keeps its GIF.
+- Mobile stream cards render the JPEG instead of mounting a video. Opened videos request muted inline playback with metadata preload; a small play fallback appears if autoplay is blocked. Error 445 keeps its GIF.
+
+FOLLOW-UPS — REVIEW BEFORE MERGING
+- Rework all Fun stuff descriptions against Carl’s original wording and voice.
+- Experimental type: crop 06.JPG (second-to-last gallery image).
+- CMYK prints: trim the animation (0.gif); confirm the intended trim points before editing.
+- Recheck image switching and video playback on an actual iPhone.
+
+Latest content decisions
+- Bike parade removed from the gallery; original files retained.
+- Accidental Exposures starts with 4.jpg; Experimental type with 02.png.
+- CMYK prints starts with its third gallery item, 02.jpg (there is no 03 file).
+- Rosa, Stomata, Posters, Error 445 appear near the start, in that order. CMYK prints is last, after Ruter zine.
+- Abstract weather uses abstract-weather-2x.gif, generated at 2x speed from the preserved original.

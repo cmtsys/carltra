@@ -7,6 +7,8 @@
 
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 import Image from "next/image";
+import GalleryImage from "./GalleryImage";
+import GalleryVideo from "./GalleryVideo";
 import { archiveProjects } from "../../lib/archive";
 import { AnimatePresence, motion, useAnimationFrame, useMotionTemplate, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 
@@ -480,8 +482,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const galleryHeight = showThumbnails ? 72 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
-  const maxWidth = compact ? stageSize.width - 40 : Math.min(600, stageSize.width * 0.48);
-  const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(340, stageSize.height * 0.42, stageSize.height - 300)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
+  const maxWidth = compact ? stageSize.width - 32 : Math.min(600, stageSize.width * 0.48);
+  const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(370, stageSize.height * 0.46, stageSize.height - 280)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   // The gallery keeps one frame; individual media contain their natural proportions.
   const mediaWidth = maxWidth;
   const mediaHeight = maxHeight;
@@ -499,7 +501,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     top: compact ? (isFunStuff ? featureTop + mediaHeight + galleryHeight + 48 : slotTop + maxHeight + galleryHeight + gap + 24) : slotTop + maxHeight / 2,
     width: textWidth };
 
-  const cardWidth = isFunStuff ? (compact ? clamp(stageSize.width * 0.46, 130, 190) : clamp(stageSize.width * 0.24, 110, 245)) : clamp(radius * 0.35, 36, 150);
+  const cardWidth = isFunStuff ? (compact ? clamp(stageSize.width * 0.50, 142, 208) : clamp(stageSize.width * 0.24, 110, 245)) : clamp(radius * 0.35, 36, 150);
 
   return (
     <>
@@ -687,7 +689,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
             <p className="body-l">You have reached the end.</p>
             <motion.button type="button" className="body-l underline-link"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 1.45 }}
+              transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 0.75 }}
               onClick={(event) => {
               event.stopPropagation();
               trackRef.current?.scrollTo({ top: 0, behavior: reduceMotion ? "instant" : "smooth" });
@@ -741,27 +743,13 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 }
               }}
               onClick={(event) => event.stopPropagation()}>
-              <AnimatePresence initial={false}>
-                <motion.div key={selectedSrc} className="archive-gallery-frame"
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
               {selectedRow ? <PosterRow images={photos[selected].images} title={photos[selected].title} /> : selectedSrc.endsWith(".mp4") ? (
-                <video key={selectedSrc} src={selectedSrc} poster={photos[selected].videoPoster} preload={compact ? "none" : "metadata"} muted playsInline loop autoPlay={!reduceMotion} aria-label={photos[selected].title}
-                  onLoadedMetadata={(event) => {
-                    const video = event.currentTarget;
-                    const ratio = video.videoWidth / video.videoHeight;
-                    if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
-                  }} />
+                <GalleryVideo key={selectedSrc} src={selectedSrc} poster={photos[selected].videoPoster}
+                  title={photos[selected].title} reducedMotion={!!reduceMotion}
+                  onRatio={(ratio) => setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio })} />
               ) : (
-                <Image key={selectedSrc} src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} width={1000} height={1000 / selectedRatio} unoptimized loading="eager"
-                  onLoad={(event) => {
-                    const image = event.currentTarget;
-                    const ratio = image.naturalWidth / image.naturalHeight;
-                    if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
-                  }} />
+                <GalleryImage src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
               )}
-                </motion.div>
-              </AnimatePresence>
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {
                   if (isFunStuff) return;

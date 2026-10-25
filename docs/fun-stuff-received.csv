@@ -12,10 +12,10 @@ Action,public/img/fun-stuff/action/0.mp4,integrated,8667377,Used in local galler
 Action,public/img/fun-stuff/action/01.jpg,integrated,1537331,Used in local gallery.
 Action,public/img/fun-stuff/action/02.png,integrated,4118768,Used in local gallery.
 Action,public/img/fun-stuff/action/03.JPG,integrated,1309853,Used in local gallery.
-Bike parade,public/img/fun-stuff/bike_parade/bike.jpg,integrated,1364944,Used in local gallery.
-Bike parade,public/img/fun-stuff/bike_parade/boys.jpg,integrated,1312648,Used in local gallery.
-Bike parade,public/img/fun-stuff/bike_parade/ulrik.gif,integrated,4679550,Used in local gallery.
-Bike parade,public/img/fun-stuff/bike_parade/weld.jpg,integrated,1289903,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/bike.jpg,retained-unused,1364944,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/boys.jpg,retained-unused,1312648,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/ulrik.gif,retained-unused,4679550,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/weld.jpg,retained-unused,1289903,Used in local gallery.
 CMYK prints,public/img/fun-stuff/cmyk-prints/0.gif,integrated,7905314,Used in local gallery.
 CMYK prints,public/img/fun-stuff/cmyk-prints/01.jpg,integrated,1339908,Used in local gallery.
 CMYK prints,public/img/fun-stuff/cmyk-prints/02.jpg,integrated,1396803,Used in local gallery.
@@ -82,3 +82,4 @@ Website for Rosa Collective,public/img/fun-stuff/website-for-rosa-collective/ros
 Action,public/img/fun-stuff/action/cover.jpg,generated,32432,Static mobile cover extracted from original video at 2 seconds.
 Stomata,public/img/fun-stuff/stomata/cover.jpg,generated,364085,Static mobile cover extracted from original video at 2 seconds.
 Website for Rosa Collective,public/img/fun-stuff/website-for-rosa-collective/cover.jpg,generated,37428,Static mobile cover extracted from original video at 2 seconds.
+Abstract weather,public/img/fun-stuff/abstract-weather/abstract-weather-2x.gif,generated,228244,2x speed derivative; original retained.
