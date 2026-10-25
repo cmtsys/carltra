@@ -78,6 +78,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const smoothPitch = useSpring(pitch, { stiffness: 115, damping: 24 });
   const sphereTransform = useMotionTemplate`scale(${smoothZoom}) rotateX(${smoothPitch}deg) rotateY(${smoothYaw}deg)`;
   const drag = useRef<DragState | null>(null);
+  const streamTouch = useRef<{ x: number; y: number } | null>(null);
   const gallerySwipe = useRef<{ x: number; y: number } | null>(null);
   const suppressGalleryClick = useRef(false);
   const ignoreClick = useRef(false);
@@ -159,7 +160,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       setAtStreamEnd(distance >= PHOTO_COUNT * streamStep - 80);
       hoveredPhoto.current = null;
       const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
-      setHovered(focused >= 0 ? focused : null);
+      setHovered(stageRef.current && stageRef.current.clientWidth < 700 && distance > 40 && distance < PHOTO_COUNT * streamStep - 80
+        ? clamp(Math.round(distance / streamStep), 0, PHOTO_COUNT - 1)
+        : focused >= 0 ? focused : null);
     };
     update();
     track.addEventListener("scroll", update, { passive: true });
@@ -248,10 +251,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         const frame = stage.getBoundingClientRect();
         const alignRight = bounds.left + bounds.width / 2 > frame.left + frame.width / 2;
         const room = alignRight ? bounds.left - frame.left - 32 : frame.right - bounds.right - 32;
-        label.style.maxWidth = `${Math.max(80, Math.min(260, room))}px`;
-        const left = alignRight ? bounds.left - frame.left - label.offsetWidth - 20 : bounds.right - frame.left + 20;
+        const mobile = frame.width < 700;
+        label.style.maxWidth = `${mobile ? Math.min(bounds.width, frame.width - 24) : Math.max(80, Math.min(260, room))}px`;
+        const left = mobile ? bounds.left - frame.left : alignRight ? bounds.left - frame.left - label.offsetWidth - 20 : bounds.right - frame.left + 20;
         label.style.left = `${clamp(left, 12, Math.max(12, frame.width - label.offsetWidth - 12))}px`;
-        label.style.top = `${Math.max(12, bounds.top - frame.top + 12)}px`;
+        label.style.top = `${Math.max(12, bounds.top - frame.top + (mobile ? -label.offsetHeight - 12 : 12))}px`;
         label.style.visibility = "visible";
       }
       return;
@@ -446,18 +450,18 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const galleryHeight = showThumbnails ? 72 : showGalleryDots ? 32 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width - 40 : Math.min(600, stageSize.width * 0.48);
-  const maxHeight = compact ? (isFunStuff ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
+  const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(340, stageSize.height * 0.42, stageSize.height - 300)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   const mediaWidth = Math.min(maxWidth, maxHeight * selectedRatio);
   const mediaHeight = mediaWidth / selectedRatio;
   const textWidth = compact ? Math.min(300, stageSize.width - 48) : Math.min(310, stageSize.width * 0.28);
   const gap = compact ? 24 : 48;
   const slotLeft = compact ? (stageSize.width - maxWidth) / 2 : (stageSize.width - maxWidth - gap - textWidth) / 2;
   const featureLeft = slotLeft + (maxWidth - mediaWidth) / 2;
-  const slotTop = compact ? 56 : (stageSize.height - maxHeight - galleryHeight) / 2;
-  const featureTop = slotTop + (maxHeight - mediaHeight) / 2;
+  const slotTop = compact ? (isFunStuff ? 24 : 56) : (stageSize.height - maxHeight - galleryHeight) / 2;
+  const featureTop = compact && isFunStuff ? slotTop : slotTop + (maxHeight - mediaHeight) / 2;
   const featureBounds = { left: featureLeft, top: featureTop, width: mediaWidth, height: mediaHeight };
   const captionPosition = { left: compact ? (stageSize.width - textWidth) / 2 : slotLeft + maxWidth + gap,
-    top: compact ? slotTop + maxHeight + galleryHeight + gap + 24 : slotTop + maxHeight / 2,
+    top: compact ? (isFunStuff ? featureTop + mediaHeight + galleryHeight + 48 : slotTop + maxHeight + galleryHeight + gap + 24) : slotTop + maxHeight / 2,
     width: textWidth };
 
   const cardWidth = isFunStuff ? (compact ? clamp(stageSize.width * 0.46, 130, 190) : clamp(stageSize.width * 0.24, 110, 245)) : clamp(radius * 0.35, 36, 150);
@@ -470,7 +474,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       aria-hidden={selected !== null ? true : undefined}
       style={isFunStuff ? { y: introStreamY } : undefined}>
       <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
-      {isFunStuff && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>{compact ? "scroll to explore · tap to open" : "scroll or use arrows to navigate"}</span></motion.p>}
+      {isFunStuff && !compact && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
     <section
@@ -478,6 +482,25 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       className={`archive-sphere-screen${isFunStuff ? " archive-fun-stuff-screen" : ""}`}
       aria-label={isFunStuff ? "Floating project stream. Scroll or drag to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
       tabIndex={0}
+      onTouchStartCapture={(event) => {
+        if (isFunStuff && compact && event.touches.length === 1) {
+          streamTouch.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        }
+      }}
+      onTouchMoveCapture={(event) => {
+        const start = streamTouch.current;
+        if (!start || event.touches.length !== 1) return;
+        const dx = event.touches[0].clientX - start.x;
+        const dy = event.touches[0].clientY - start.y;
+        if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx) * 1.2) {
+          // Let the same native scroll gesture continue through the stream.
+          clearSelection();
+          gallerySwipe.current = null;
+          streamTouch.current = null;
+        }
+      }}
+      onTouchEndCapture={() => { streamTouch.current = null; }}
+      onTouchCancelCapture={() => { streamTouch.current = null; }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
@@ -636,11 +659,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
             } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
-            {isFunStuff && compact && <div className="archive-mobile-toolbar">
-              <span className="body-s">{selectedSrc.endsWith(".mp4") ? "scroll to read" : "swipe image to explore"}</span>
-              <button type="button" onClick={clearSelection} aria-label="Close project details">close ×</button>
-            </div>}
-            <div className="archive-feature-media-slot" style={compact && isFunStuff ? { height: mediaHeight + (showGalleryDots ? 32 : 0) } : undefined}>
+            <div className="archive-feature-media-slot">
             <motion.div className="archive-feature-media" initial={reduceMotion ? false : origin}
               animate={featureBounds}
               style={{ transformOrigin: "0 0" }}
@@ -697,6 +716,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   <button type="button" className="archive-image-next" aria-label="Next image" onClick={() => isFunStuff ? browseSequence(1) : browseImage(1)}><span aria-hidden="true">→</span></button>
                 </div>
               )}
+              {isFunStuff && compact && selectedSrc.endsWith(".mp4") && (
+                <div className="archive-mobile-video-navigation" role="group" aria-label="Gallery navigation">
+                  <button type="button" aria-label="Previous gallery item" onClick={() => browseSequence(-1)}>←</button>
+                  <button type="button" aria-label="Next gallery item" onClick={() => browseSequence(1)}>→</button>
+                </div>
+              )}
               {showGalleryDots && (
                 <motion.div className="archive-gallery-dots" role="img"
                   aria-label={`Item ${galleryIndex + 1} of ${photos[selected].images.length}`}
@@ -709,12 +734,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               )}
             </motion.div>
             </div>
-            {isFunStuff && compact && selectedSrc.endsWith(".mp4") && (
-              <div className="archive-mobile-video-navigation" role="group" aria-label="Gallery navigation">
-                <button type="button" aria-label="Previous gallery item" onClick={() => browseSequence(-1)}>←</button>
-                <button type="button" aria-label="Next gallery item" onClick={() => browseSequence(1)}>→</button>
-              </div>
-            )}
             {showThumbnails && (
               <motion.div className="archive-feature-gallery" role="group" aria-label="Project gallery"
                 style={{ left: slotLeft, width: maxWidth }}
@@ -748,9 +767,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
               <motion.div className="archive-sphere-caption-backdrop" aria-hidden="true" variants={captionFade} transition={{ duration: 0.25 }} />
               <motion.div variants={captionFade} transition={{ duration: reduceMotion ? 0 : 0.25, delay: reduceMotion ? 0 : 0.15 }}>
-                {!(isFunStuff && compact) && <div className="archive-sphere-caption-meta smallcase">
+                <div className="archive-sphere-caption-meta smallcase">
                   <button type="button" onClick={clearSelection} aria-label="Close project details">close ×</button>
-                </div>}
+                </div>
                 <h2 className="body-l">{photos[selected].title}</h2>
                 <p className="body-m">{photos[selected].description}</p>
                 {photos[selected].year && <p className="archive-project-year smallcase">{photos[selected].year}</p>}

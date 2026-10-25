@@ -365,74 +365,21 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   text-shadow: 0 1px 12px var(--background);
 }
 @media (max-width: 699px) {
-  .archive-fun-stuff-screen .archive-feature { overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; pointer-events: auto; }
   body:has(.archive-fun-stuff-track) .page > footer { display: none; }
-  .archive-fun-stuff-screen .archive-feature {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 0 20px max(32px, env(safe-area-inset-bottom));
-    background: rgb(252 252 252 / .96);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-  .archive-fun-stuff-screen .archive-feature-media {
-    position: relative;
-    left: auto !important;
-    top: auto !important;
-    flex-shrink: 0;
-    align-self: flex-start;
-  }
-  .archive-fun-stuff-screen .archive-feature-gallery {
-    position: relative;
-    left: auto !important;
-    top: auto !important;
-    width: 100% !important;
-    flex-shrink: 0;
-    padding-block: 4px;
-  }
-  .archive-fun-stuff-screen .archive-sphere-caption {
-    position: relative;
-    left: auto !important;
-    top: auto !important;
-    width: 100% !important;
-    flex-shrink: 0;
-    padding-top: 16px;
-  }
-  .archive-fun-stuff-screen .archive-sphere-caption-meta { top: 0; }
-  .archive-fun-stuff-screen .archive-sphere-caption-backdrop { display: none; }
-  .archive-mobile-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 48px;
-    flex-shrink: 0;
-    background: var(--background);
-  }
-  .archive-mobile-toolbar span { color: var(--text-primary); }
-  .archive-mobile-toolbar button {
-    min-width: 64px;
-    min-height: 44px;
-    border: 0;
-    background: none;
-    font: inherit;
-    color: var(--text-strong);
-  }
-  .archive-mobile-video-navigation { display: flex; justify-content: space-between; }
-  .archive-mobile-video-navigation button {
-    width: 44px;
-    height: 44px;
-    border: 0;
-    background: none;
-    color: var(--text-strong);
-    font: inherit;
-  }
+  /* Keep the open project in the scene, so a swipe scrolls the original track. */
   .archive-fun-stuff-screen .archive-feature-media { touch-action: pan-y pinch-zoom; }
-  .archive-fun-stuff-title { display: none; }
-
+  .archive-fun-stuff-screen .archive-sphere-caption .body-m,
+  .archive-fun-stuff-screen .archive-sphere-caption h2 { font-size: 15px; line-height: 1.45; }
+  .archive-fun-stuff-screen .archive-sphere-caption-meta button { min-height: 44px; }
+  .archive-fun-stuff-screen .archive-sphere-caption .archive-project-year { margin-top: 8px; }
+  .archive-mobile-video-navigation {
+    position: absolute; top: 100%; width: 100%;
+    display: flex; justify-content: space-between;
+  }
+  .archive-mobile-video-navigation button {
+    width: 44px; height: 44px; border: 0; background: none;
+    color: var(--text-strong); font: inherit;
+  }
 }
 
 /* Transitions.dev card hover tilt. The button remains the stable hit area. */
@@ -500,20 +447,6 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 .archive-fun-stuff-end .underline-link::after { bottom: 5px; }
 
 .archive-feature-media-slot { display: contents; }
-@media (max-width: 699px) {
-  .archive-fun-stuff-screen .archive-feature-media-slot {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 100%;
-    transition: height 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .archive-fun-stuff-screen .archive-feature-media-slot { transition: none; }
-}
-
 .archive-sphere-caption h2,
 .archive-fun-stuff-title {
   font-family: 'ABC Diatype', sans-serif;
@@ -565,3 +498,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 .archive-poster-row img { min-width: 0; object-fit: contain; }
 .archive-sphere-photo:has(.archive-poster-row) .archive-sphere-photo-inner,
 .archive-sphere-photo:has(.archive-poster-row) .t-tilt-card { background: transparent; }
+
+@media (max-width: 699px) {
+  .archive-fun-stuff-title { font-size: 16px; line-height: 1.2; }
+}
