@@ -811,9 +811,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
               <motion.div className="archive-sphere-caption-backdrop" aria-hidden="true" variants={captionFade} transition={{ duration: 0.25 }} />
               <motion.div variants={captionFade} transition={{ duration: reduceMotion ? 0 : 0.25, delay: reduceMotion ? 0 : 0.15 }}>
-                <div className="archive-sphere-caption-meta smallcase">
-                  <button type="button" onClick={clearSelection} aria-label="Close project details">close ×</button>
-                </div>
                 <h2 className="body-l">{photos[selected].title}</h2>
                 <p className="body-m">{photos[selected].description}</p>
                 {photos[selected].year && <p className="archive-project-year smallcase">{photos[selected].year}</p>}

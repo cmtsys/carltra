@@ -147,34 +147,9 @@ body:has(.archive-sphere-screen) .page > footer {
   line-height: 1.5;
 }
 
-.archive-sphere-caption-meta {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-m);
-  margin-bottom: var(--space-s);
-  color: var(--text-strong);
-  font-size: var(--text-xs);
-}
 
-.archive-sphere-caption-meta button {
-  border: 0;
-  background: none;
-  padding: 4px;
-  margin: -4px;
-  color: inherit;
-  font-size: inherit;
-  cursor: pointer;
-}
 
-.archive-sphere-caption-meta button:hover {
-  color: var(--text-strongest);
-}
 
-.archive-sphere-caption-meta button:focus-visible {
-  outline: 1px solid currentColor;
-  outline-offset: 3px;
-}
 
 @media (max-width: 600px) {
   .archive-sphere-scene { perspective: 850px;  }
@@ -265,12 +240,6 @@ body:has(.archive-sphere-screen) .page > footer {
   color: var(--text-strongest);
 }
 .archive-intro p { margin: 0 auto; max-width: 40ch; color: var(--text-strong); }
-.archive-sphere-caption-meta {
-  position: absolute;
-  top: -32px;
-  right: 0;
-  margin: 0;
-}
 @media (max-width: 699px) {
   .archive-intro { padding: 24px 16px 16px; }
   .archive-sphere-screen { height: 560px; min-height: 560px; }
@@ -354,7 +323,6 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   .archive-fun-stuff-screen .archive-feature-media { touch-action: pan-y pinch-zoom; }
   .archive-fun-stuff-screen .archive-sphere-caption .body-m,
   .archive-fun-stuff-screen .archive-sphere-caption h2 { font-size: 15px; line-height: 1.45; }
-  .archive-fun-stuff-screen .archive-sphere-caption-meta button { min-height: 44px; }
   .archive-fun-stuff-screen .archive-sphere-caption .archive-project-year { margin-top: 8px; }
   .archive-mobile-video-navigation {
     position: absolute; top: 100%; width: 100%;
@@ -509,7 +477,6 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 
 @media (max-width: 699px) {
   .archive-fun-stuff-title { font-size: 16px; line-height: 1.2; }
-  .archive-sphere-caption-meta,
   .archive-mobile-video-navigation,
   .archive-image-navigation button span { display: none; }
 }
