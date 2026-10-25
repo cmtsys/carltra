@@ -417,6 +417,13 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   transition: opacity 300ms var(--tilt-ease);
 }
 .t-tilt.is-hover .t-tilt-glare { opacity: var(--tilt-glare-opacity); }
+@media (min-width: 700px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .archive-fun-stuff-screen .t-tilt-card {
+    scale: 1;
+    transition: transform var(--tilt-return) var(--tilt-ease), scale 220ms var(--tilt-ease);
+  }
+  .archive-fun-stuff-screen .t-tilt:hover .t-tilt-card { scale: 1.025; }
+}
 @media (prefers-reduced-motion: reduce) {
   .t-tilt-card { transform: none !important; transition: none !important; }
   .t-tilt-glare { display: none; }
@@ -518,4 +525,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 
 @media (max-width: 699px) {
   .archive-fun-stuff-title { font-size: 16px; line-height: 1.2; }
+  .archive-sphere-caption-meta,
+  .archive-mobile-video-navigation,
+  .archive-image-navigation button span { display: none; }
 }
