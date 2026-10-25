@@ -25,6 +25,7 @@ return (
           <Image
             src={project.image}
             alt={project.title}
+            unoptimized={project.image.toLowerCase().endsWith(".gif")}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
           />

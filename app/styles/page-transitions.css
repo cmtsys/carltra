@@ -1,4 +1,4 @@
-/* Paired with components/PageTransition.tsx and experimental.viewTransition.
+/* Paired with components/PageTransition.tsx; no Next.js config flag is needed.
    The browser captures the old and new page content during navigation.
    These rules fade those snapshots without moving the header or footer. */
 

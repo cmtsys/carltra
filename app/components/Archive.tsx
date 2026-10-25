@@ -111,6 +111,26 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
   }, []);
 
+  // Warm adjacent images and measure them before their frames animate into view.
+  useEffect(() => {
+    if (selected === null) return;
+    let cancelled = false;
+    const images = photos[selected].images;
+    const adjacent = [galleryIndex - 1, galleryIndex + 1]
+      .map((index) => images[(index + images.length) % images.length])
+      .filter((src) => !src.endsWith(".mp4"));
+    adjacent.forEach((src) => {
+      const image = new window.Image();
+      image.onload = () => {
+        if (cancelled) return;
+        const ratio = image.naturalWidth / image.naturalHeight;
+        if (ratio > 0) setImageRatios((current) => current[src] === ratio ? current : { ...current, [src]: ratio });
+      };
+      image.src = src;
+    });
+    return () => { cancelled = true; };
+  }, [selected, galleryIndex]);
+
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
@@ -418,7 +438,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const compact = stageSize.width < 700;
   const selectedSrc = selected === null ? "" : photos[selected].images[galleryIndex];
   const selectedRow = selected !== null && photos[selected].mediaLayout === "row";
-  const galleryHeight = selected !== null && imageCount(photos[selected]) > 1 ? 72 : 0;
+  const showThumbnails = !isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
+  const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
+  const galleryHeight = showThumbnails ? 72 : showGalleryDots ? 32 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width * 0.82 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
@@ -444,7 +466,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
       aria-hidden={selected !== null ? true : undefined}
       style={isFunStuff ? { y: introStreamY } : undefined}>
-      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd and/or unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
+      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
       {isFunStuff && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
@@ -591,17 +613,24 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           <motion.div className="archive-fun-stuff-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.2 }} onPointerDown={(event) => event.stopPropagation()}>
             <p className="body-l">You have reached the end.</p>
-            <button type="button" className="body-l underline-link" onClick={(event) => {
+            <motion.button type="button" className="body-l underline-link"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ duration: reduceMotion ? 0 : 0.9, delay: reduceMotion ? 0 : 1.45 }}
+              onClick={(event) => {
               event.stopPropagation();
               trackRef.current?.scrollTo({ top: 0, behavior: reduceMotion ? "instant" : "smooth" });
               stageRef.current?.focus({ preventScroll: true });
-            }}>Go back up?</button>
+            }}>Go back up?</motion.button>
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
+      <AnimatePresence custom={returning !== null} onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
         {selected !== null && (
-          <motion.div key={selected} className="archive-feature" exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0 : 0.1, delay: reduceMotion ? 0 : 0.3 }}
+          <motion.div key={selected} className="archive-feature" exit="exit"
+            variants={{ exit: (isReturning: boolean) => ({ opacity: 0, transition: {
+              duration: reduceMotion ? 0 : 0.12,
+              delay: !reduceMotion && isReturning ? 0.28 : 0,
+            } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
             <div className="archive-feature-media-slot" style={compact && isFunStuff ? { height: maxHeight } : undefined}>
@@ -618,7 +647,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                     if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
                   }} />
               ) : (
-                <Image src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} width={1000} height={1000 / selectedRatio} unoptimized
+                <Image key={selectedSrc} src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} width={1000} height={1000 / selectedRatio} unoptimized loading="eager"
                   onLoad={(event) => {
                     const image = event.currentTarget;
                     const ratio = image.naturalWidth / image.naturalHeight;
@@ -637,9 +666,19 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   <button type="button" className="archive-image-next" aria-label="Next image" onClick={() => browseImage(1)}><span aria-hidden="true">→</span></button>
                 </div>
               )}
+              {showGalleryDots && (
+                <motion.div className="archive-gallery-dots" role="img"
+                  aria-label={`Item ${galleryIndex + 1} of ${photos[selected].images.length}`}
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2 }}>
+                  {photos[selected].images.map((src, index) => (
+                    <span key={src} className={index === galleryIndex ? "is-active" : undefined} aria-hidden="true" />
+                  ))}
+                </motion.div>
+              )}
             </motion.div>
             </div>
-            {imageCount(photos[selected]) > 1 && (
+            {showThumbnails && (
               <motion.div className="archive-feature-gallery" role="group" aria-label="Project gallery"
                 style={{ left: slotLeft, width: maxWidth }}
                 initial={{ opacity: 0, top: featureTop + mediaHeight + 16 }}
@@ -679,10 +718,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 <p className="body-m">{photos[selected].description}</p>
                 {photos[selected].year && <p className="archive-project-year smallcase">{photos[selected].year}</p>}
                 {photos[selected].link && <a className="archive-project-link body-m" href={photos[selected].link} target="_blank" rel="noreferrer">visit website</a>}
-                <div className="archive-sphere-caption-nav body-m">
-                  <button type="button" className="underline-link" onClick={() => browsePhoto(-1)} aria-label="Previous project">previous</button>
-                  <button type="button" className="underline-link" onClick={() => browsePhoto(1)} aria-label="Next project">next</button>
-                </div>
               </motion.div>
             </motion.aside>
           </motion.div>

@@ -23,7 +23,7 @@ Gallery styling and mobile layout: app/styles/archive.css
 Site-wide page fades (separate from gallery animations):
   app/components/PageTransition.tsx
   app/styles/page-transitions.css
-  app/layout.tsx wires these in; next.config.ts enables viewTransition.
+  app/layout.tsx wires these in; Next.js 16.4 needs no viewTransition config flag.
   Dotted keyboard focus remains in app/styles/globals.css.
 
 Suggested future refactor:
