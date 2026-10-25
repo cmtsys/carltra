@@ -65,6 +65,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
   const [hovered, setHovered] = useState<number | null>(null);
   const hoveredPhoto = useRef<number | null>(null);
+  const scrollTitle = useRef<number | null>(null);
   const mousePosition = useRef<{ x: number; y: number } | null>(null);
   const hoverTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const hoverLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -162,12 +163,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       const distance = track.scrollTop;
       stream.set(distance);
       setAtStreamEnd(distance >= streamEnd - 80);
-      if (stageRef.current && stageRef.current.clientWidth >= 700 && mousePosition.current) return;
+      scrollTitle.current = distance > 40 && distance < streamEnd - 80
+        ? clamp(Math.round(distance / streamStep), 0, PHOTO_COUNT - 1) : null;
       hoveredPhoto.current = null;
       const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
-      setHovered(stageRef.current && stageRef.current.clientWidth < 700 && distance > 40 && distance < streamEnd - 80
-        ? clamp(Math.round(distance / streamStep), 0, PHOTO_COUNT - 1)
-        : focused >= 0 ? focused : null);
+      setHovered(scrollTitle.current ?? (focused >= 0 ? focused : null));
     };
     update();
     track.addEventListener("scroll", update, { passive: true });
@@ -250,10 +250,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       updateReturnFlight();
       // Re-hit-test after moving the cards: scrolling need not move the mouse.
       const pointer = mousePosition.current;
-      if (pointer && stageSize.width >= 700 && selectedRef.current === null && !drag.current) {
-        const hit = document.elementFromPoint(pointer.x, pointer.y)?.closest(".archive-sphere-photo");
+      if (stageSize.width >= 700 && selectedRef.current === null && !drag.current) {
+        const hit = pointer ? document.elementFromPoint(pointer.x, pointer.y)?.closest(".archive-sphere-photo") : null;
         const index = photoRefs.current.findIndex((card) => card === hit);
-        const next = index >= 0 ? index : null;
+        const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
+        const next = index >= 0 ? index : focused >= 0 ? focused : scrollTitle.current;
         if (next !== hovered) {
           if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
           hoverLeaveTimer.current = null;
