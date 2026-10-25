@@ -440,10 +440,8 @@ HOMEPAGE PROJECT CARDS
   object-fit: cover;
 }
 
-/* Landing-page video previews retain their cover until playback starts. */
+/* Landing-page video previews use native posters while playback is pending. */
 .project-card-preview { position: absolute; inset: 0; }
-.project-card-preview-video { opacity: 0; }
-.project-card-preview-video[data-playing="true"] { opacity: 1; }
 
 /* CARD STATES */
 .card:hover .cardImage,

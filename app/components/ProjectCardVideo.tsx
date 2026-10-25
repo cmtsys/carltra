@@ -23,12 +23,12 @@ export default function ProjectCardVideo({ src, poster, title, sizes }: {
   const video = useRef<HTMLVideoElement>(null);
   const [near, setNear] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [blocked, setBlocked] = useState(false);
-  const [playing, setPlaying] = useState(false);
+  const [failed, setFailed] = useState(false);
   // Server-render a real cover; don't download video until preferences are known.
   const reducedMotion = useSyncExternalStore(subscribeMotion, readMotion, () => true);
   const pageVisible = useSyncExternalStore(subscribeVisibility, readVisibility, () => false);
-  const loadVideo = near && !reducedMotion && !blocked;
+  const loadVideo = near && !reducedMotion && !failed;
+  const shouldPlay = visible && pageVisible && !reducedMotion;
 
   useEffect(() => {
     const element = root.current;
@@ -44,25 +44,36 @@ export default function ProjectCardVideo({ src, poster, title, sizes }: {
     const element = video.current;
     if (!element) return;
     let cancelled = false;
-    if (visible && pageVisible && loadVideo) {
+    if (!shouldPlay) {
+      element.pause();
+      return;
+    }
+    const play = () => {
+      if (cancelled) return;
       element.muted = true;
       element.defaultMuted = true;
-      element.play().catch((error: DOMException) => {
-        // Scrolling out can abort an in-flight play request; that isn't a policy failure.
-        if (!cancelled && error.name !== "AbortError") setBlocked(true);
-      });
-    } else {
+      element.playsInline = true;
+      // Autoplay denial is recoverable. Keep the visible native poster and retry
+      // when ready, on re-entry, or after a user gesture; don't unmount the video.
+      void element.play().catch(() => {});
+    };
+    element.addEventListener("canplay", play);
+    document.addEventListener("pointerdown", play, { passive: true });
+    document.addEventListener("keydown", play);
+    play();
+    return () => {
+      cancelled = true;
+      element.removeEventListener("canplay", play);
+      document.removeEventListener("pointerdown", play);
+      document.removeEventListener("keydown", play);
       element.pause();
-    }
-    return () => { cancelled = true; element.pause(); };
-  }, [loadVideo, visible, pageVisible]);
+    };
+  }, [loadVideo, shouldPlay]);
 
   return <div ref={root} className="project-card-preview">
     <Image src={poster} alt={title} fill sizes={sizes} />
-    {loadVideo && <video ref={video} src={src} poster={poster} muted playsInline loop
+    {loadVideo && <video ref={video} src={src} poster={poster} muted playsInline loop autoPlay={shouldPlay}
       preload="metadata" aria-hidden="true" tabIndex={-1}
-      className="project-card-preview-video" data-playing={playing}
-      onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)}
-      onError={() => setBlocked(true)} />}
+      onError={() => setFailed(true)} />}
   </div>;
 }
