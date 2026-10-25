@@ -460,6 +460,20 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 }
 
 .archive-fun-stuff-title { font-family: 'Instrument Serif', Georgia, serif; }
+.archive-mobile-card-title {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  transform-origin: left bottom;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+  color: var(--text-strongest);
+}
 .archive-sphere-screen .archive-sphere-caption h2 { font-weight: 600; }
 .archive-intro .archive-keyboard-hint { margin-top: 12px; color: var(--text-primary); }
 

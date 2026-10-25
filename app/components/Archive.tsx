@@ -180,8 +180,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     const onWheel = (event: WheelEvent) => {
       const target = event.target as HTMLElement;
       if (isFunStuff && stage.clientWidth >= 700) mousePosition.current = { x: event.clientX, y: event.clientY };
-      // Keep native scrolling in the thumbnail strip and text, and native video controls.
-      if (target.closest(".archive-feature-gallery, .archive-sphere-caption, video")) return;
       if (isFunStuff && !event.ctrlKey && !event.metaKey) {
         if (selectedRef.current !== null && (event.deltaX !== 0 || event.deltaY !== 0)) {
           event.preventDefault();
@@ -194,6 +192,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         }
         return;
       }
+      // Sphere controls leave text, gallery scrolling, and videos alone.
+      // Fun stuff must dismiss first, regardless of which project element is under the pointer.
+      if (target.closest(".archive-feature-gallery, .archive-sphere-caption, video")) return;
       event.preventDefault();
       wheelActiveUntil.current = performance.now() + 250;
       if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
@@ -637,6 +638,14 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   transform: `translate3d(${photo.x * radius}px, ${-photo.y * radius}px, ${photo.z * radius}px) rotateY(${photo.yaw}deg) rotateX(${photo.pitch}deg)`,
                 }}
               >
+                {isFunStuff && compact && (
+                  <motion.span className="archive-mobile-card-title" aria-hidden="true"
+                    initial={false} animate={{ opacity: hovered === index && selected === null ? 1 : 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}
+                    style={{ transform: reduceMotion ? "none" : `rotateZ(${-Math.sin(index * 1.9) * 3.6}deg) rotateY(${-Math.sin(index * 1.9) * 12}deg)` }}>
+                    {photo.title}
+                  </motion.span>
+                )}
                 <motion.span
                   className="archive-sphere-photo-inner"
                   animate={{ scale: !isFunStuff && hovered === index && !reduceMotion ? 1.045 : 1 }}
@@ -661,7 +670,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           })}
         </motion.div>
       </div>
-      {isFunStuff && photos.map((photo, index) => (
+      {isFunStuff && !compact && photos.map((photo, index) => (
         <motion.span key={photo.src} ref={(element) => { hoverTitleRefs.current[index] = element; }}
           className="archive-fun-stuff-title body-m" aria-hidden="true"
           initial={false} animate={{ opacity: hovered === index && selected === null ? 1 : 0 }}
