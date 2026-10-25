@@ -78,6 +78,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const smoothPitch = useSpring(pitch, { stiffness: 115, damping: 24 });
   const sphereTransform = useMotionTemplate`scale(${smoothZoom}) rotateX(${smoothPitch}deg) rotateY(${smoothYaw}deg)`;
   const drag = useRef<DragState | null>(null);
+  const gallerySwipe = useRef<{ x: number; y: number } | null>(null);
+  const suppressGalleryClick = useRef(false);
   const ignoreClick = useRef(false);
 
   const clearSelection = useCallback(() => {
@@ -227,7 +229,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         if (!card) return;
         const depth = [80, -140, 20, -220][index % 4];
         const y = index * streamStep - offset + stageSize.height * 0.05;
-        const x = Math.sin(index * 2.1 - 0.8) * Math.min(stageSize.width * 0.28, 260);
+        const x = Math.sin(index * 2.1 - 0.8) * Math.min(stageSize.width * (stageSize.width < 700 ? 0.13 : 0.28), 260);
         const float = reduceMotion ? 0 : Math.sin(time / 2200 + index * 1.7) * 8;
         const tilt = reduceMotion ? 0 : Math.sin(index * 1.9) * 12;
         card.style.transform = `translate3d(${x}px, ${y + float}px, ${depth}px) rotateY(${tilt}deg) rotateZ(${tilt * 0.3}deg)`;
@@ -317,6 +319,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   };
 
   const handlePointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (isFunStuff && event.pointerType === "touch") return;
     if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
     freezeRotation();
     drag.current = {
@@ -442,7 +445,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const galleryHeight = showThumbnails ? 72 : showGalleryDots ? 32 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
-  const maxWidth = compact ? stageSize.width * 0.82 : Math.min(600, stageSize.width * 0.48);
+  const maxWidth = compact ? stageSize.width - 40 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   const mediaWidth = Math.min(maxWidth, maxHeight * selectedRatio);
   const mediaHeight = mediaWidth / selectedRatio;
@@ -457,7 +460,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     top: compact ? slotTop + maxHeight + galleryHeight + gap + 24 : slotTop + maxHeight / 2,
     width: textWidth };
 
-  const cardWidth = isFunStuff ? clamp(stageSize.width * 0.24, 110, 245) : clamp(radius * 0.35, 36, 150);
+  const cardWidth = isFunStuff ? (compact ? clamp(stageSize.width * 0.46, 130, 190) : clamp(stageSize.width * 0.24, 110, 245)) : clamp(radius * 0.35, 36, 150);
 
   return (
     <>
@@ -467,7 +470,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       aria-hidden={selected !== null ? true : undefined}
       style={isFunStuff ? { y: introStreamY } : undefined}>
       <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd, old and unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
-      {isFunStuff && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
+      {isFunStuff && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>{compact ? "scroll to explore · tap to open" : "scroll or use arrows to navigate"}</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
     <section
@@ -633,12 +636,40 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
             } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
-            <div className="archive-feature-media-slot" style={compact && isFunStuff ? { height: maxHeight } : undefined}>
+            {isFunStuff && compact && <div className="archive-mobile-toolbar">
+              <span className="body-s">{selectedSrc.endsWith(".mp4") ? "scroll to read" : "swipe image to explore"}</span>
+              <button type="button" onClick={clearSelection} aria-label="Close project details">close ×</button>
+            </div>}
+            <div className="archive-feature-media-slot" style={compact && isFunStuff ? { height: mediaHeight + (showGalleryDots ? 32 : 0) } : undefined}>
             <motion.div className="archive-feature-media" initial={reduceMotion ? false : origin}
               animate={featureBounds}
               style={{ transformOrigin: "0 0" }}
               transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
-              onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
+              onPointerDown={(event) => {
+                event.stopPropagation();
+                if (isFunStuff && event.pointerType === "touch" && !selectedSrc.endsWith(".mp4")) {
+                  gallerySwipe.current = { x: event.clientX, y: event.clientY };
+                  suppressGalleryClick.current = false;
+                }
+              }}
+              onPointerUp={(event) => {
+                const start = gallerySwipe.current;
+                gallerySwipe.current = null;
+                if (!start) return;
+                const dx = event.clientX - start.x;
+                const dy = event.clientY - start.y;
+                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                  suppressGalleryClick.current = true;
+                  browseSequence(dx < 0 ? 1 : -1);
+                }
+              }}
+              onPointerCancel={() => { gallerySwipe.current = null; }}
+              onClickCapture={(event) => {
+                if (suppressGalleryClick.current) {
+                  event.preventDefault(); event.stopPropagation(); suppressGalleryClick.current = false;
+                }
+              }}
+              onClick={(event) => event.stopPropagation()}>
               {selectedRow ? <PosterRow images={photos[selected].images} title={photos[selected].title} /> : selectedSrc.endsWith(".mp4") ? (
                 <video src={selectedSrc} muted playsInline loop autoPlay={!reduceMotion} controls aria-label={photos[selected].title}
                   onLoadedMetadata={(event) => {
@@ -662,8 +693,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                     browseImage(event.key === "ArrowLeft" ? -1 : 1);
                   }
                 }}>
-                  <button type="button" className="archive-image-previous" aria-label="Previous image" onClick={() => browseImage(-1)}><span aria-hidden="true">←</span></button>
-                  <button type="button" className="archive-image-next" aria-label="Next image" onClick={() => browseImage(1)}><span aria-hidden="true">→</span></button>
+                  <button type="button" className="archive-image-previous" aria-label="Previous image" onClick={() => isFunStuff ? browseSequence(-1) : browseImage(-1)}><span aria-hidden="true">←</span></button>
+                  <button type="button" className="archive-image-next" aria-label="Next image" onClick={() => isFunStuff ? browseSequence(1) : browseImage(1)}><span aria-hidden="true">→</span></button>
                 </div>
               )}
               {showGalleryDots && (
@@ -678,6 +709,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               )}
             </motion.div>
             </div>
+            {isFunStuff && compact && selectedSrc.endsWith(".mp4") && (
+              <div className="archive-mobile-video-navigation" role="group" aria-label="Gallery navigation">
+                <button type="button" aria-label="Previous gallery item" onClick={() => browseSequence(-1)}>←</button>
+                <button type="button" aria-label="Next gallery item" onClick={() => browseSequence(1)}>→</button>
+              </div>
+            )}
             {showThumbnails && (
               <motion.div className="archive-feature-gallery" role="group" aria-label="Project gallery"
                 style={{ left: slotLeft, width: maxWidth }}
@@ -711,9 +748,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
               <motion.div className="archive-sphere-caption-backdrop" aria-hidden="true" variants={captionFade} transition={{ duration: 0.25 }} />
               <motion.div variants={captionFade} transition={{ duration: reduceMotion ? 0 : 0.25, delay: reduceMotion ? 0 : 0.15 }}>
-                <div className="archive-sphere-caption-meta smallcase">
+                {!(isFunStuff && compact) && <div className="archive-sphere-caption-meta smallcase">
                   <button type="button" onClick={clearSelection} aria-label="Close project details">close ×</button>
-                </div>
+                </div>}
                 <h2 className="body-l">{photos[selected].title}</h2>
                 <p className="body-m">{photos[selected].description}</p>
                 {photos[selected].year && <p className="archive-project-year smallcase">{photos[selected].year}</p>}

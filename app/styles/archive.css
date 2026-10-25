@@ -371,8 +371,8 @@ body:has(.archive-fun-stuff-track) .archive-intro {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 28px 20px max(32px, env(safe-area-inset-bottom));
-    background: rgb(252 252 252 / .82);
+    padding: 0 20px max(32px, env(safe-area-inset-bottom));
+    background: rgb(252 252 252 / .96);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
@@ -381,7 +381,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
     left: auto !important;
     top: auto !important;
     flex-shrink: 0;
-    align-self: center;
+    align-self: flex-start;
   }
   .archive-fun-stuff-screen .archive-feature-gallery {
     position: relative;
@@ -397,10 +397,41 @@ body:has(.archive-fun-stuff-track) .archive-intro {
     top: auto !important;
     width: 100% !important;
     flex-shrink: 0;
-    padding-top: 36px;
+    padding-top: 16px;
   }
   .archive-fun-stuff-screen .archive-sphere-caption-meta { top: 0; }
   .archive-fun-stuff-screen .archive-sphere-caption-backdrop { display: none; }
+  .archive-mobile-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    flex-shrink: 0;
+    background: var(--background);
+  }
+  .archive-mobile-toolbar span { color: var(--text-primary); }
+  .archive-mobile-toolbar button {
+    min-width: 64px;
+    min-height: 44px;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--text-strong);
+  }
+  .archive-mobile-video-navigation { display: flex; justify-content: space-between; }
+  .archive-mobile-video-navigation button {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: none;
+    color: var(--text-strong);
+    font: inherit;
+  }
+  .archive-fun-stuff-screen .archive-feature-media { touch-action: pan-y pinch-zoom; }
+  .archive-fun-stuff-title { display: none; }
 
 }
 
@@ -444,6 +475,12 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   .t-tilt-glare { display: none; }
 }
 
+/* Native touch scrolling should keep working when a gesture starts on a card. */
+@media (pointer: coarse) {
+  .archive-fun-stuff-screen,
+  .archive-fun-stuff-screen .t-tilt { touch-action: pan-y pinch-zoom; }
+}
+
 .archive-fun-stuff-end {
   position: absolute;
   inset: auto 20px 32px;
@@ -466,11 +503,15 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 @media (max-width: 699px) {
   .archive-fun-stuff-screen .archive-feature-media-slot {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-shrink: 0;
     width: 100%;
+    transition: height 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .archive-fun-stuff-screen .archive-feature-media-slot { transition: none; }
 }
 
 .archive-sphere-caption h2,
