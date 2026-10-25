@@ -440,8 +440,11 @@ HOMEPAGE PROJECT CARDS
   object-fit: cover;
 }
 
-/* Landing-page video previews use native posters while playback is pending. */
+/* Cover browser playback UI until the preview is actually playing. Keep the
+   video itself visible so autoplay does not depend on its own opacity. */
 .project-card-preview { position: absolute; inset: 0; }
+.project-card-preview-cover { z-index: 1; pointer-events: none; }
+.project-card-preview-cover[data-playing="true"] { opacity: 0; }
 
 /* CARD STATES */
 .card:hover .cardImage,

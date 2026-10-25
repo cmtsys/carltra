@@ -9,6 +9,7 @@ kote.mp4: full 21.28-second sequence, 720px wide, 20fps, H.264 CRF 30.
 Both are silent, fast-start MP4s. WebP covers are their first frames.
 
 lib/projects.ts selects the preview and cover through cardPreview.
-ProjectCardVideo.tsx loads video within 240px of the viewport, plays only while
-visible in an active tab, and unloads it farther away. Reduced Motion or blocked
-autoplay shows the static cover. The card remains a link to the project.
+ProjectCardVideo.tsx loads both previews once motion preferences are known and
+plays them while the browser tab is active, including offscreen cards. Reduced
+Motion or blocked autoplay shows the static cover. The cover stays above the
+video until playback starts. The card remains a link to the project.
