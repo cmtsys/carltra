@@ -54,6 +54,14 @@ export default function Header() {
           </Link>
 
           <Link
+            href="/fun-stuff"
+            className={`nav-link ${pathname === "/fun-stuff" ? "active" : ""}`}
+            onClick={closeMenu}
+          >
+            Fun stuff
+          </Link>
+
+          <Link
             href="/contact"
             className={`nav-link ${pathname === "/contact" ? "active" : ""}`}
             onClick={closeMenu}

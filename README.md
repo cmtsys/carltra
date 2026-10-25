@@ -7,12 +7,6 @@ Here is a drink for you while you browse 🍹
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see if it works. 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see if it works.

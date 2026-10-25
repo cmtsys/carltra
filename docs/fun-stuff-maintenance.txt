@@ -1,0 +1,48 @@
+FUN STUFF — WHERE TO EDIT
+
+Content and gallery order: lib/archive.ts
+  The first media item is the stream cover. Paths are relative to public/.
+  Posters uses mediaLayout: "row" to show the series as one composition.
+
+Original media: public/img/fun-stuff/<project>/
+  Unused files are not automatically added to a gallery.
+
+Page entry points:
+  app/fun-stuff/page.tsx -> components/FunStuff.tsx -> Archive mode="fun-stuff"
+  app/archive/page.tsx -> components/Archive.tsx (sphere experiment)
+
+Gallery interactions and rendering: app/components/Archive.tsx
+Gallery styling and mobile layout: app/styles/archive.css
+  This stylesheet is loaded globally, but page-layout overrides are conditional
+  on the gallery being present. Check those selectors when changing scrolling,
+  header or footer behaviour.
+
+Site-wide page fades (separate from gallery animations):
+  app/components/PageTransition.tsx
+  app/styles/page-transitions.css
+  app/layout.tsx wires these in; Next.js 16.4 needs no viewTransition config flag.
+  Dotted keyboard focus remains in app/styles/globals.css.
+
+Suggested future refactor:
+  Separate the project viewer and input handling from the sphere/river scene.
+  Keep behaviour changes (particularly mobile) separate from file moves so
+  each change is easier to review. No such restructuring has been done yet.
+
+Mobile video covers
+- videoPoster in lib/archive.ts points to cover.jpg beside each MP4 (Action, Stomata, Rosa).
+- These JPEGs are frames extracted at 2 seconds from the original videos; original media is unchanged.
+- Mobile stream cards use compact preview.gif files, with JPEG covers for Reduce Motion. Desktop uses smaller MP4 previews. Opened videos retain the originals and request muted inline playback; a small play fallback appears if autoplay is blocked.
+
+FOLLOW-UPS — REVIEW BEFORE MERGING
+- Rework all Fun stuff descriptions against Carl’s original wording and voice.
+- Experimental type: crop 06.JPG (second-to-last gallery image).
+- CMYK prints: trim the animation (0.gif); confirm the intended trim points before editing.
+- Recheck image switching and video playback on an actual iPhone.
+- Rest of website: audit and optimize image sizes, responsive delivery, and project-card video previews. Load nearby media only, pause/unload offscreen videos, preserve original project media, and verify desktop/mobile quality and loading.
+
+Latest content decisions
+- Bike parade removed from the gallery; original files retained.
+- Accidental Exposures starts with 4.jpg; Experimental type with 02.png.
+- CMYK prints starts with its third gallery item, 02.jpg (there is no 03 file).
+- Rosa, Stomata, Posters, Error 445 appear near the start, in that order. CMYK prints is last, after Ruter zine.
+- Abstract weather uses abstract-weather-2x.gif, generated at 2x speed from the preserved original.

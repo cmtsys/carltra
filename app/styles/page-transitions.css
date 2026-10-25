@@ -1,0 +1,24 @@
+/* Paired with components/PageTransition.tsx; no Next.js config flag is needed.
+   The browser captures the old and new page content during navigation.
+   These rules fade those snapshots without moving the header or footer. */
+
+/* Disable the browser's default whole-page animation. */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
+::view-transition-old(root) { opacity: 0; }
+/* Fade only the <main> region named "page-content". */
+::view-transition-group(page-content) { animation: none; }
+::view-transition-old(page-content) { animation: pageFadeOut 120ms ease-out both; }
+::view-transition-new(page-content) { animation: pageFadeIn 180ms ease-out 40ms both; }
+/* Snapshot overlays must not intercept clicks. */
+::view-transition { pointer-events: none; }
+@keyframes pageFadeOut { to { opacity: 0; } }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* Navigate immediately on small screens or when reduced motion is requested. */
+@media (max-width: 699px), (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+  ::view-transition-old(page-content) { opacity: 0; }
+}

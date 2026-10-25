@@ -7,11 +7,13 @@ import "./styles/reset.css";
 import "./styles/aboutme.css";
 import "./styles/contact.css";
 import "./styles/footer.css";
-import "./styles/comingsoon.css";
+import "./styles/archive.css";
+import "./styles/page-transitions.css";
 
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import PageTransition from "./components/PageTransition";
 
 // THIS IS THE CONTAINER FOR PAGES
 // It displays the page.tsx in same folder automatically
@@ -31,9 +33,7 @@ export default function RootLayout({
       <body>
         <div className="page">
         <Header></Header>
-        <main className="main">
-        {children}
-        </main>
+        <PageTransition>{children}</PageTransition>
         <Footer></Footer>
         </div>
       </body>

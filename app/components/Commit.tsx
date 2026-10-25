@@ -45,7 +45,7 @@ export default function Commit() {
 
   return (
     <a
-      className="underline-link"
+      className="underline-link footer-commit"
       href={`https://github.com/cmtsys/carltra/commit/${hash}`}
       target="_blank"
       rel="noopener noreferrer"
