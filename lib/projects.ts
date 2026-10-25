@@ -4,6 +4,7 @@ export type Project = {
   title: string
   tagline: string
   image: string
+  cardPreview?: { src: string; poster: string }
   slug: string
   link?: string
   featured?: boolean
@@ -20,6 +21,7 @@ const projects: Project[] = [
     title: "UI Concept for reMarkable",
     tagline: "Reimagining navigation on a paper tablet",
     image: "/img/rmgif.gif",
+    cardPreview: { src: "/img/project-previews/remarkable.mp4", poster: "/img/project-previews/remarkable.webp" },
     // image: "/img/remarkable.jpeg",
     slug: "remarkable",
     link: "/projects/remarkable",
@@ -73,6 +75,7 @@ const projects: Project[] = [
     title: "Magasinet Kote",
     tagline: "Editorial design for urbanism and landscape",
     image: "/img/kote/kote14/kote14-card.mp4",
+    cardPreview: { src: "/img/project-previews/kote.mp4", poster: "/img/project-previews/kote.webp" },
     slug: "kote",
     link: "/projects/kote",
     featured: true

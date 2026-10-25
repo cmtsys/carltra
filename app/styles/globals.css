@@ -54,6 +54,7 @@
   --tablet: 900px;
   --desktop: 1200px;
 
+  /* Previous text sizes before we transitioned to clamp */
   /* 
   --text-xxl: 36px;
   --text-xl: 26px;
@@ -369,6 +370,7 @@ HOMEPAGE PROJECT CARDS
   }
 }
 
+/* CARD AND CARD ANIMATION HERE */
 
 .card {
   display: flex;
@@ -438,6 +440,12 @@ HOMEPAGE PROJECT CARDS
   object-fit: cover;
 }
 
+/* Landing-page video previews retain their cover until playback starts. */
+.project-card-preview { position: absolute; inset: 0; }
+.project-card-preview-video { opacity: 0; }
+.project-card-preview-video[data-playing="true"] { opacity: 1; }
+
+/* CARD STATES */
 .card:hover .cardImage,
 .card:focus-visible .cardImage {
   border-radius: 12px;
