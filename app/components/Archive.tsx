@@ -50,9 +50,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   const [origin, setOrigin] = useState({ left: 0, top: 0, width: 100, height: 100 });
   const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
   const [hovered, setHovered] = useState<number | null>(null);
-  const [hoverTitleIndex, setHoverTitleIndex] = useState<number | null>(null);
   const hoveredPhoto = useRef<number | null>(null);
-  const hoverTitleRef = useRef<HTMLSpanElement>(null);
+  const hoverTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const hoverLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const selectedRef = useRef<number | null>(null);
   const stageRef = useRef<HTMLElement>(null);
@@ -128,7 +127,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       hoveredPhoto.current = null;
       const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
       setHovered(focused >= 0 ? focused : null);
-      if (focused >= 0) setHoverTitleIndex(focused);
     };
     update();
     track.addEventListener("scroll", update, { passive: true });
@@ -209,7 +207,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       updateReturnFlight();
       // Project the hovered card into screen space; labels keep a constant size
       // and stay upright independently of perspective, tilt, and zoom.
-      const label = hoverTitleRef.current;
+      const label = hovered === null ? null : hoverTitleRefs.current[hovered];
       const card = hovered === null ? null : photoRefs.current[hovered];
       const stage = stageRef.current;
       if (label && card && stage) {
@@ -301,8 +299,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   };
 
   const browsePhoto = (direction: number) => {
-    const index = selectedRef.current ?? (isWaterfall ? clamp(Math.round(stream.get() / streamStep), 0, PHOTO_COUNT - 1) : 0);
-    const next = (index + direction + PHOTO_COUNT) % PHOTO_COUNT;
+    const index = selectedRef.current;
+    // With no project open, select the current stream item before advancing.
+    const next = index === null
+      ? (isWaterfall ? clamp(Math.round(stream.get() / streamStep), 0, PHOTO_COUNT - 1) : 0)
+      : (index + direction + PHOTO_COUNT) % PHOTO_COUNT;
     if (isWaterfall && trackRef.current) {
       trackRef.current.scrollTo({ top: next * streamStep, behavior: reduceMotion ? "instant" : "smooth" });
     }
@@ -405,7 +406,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   const featureTop = slotTop + (maxHeight - mediaHeight) / 2;
   const featureBounds = { left: featureLeft, top: featureTop, width: mediaWidth, height: mediaHeight };
   const captionPosition = { left: compact ? (stageSize.width - textWidth) / 2 : slotLeft + maxWidth + gap,
-    top: compact ? slotTop + maxHeight + galleryHeight + gap + 24 : slotTop,
+    top: compact ? slotTop + maxHeight + galleryHeight + gap + 24 : slotTop + maxHeight / 2,
     width: textWidth };
 
   const cardWidth = isWaterfall ? clamp(stageSize.width * 0.24, 110, 245) : clamp(radius * 0.35, 36, 150);
@@ -481,7 +482,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                 aria-pressed={selected === index}
                 aria-describedby={selected === index ? "archive-photo-details" : undefined}
                 onFocus={() => {
-                  if (isWaterfall) { setHovered(index); setHoverTitleIndex(index); }
+                  if (isWaterfall) { setHovered(index); }
                   if (isWaterfall && trackRef.current) {
                     const top = index * streamStep;
                     if (Math.abs(stream.get() - index * streamStep) > stageSize.height * 0.4) trackRef.current.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
@@ -499,7 +500,6 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                     if (selectedRef.current === null && !focusTarget.current && !drag.current?.moved) freezeRotation();
                     hoveredPhoto.current = index;
                     setHovered(index);
-                    setHoverTitleIndex(index);
                   }
                 }}
                 onPointerLeave={(event) => {
@@ -552,13 +552,14 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
           })}
         </motion.div>
       </div>
-      {isWaterfall && (
-        <motion.span ref={hoverTitleRef} className="archive-waterfall-title body-m" aria-hidden="true"
-          initial={false} animate={{ opacity: hovered !== null && selected === null ? 1 : 0 }}
+      {isWaterfall && photos.map((photo, index) => (
+        <motion.span key={photo.src} ref={(element) => { hoverTitleRefs.current[index] = element; }}
+          className="archive-waterfall-title body-m" aria-hidden="true"
+          initial={false} animate={{ opacity: hovered === index && selected === null ? 1 : 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
-          {hoverTitleIndex !== null ? photos[hoverTitleIndex].title : ""}
+          {photo.title}
         </motion.span>
-      )}
+      ))}
       <AnimatePresence>
         {isWaterfall && atStreamEnd && selected === null && (
           <motion.div className="archive-waterfall-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -609,8 +610,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
             </div>
             {photos[selected].images.length > 1 && (
               <motion.div className="archive-feature-gallery" role="group" aria-label="Project gallery"
-                style={{ left: slotLeft, top: slotTop + maxHeight + 16, width: maxWidth }}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.1 } }} transition={{ delay: reduceMotion ? 0 : 0.3 }}
+                style={{ left: slotLeft, width: maxWidth }}
+                initial={{ opacity: 0, top: featureTop + mediaHeight + 16 }}
+                animate={{ opacity: 1, top: featureTop + mediaHeight + 16 }}
+                exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                transition={{ top: { duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }, opacity: { delay: reduceMotion ? 0 : 0.3 } }}
                 onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
                 {photos[selected].images.map((src, index) => (
                   <button key={src} type="button" aria-label={`Show image ${index + 1} of ${photos[selected].images.length}`}

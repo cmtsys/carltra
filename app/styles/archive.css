@@ -35,8 +35,7 @@ body:has(.archive-sphere-screen) .page > footer {
 }
 
 .archive-sphere-screen:focus-visible {
-  outline: 1px solid var(--box-shadow);
-  outline-offset: -1px;
+  outline: none;
 }
 
 .archive-sphere-scene {
@@ -482,7 +481,7 @@ body:has(.archive-waterfall-track) .archive-intro {
 
 .archive-waterfall-title { font-family: 'Instrument Serif', Georgia, serif; }
 .archive-sphere-screen .archive-sphere-caption h2 { font-weight: 600; }
-.archive-intro .archive-keyboard-hint { margin-top: 12px; color: var(--text-strong); }
+.archive-intro .archive-keyboard-hint { margin-top: 12px; color: var(--text-primary); }
 
 /* Intro first, then the stream, then its quiet keyboard hint. */
 .archive-waterfall-screen .archive-sphere-scene {
@@ -500,3 +499,13 @@ body:has(.archive-waterfall-track) .archive-intro {
   .archive-waterfall-screen .archive-sphere-scene,
   .archive-keyboard-hint span { animation: none; }
 }
+
+/* The stage receives programmatic focus for arrow navigation. Individual
+   controls retain their focus rings; the stage does not need a giant border. */
+@media (min-width: 700px) {
+  .archive-sphere-caption { translate: 0 -50%; }
+}
+
+/* Auto margins center short galleries without making overflowing items unreachable. */
+.archive-feature-gallery button:first-child { margin-left: auto; }
+.archive-feature-gallery button:last-child { margin-right: auto; }

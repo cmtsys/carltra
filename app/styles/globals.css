@@ -655,3 +655,10 @@ a.weblink:active {
   ::view-transition-new(*) { animation: none !important; }
   ::view-transition-old(page-content) { opacity: 0; }
 }
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px dotted var(--text-strong);
+  outline-offset: 4px;
+  border-radius: 3px;
+}

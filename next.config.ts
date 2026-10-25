@@ -11,6 +11,9 @@ function git(command: string) {
 
 const nextConfig: NextConfig = {
   experimental: { viewTransition: true },
+  async redirects() {
+    return [{ source: "/waterfall", destination: "/fun-stuff", permanent: true }];
+  },
   images: {
     remotePatterns: [new URL("https://freight.cargo.site/**")],
   },
