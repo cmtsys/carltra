@@ -30,3 +30,8 @@ Suggested future refactor:
   Separate the project viewer and input handling from the sphere/river scene.
   Keep behaviour changes (particularly mobile) separate from file moves so
   each change is easier to review. No such restructuring has been done yet.
+
+Mobile video covers
+- videoPoster in lib/archive.ts points to cover.jpg beside each MP4 (Action, Stomata, Rosa).
+- These JPEGs are frames extracted at 2 seconds from the original videos; original media is unchanged.
+- Mobile stream cards render the JPEG instead of mounting a video. Opened videos show the poster and load on play (preload=none, no autoplay). Error 445 keeps its GIF.

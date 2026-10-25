@@ -49,6 +49,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const stream = useMotionValue(0);
   const streamStep = 240;
   const [atStreamEnd, setAtStreamEnd] = useState(false);
+  const endRef = useRef<HTMLDivElement>(null);
   const introStreamOpacity = useTransform(stream, [0, 180], [1, 0]);
   const introStreamY = useTransform(stream, [0, 240], [0, -56]);
   const [galleryIndex, setGalleryIndex] = useState(0);
@@ -58,10 +59,13 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const [returning, setReturning] = useState<number | null>(null);
   const returnFlight = useRef<{ index: number; element: HTMLElement; from: DOMRect; started: number } | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
+  // Stop earlier on mobile so the final card and closing copy share the viewport.
+  const streamEnd = PHOTO_COUNT * streamStep - (stageSize.width < 700 ? clamp(stageSize.height * 0.16, 72, 140) : 0);
   const [origin, setOrigin] = useState({ left: 0, top: 0, width: 100, height: 100 });
   const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
   const [hovered, setHovered] = useState<number | null>(null);
   const hoveredPhoto = useRef<number | null>(null);
+  const mousePosition = useRef<{ x: number; y: number } | null>(null);
   const hoverTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const hoverLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const selectedRef = useRef<number | null>(null);
@@ -157,23 +161,25 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     const update = () => {
       const distance = track.scrollTop;
       stream.set(distance);
-      setAtStreamEnd(distance >= PHOTO_COUNT * streamStep - 80);
+      setAtStreamEnd(distance >= streamEnd - 80);
+      if (stageRef.current && stageRef.current.clientWidth >= 700 && mousePosition.current) return;
       hoveredPhoto.current = null;
       const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
-      setHovered(stageRef.current && stageRef.current.clientWidth < 700 && distance > 40 && distance < PHOTO_COUNT * streamStep - 80
+      setHovered(stageRef.current && stageRef.current.clientWidth < 700 && distance > 40 && distance < streamEnd - 80
         ? clamp(Math.round(distance / streamStep), 0, PHOTO_COUNT - 1)
         : focused >= 0 ? focused : null);
     };
     update();
     track.addEventListener("scroll", update, { passive: true });
     return () => track.removeEventListener("scroll", update);
-  }, [isFunStuff, stream]);
+  }, [isFunStuff, stream, streamEnd]);
 
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
     const onWheel = (event: WheelEvent) => {
       const target = event.target as HTMLElement;
+      if (isFunStuff && stage.clientWidth >= 700) mousePosition.current = { x: event.clientX, y: event.clientY };
       // Keep native scrolling in the thumbnail strip and text, and native video controls.
       if (target.closest(".archive-feature-gallery, .archive-sphere-caption, video")) return;
       if (isFunStuff && !event.ctrlKey && !event.metaKey) {
@@ -241,22 +247,48 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         card.style.pointerEvents = opacity > 0.15 ? "auto" : "none";
       });
       updateReturnFlight();
+      // Re-hit-test after moving the cards: scrolling need not move the mouse.
+      const pointer = mousePosition.current;
+      if (pointer && stageSize.width >= 700 && selectedRef.current === null && !drag.current) {
+        const hit = document.elementFromPoint(pointer.x, pointer.y)?.closest(".archive-sphere-photo");
+        const index = photoRefs.current.findIndex((card) => card === hit);
+        const next = index >= 0 ? index : null;
+        if (next !== hovered) {
+          if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
+          hoverLeaveTimer.current = null;
+          hoveredPhoto.current = next;
+          setHovered(next);
+        }
+      }
       // Project the hovered card into screen space; labels keep a constant size
       // and stay upright independently of perspective, tilt, and zoom.
-      const label = hovered === null ? null : hoverTitleRefs.current[hovered];
-      const card = hovered === null ? null : photoRefs.current[hovered];
       const stage = stageRef.current;
-      if (label && card && stage) {
-        const bounds = card.getBoundingClientRect();
+      if (stage) {
         const frame = stage.getBoundingClientRect();
-        const alignRight = bounds.left + bounds.width / 2 > frame.left + frame.width / 2;
-        const room = alignRight ? bounds.left - frame.left - 32 : frame.right - bounds.right - 32;
         const mobile = frame.width < 700;
-        label.style.maxWidth = `${mobile ? Math.min(bounds.width, frame.width - 24) : Math.max(80, Math.min(260, room))}px`;
-        const left = mobile ? bounds.left - frame.left : alignRight ? bounds.left - frame.left - label.offsetWidth - 20 : bounds.right - frame.left + 20;
-        label.style.left = `${clamp(left, 12, Math.max(12, frame.width - label.offsetWidth - 12))}px`;
-        label.style.top = `${Math.max(12, bounds.top - frame.top + (mobile ? -label.offsetHeight - 12 : 12))}px`;
-        label.style.visibility = "visible";
+        const ending = endRef.current;
+        if (ending) {
+          const lastCard = photoRefs.current[PHOTO_COUNT - 1]?.getBoundingClientRect();
+          if (mobile && lastCard) {
+            ending.style.top = `${lastCard.bottom - frame.top + 40}px`;
+          } else {
+            ending.style.removeProperty("top");
+          }
+        }
+        hoverTitleRefs.current.forEach((label, index) => {
+          const card = photoRefs.current[index];
+          // Keep outgoing labels attached throughout their fade, too.
+          if (!label || !card || (index !== hovered && Number(label.style.opacity) <= 0)) return;
+          const bounds = card.getBoundingClientRect();
+          const alignRight = bounds.left + bounds.width / 2 > frame.left + frame.width / 2;
+          const room = alignRight ? bounds.left - frame.left - 32 : frame.right - bounds.right - 32;
+          label.style.maxWidth = `${mobile ? Math.min(bounds.width, frame.width - 24) : Math.max(80, Math.min(260, room))}px`;
+          const left = mobile ? bounds.left - frame.left : alignRight ? bounds.left - frame.left - label.offsetWidth - 20 : bounds.right - frame.left + 20;
+          label.style.left = `${clamp(left, 12, Math.max(12, frame.width - label.offsetWidth - 12))}px`;
+          const top = bounds.top - frame.top + (mobile ? -label.offsetHeight - 12 : 12);
+          label.style.top = `${mobile ? top : Math.max(12, top)}px`;
+          label.style.visibility = "visible";
+        });
       }
       return;
     }
@@ -502,11 +534,14 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       onTouchEndCapture={() => { streamTouch.current = null; }}
       onTouchCancelCapture={() => { streamTouch.current = null; }}
       onPointerDown={handlePointerDown}
+      onPointerMoveCapture={(event) => {
+        if (event.pointerType === "mouse") mousePosition.current = { x: event.clientX, y: event.clientY };
+      }}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
       onLostPointerCapture={handlePointerEnd}
-      onPointerLeave={() => { if (drag.current && !drag.current.moved) drag.current = null; }}
+      onPointerLeave={() => { mousePosition.current = null; if (drag.current && !drag.current.moved) drag.current = null; }}
       onClick={() => { if (!ignoreClick.current) clearSelection(); }}
       onKeyDown={(event) => {
         if (event.key === "Escape") clearSelection();
@@ -515,7 +550,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         if (isFunStuff && ["PageUp", "PageDown", "Home", "End"].includes(event.key)) {
           event.preventDefault();
           if (selectedRef.current !== null) clearSelection();
-          const top = event.key === "Home" ? 0 : event.key === "End" ? PHOTO_COUNT * streamStep
+          const top = event.key === "Home" ? 0 : event.key === "End" ? streamEnd
             : stream.get() + (["ArrowUp", "PageUp"].includes(event.key) ? -1 : 1) * streamStep;
           trackRef.current?.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
           return;
@@ -608,11 +643,11 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   transition={isFunStuff ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
-                  {photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} /> : photo.src.endsWith(".mp4") ? (
-                    <video src={photo.src} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
+                  {photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} /> : photo.src.endsWith(".mp4") && !compact ? (
+                    <video poster={photo.videoPoster} src={photo.src} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
                       onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
                   ) : (
-                    <Image src={photo.src} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
+                    <Image src={compact && photo.videoPoster ? photo.videoPoster : photo.src} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
                       onLoad={(event) => { const image = event.currentTarget; const ratio = image.naturalWidth / image.naturalHeight;
                         if (ratio > 0) setImageRatios((current) => current[photo.src] === ratio ? current : { ...current, [photo.src]: ratio }); }}
                       loading="eager" unoptimized draggable={false} />
@@ -636,7 +671,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       ))}
       <AnimatePresence>
         {isFunStuff && atStreamEnd && selected === null && (
-          <motion.div className="archive-fun-stuff-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          <motion.div ref={endRef} className="archive-fun-stuff-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.2 }} onPointerDown={(event) => event.stopPropagation()}>
             <p className="body-l">You have reached the end.</p>
             <motion.button type="button" className="body-l underline-link"
@@ -660,8 +695,14 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
             <div className="archive-feature-media-slot">
-            <motion.div className="archive-feature-media" initial={reduceMotion ? false : origin}
-              animate={featureBounds}
+            <motion.div className="archive-feature-media" initial={reduceMotion ? false : {
+                ...featureBounds,
+                x: origin.left - featureBounds.left,
+                y: origin.top - featureBounds.top,
+                scaleX: origin.width / featureBounds.width,
+                scaleY: origin.height / featureBounds.height,
+              }}
+              animate={{ ...featureBounds, x: 0, y: 0, scaleX: 1, scaleY: 1 }}
               style={{ transformOrigin: "0 0" }}
               transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
               onPointerDown={(event) => {
@@ -690,7 +731,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               }}
               onClick={(event) => event.stopPropagation()}>
               {selectedRow ? <PosterRow images={photos[selected].images} title={photos[selected].title} /> : selectedSrc.endsWith(".mp4") ? (
-                <video src={selectedSrc} muted playsInline loop autoPlay={!reduceMotion} controls aria-label={photos[selected].title}
+                <video key={selectedSrc} src={selectedSrc} poster={photos[selected].videoPoster} preload={compact ? "none" : "metadata"} muted playsInline loop autoPlay={!compact && !reduceMotion} controls aria-label={photos[selected].title}
                   onLoadedMetadata={(event) => {
                     const video = event.currentTarget;
                     const ratio = video.videoWidth / video.videoHeight;
@@ -780,7 +821,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
         )}
       </AnimatePresence>
     </section>
-    {isFunStuff && <div aria-hidden="true" style={{ height: PHOTO_COUNT * streamStep }} />}
+    {isFunStuff && <div aria-hidden="true" style={{ height: streamEnd }} />}
     </div>
     </>
   );

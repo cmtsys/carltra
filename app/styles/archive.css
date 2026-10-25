@@ -445,6 +445,9 @@ body:has(.archive-fun-stuff-track) .archive-intro {
 
 .archive-fun-stuff-end p { margin: 0; color: var(--text-strong); }
 .archive-fun-stuff-end .underline-link::after { bottom: 5px; }
+@media (max-width: 699px) {
+  .archive-fun-stuff-end { top: 55%; bottom: auto; }
+}
 
 .archive-feature-media-slot { display: contents; }
 .archive-sphere-caption h2,

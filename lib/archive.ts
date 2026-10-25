@@ -1,4 +1,4 @@
-type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row" };
+type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string };
 
 export const archiveProjects: ArchiveProject[] = [
   {
@@ -87,6 +87,7 @@ export const archiveProjects: ArchiveProject[] = [
   },
   {
     "title": "Website for Rosa Collective",
+    "videoPoster": "/img/fun-stuff/website-for-rosa-collective/cover.jpg",
     "description": "Digital identity and website for an Oslo-based landscape architecture studio focused on social sustainability and public health. I designed and built the site in Framer, with a custom p5.js sketch reflecting the studio’s data-driven approach.",
     "images": [
       "/img/fun-stuff/website-for-rosa-collective/rosa.mp4"
@@ -122,6 +123,7 @@ export const archiveProjects: ArchiveProject[] = [
   },
   {
     "title": "Action",
+    "videoPoster": "/img/fun-stuff/action/cover.jpg",
     "description": "Moving graphics for a digital fabrication exhibition at AHO. I animated floating nylon models in Blender, echoing the physical prints in the exhibition.",
     "images": [
       "/img/fun-stuff/action/0.mp4",
@@ -133,6 +135,7 @@ export const archiveProjects: ArchiveProject[] = [
   },
   {
     "title": "Stomata",
+    "videoPoster": "/img/fun-stuff/stomata/cover.jpg",
     "description": "A wallpaper generator using plants and illustrations of plant biochemistry. Save images from an endless feed, then turn them into graphics made with p5.js. A concept for the Oslo Botanical Garden’s upcoming exhibition, developed at AHO.",
     "year": "2023",
     "images": [
