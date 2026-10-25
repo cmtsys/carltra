@@ -1,47 +1,81 @@
 project,provided_file,status,size_bytes,notes
-Abstract weather,public/img/fun-stuff/abstract-weather/abstract-weather.gif,received,421202,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/1.jpg,received,759975,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/2.jpg,received,1539529,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/3.jpg,received,1440611,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/4.jpg,received,1359486,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/5.jpg,received,1351948,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/6.jpg,received,1067016,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/7.jpg,received,829436,Not integrated; gallery mapping pending.
-Accidental Exposures,public/img/fun-stuff/accidental-exposures/8.jpg,received,1291184,Not integrated; gallery mapping pending.
-Action,public/img/fun-stuff/action/0.mp4,received,98936596,Not integrated; gallery mapping pending.
-Action,public/img/fun-stuff/action/01.jpg,received,1537331,Not integrated; gallery mapping pending.
-Action,public/img/fun-stuff/action/02.png,received,4118768,Not integrated; gallery mapping pending.
-Action,public/img/fun-stuff/action/03.JPG,received,1309853,Not integrated; gallery mapping pending.
-Bike parade,public/img/fun-stuff/bike_parade/bike.jpg,received,1364944,Not integrated; gallery mapping pending.
-Bike parade,public/img/fun-stuff/bike_parade/boys.jpg,received,1312648,Not integrated; gallery mapping pending.
-Bike parade,public/img/fun-stuff/bike_parade/ulrik.gif,received,4679550,Not integrated; gallery mapping pending.
-Bike parade,public/img/fun-stuff/bike_parade/weld.jpg,received,1289903,Not integrated; gallery mapping pending.
-CMYK prints,public/img/fun-stuff/cmyk-prints/0.gif,received,7905314,Not integrated; gallery mapping pending.
-CMYK prints,public/img/fun-stuff/cmyk-prints/01.jpg,received,1339908,Not integrated; gallery mapping pending.
-CMYK prints,public/img/fun-stuff/cmyk-prints/02.jpg,received,1396803,Not integrated; gallery mapping pending.
-CMYK prints,public/img/fun-stuff/cmyk-prints/04.jpg,received,1545841,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/01.png,received,1486206,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/02.5.jpg,received,1536552,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/02.png,received,600329,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/03.jpg,received,1586734,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/04.jpg,received,1603776,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/05.jpg,received,1612311,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/06.JPG,received,1164540,Not integrated; gallery mapping pending.
-Experimental type,public/img/fun-stuff/experimental-type/07.jpg,received,1610326,Not integrated; gallery mapping pending.
-Face tracking,public/img/fun-stuff/face-tracking/face-tracking.gif,received,4764935,Not integrated; gallery mapping pending.
-Posters,public/img/fun-stuff/posters/Il dolce far niente1.png,received,2826708,Not integrated; gallery mapping pending.
-Posters,public/img/fun-stuff/posters/Il dolce far niente2.png,received,3398583,Not integrated; gallery mapping pending.
-Posters,public/img/fun-stuff/posters/Il dolce far niente3.png,received,3319070,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/1.jpg,received,1189221,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/2.jpg,received,1302055,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/3.jpg,received,1339008,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/4.jpg,received,1494539,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/5.jpg,received,1458605,Not integrated; gallery mapping pending.
-Ruter zine,public/img/fun-stuff/ruter-zine/6.jpg,received,1392894,Not integrated; gallery mapping pending.
-Scripting in InDesign,public/img/fun-stuff/scripting-in-indesign/grids.gif,received,159309,Not integrated; gallery mapping pending.
-Stomata,public/img/fun-stuff/stomata/Stomata-1.jpg,received,2775164,Not integrated; gallery mapping pending.
-Stomata,public/img/fun-stuff/stomata/Stomata-2.jpg,received,4371287,Not integrated; gallery mapping pending.
-Stomata,public/img/fun-stuff/stomata/Stomata-3.jpg,received,1483769,Not integrated; gallery mapping pending.
-Stomata,public/img/fun-stuff/stomata/Stomata-video.mp4,received,9498627,Not integrated; gallery mapping pending.
-Variable type,public/img/fun-stuff/variable-type/var-font.gif,received,4807115,Not integrated; gallery mapping pending.
-Website for Rosa Collective,public/img/fun-stuff/website-for-rosa-collective/rosa.mp4,received,7616821,Not integrated; gallery mapping pending.
+Abstract weather,public/img/fun-stuff/abstract-weather/abstract-weather.gif,integrated,421202,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/1.jpg,integrated,759975,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/2.jpg,integrated,1539529,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/3.jpg,integrated,1440611,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/4.jpg,integrated,1359486,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/5.jpg,integrated,1351948,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/6.jpg,integrated,1067016,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/7.jpg,integrated,829436,Used in local gallery.
+Accidental Exposures,public/img/fun-stuff/accidental-exposures/8.jpg,integrated,1291184,Used in local gallery.
+Action,public/img/fun-stuff/action/0.mp4,integrated,8667377,Used in local gallery.
+Action,public/img/fun-stuff/action/01.jpg,integrated,1537331,Used in local gallery.
+Action,public/img/fun-stuff/action/02.png,integrated,4118768,Used in local gallery.
+Action,public/img/fun-stuff/action/03.JPG,integrated,1309853,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/bike.jpg,integrated,1364944,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/boys.jpg,integrated,1312648,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/ulrik.gif,integrated,4679550,Used in local gallery.
+Bike parade,public/img/fun-stuff/bike_parade/weld.jpg,integrated,1289903,Used in local gallery.
+CMYK prints,public/img/fun-stuff/cmyk-prints/0.gif,integrated,7905314,Used in local gallery.
+CMYK prints,public/img/fun-stuff/cmyk-prints/01.jpg,integrated,1339908,Used in local gallery.
+CMYK prints,public/img/fun-stuff/cmyk-prints/02.jpg,integrated,1396803,Used in local gallery.
+CMYK prints,public/img/fun-stuff/cmyk-prints/04.jpg,integrated,1545841,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/00004.jpg,integrated,467378,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/0002.jpg,integrated,412942,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/001.jpg,integrated,464542,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/01.gif,integrated,4782543,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/01.jpg,integrated,328362,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/02.jpg,integrated,244685,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/03.jpg,integrated,394680,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/04.jpg,integrated,336454,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/05.jpg,integrated,454834,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/06.5.jpg,integrated,453215,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/06.jpg,integrated,444000,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/07.png,integrated,1673187,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/08.png,integrated,1859114,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/09.jpg,integrated,346277,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/10.png,integrated,2180350,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/12.jpg,integrated,384211,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/13.jpg,integrated,427849,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/14.jpg,integrated,374005,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/9.2.jpg,integrated,488501,Used in local gallery.
+Error 445,public/img/fun-stuff/error-445/alert-overview2.jpg,excluded,423977,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/ar.png,excluded,1843218,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/ball 2.jpg,excluded,568086,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/hall-reg.jpg,excluded,446125,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/hall4.jpg,excluded,455609,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/house.jpg,excluded,445920,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/killer 2.jpg,excluded,353288,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/killer.jpg,excluded,421374,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/kult.jpg,excluded,405954,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/kult2.jpg,excluded,381766,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/overview.jpg,excluded,600288,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/redalert.jpg,excluded,395655,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/sokrates.jpg,excluded,456955,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/stars.jpg,excluded,478844,Excluded: Error 445 uses only numeric filenames.
+Error 445,public/img/fun-stuff/error-445/søyle.jpg,excluded,451142,Excluded: Error 445 uses only numeric filenames.
+Experimental type,public/img/fun-stuff/experimental-type/01.png,integrated,1486206,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/02.5.jpg,integrated,1536552,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/02.png,integrated,600329,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/03.jpg,integrated,1586734,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/04.jpg,integrated,1603776,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/05.jpg,integrated,1612311,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/06.JPG,integrated,1164540,Used in local gallery.
+Experimental type,public/img/fun-stuff/experimental-type/07.jpg,integrated,1610326,Used in local gallery.
+Face tracking,public/img/fun-stuff/face-tracking/face-tracking.gif,integrated,4764935,Used in local gallery.
+Posters,public/img/fun-stuff/posters/Il dolce far niente1.png,integrated,2826708,Used in local gallery.
+Posters,public/img/fun-stuff/posters/Il dolce far niente2.png,integrated,3398583,Used in local gallery.
+Posters,public/img/fun-stuff/posters/Il dolce far niente3.png,integrated,3319070,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/1.jpg,integrated,1189221,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/2.jpg,integrated,1302055,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/3.jpg,integrated,1339008,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/4.jpg,integrated,1494539,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/5.jpg,integrated,1458605,Used in local gallery.
+Ruter zine,public/img/fun-stuff/ruter-zine/6.jpg,integrated,1392894,Used in local gallery.
+Scripting in InDesign,public/img/fun-stuff/scripting-in-indesign/grids.gif,integrated,159309,Used in local gallery.
+Stomata,public/img/fun-stuff/stomata/Stomata-1.jpg,integrated,2775164,Used in local gallery.
+Stomata,public/img/fun-stuff/stomata/Stomata-2.jpg,integrated,4371287,Used in local gallery.
+Stomata,public/img/fun-stuff/stomata/Stomata-3.jpg,integrated,1483769,Used in local gallery.
+Stomata,public/img/fun-stuff/stomata/Stomata-video.mp4,integrated,9498627,Used in local gallery.
+Variable type,public/img/fun-stuff/variable-type/var-font.gif,integrated,4807115,Used in local gallery.
+Website for Rosa Collective,public/img/fun-stuff/website-for-rosa-collective/rosa.mp4,integrated,7616821,Used in local gallery.

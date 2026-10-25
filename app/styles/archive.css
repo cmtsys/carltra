@@ -255,7 +255,8 @@ body:has(.archive-sphere-screen) .page > footer {
 .archive-feature-gallery button:hover,
 .archive-feature-gallery button[aria-pressed="true"] { opacity: 1; }
 .archive-feature-gallery button:focus-visible { outline: 1px solid var(--text-strong); outline-offset: -1px; }
-.archive-feature-gallery img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.archive-feature-gallery img,
+.archive-feature-gallery video { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 .archive-image-navigation { position: absolute; inset: 0; display: flex; }
 .archive-image-navigation button { width: 50%; border: 0; padding: 0; background: transparent; }
@@ -509,3 +510,15 @@ body:has(.archive-waterfall-track) .archive-intro {
 /* Auto margins center short galleries without making overflowing items unreachable. */
 .archive-feature-gallery button:first-child { margin-left: auto; }
 .archive-feature-gallery button:last-child { margin-right: auto; }
+
+/* Show the poster series together, with a little space between each print. */
+.archive-poster-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2%;
+  width: 100%;
+  height: 100%;
+}
+.archive-poster-row img { min-width: 0; object-fit: contain; }
+.archive-sphere-photo:has(.archive-poster-row) .archive-sphere-photo-inner,
+.archive-sphere-photo:has(.archive-poster-row) .t-tilt-card { background: transparent; }

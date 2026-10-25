@@ -30,6 +30,15 @@ type DragState = {
   moved: boolean;
 };
 
+// Three portrait posters presented as one composition, including the gutters.
+const POSTER_ROW_RATIO = 2.35;
+const imageCount = (photo: typeof photos[number]) => photo.mediaLayout === "row" ? 1 : photo.images.length;
+function PosterRow({ images, title }: { images: string[]; title: string }) {
+  return <span className="archive-poster-row">{images.map((src, index) => (
+    <Image key={src} src={src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
+  ))}</span>;
+}
+
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterfall" }) {
@@ -258,7 +267,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     smoothPitch.jump(currentPitch);
   };
 
-  const focusPhoto = (index: number) => {
+  const focusPhoto = (index: number, imageIndex = 0) => {
     if (ignoreClick.current) return;
     if (selected === index) {
       clearSelection();
@@ -274,7 +283,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     const bounds = photoRefs.current[index]?.getBoundingClientRect();
     const stage = stageRef.current?.getBoundingClientRect();
     if (bounds && stage) setOrigin({ left: bounds.left - stage.left, top: bounds.top - stage.top, width: bounds.width, height: bounds.height });
-    setGalleryIndex(0);
+    setGalleryIndex(imageIndex);
     const photo = photos[index];
     if (isWaterfall) {
       setSelected(index);
@@ -298,7 +307,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     };
   };
 
-  const browsePhoto = (direction: number) => {
+  const browsePhoto = (direction: number, enterAtLastImage = false) => {
     const index = selectedRef.current;
     // With no project open, select the current stream item before advancing.
     const next = index === null
@@ -307,7 +316,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     if (isWaterfall && trackRef.current) {
       trackRef.current.scrollTo({ top: next * streamStep, behavior: reduceMotion ? "instant" : "smooth" });
     }
-    focusPhoto(next);
+    focusPhoto(next, enterAtLastImage && index !== null ? imageCount(photos[next]) - 1 : 0);
     stageRef.current?.focus({ preventScroll: true });
   };
 
@@ -315,6 +324,20 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     if (selected === null) return;
     const count = photos[selected].images.length;
     setGalleryIndex((index) => (index + direction + count) % count);
+  };
+
+  const browseSequence = (direction: number) => {
+    const project = selectedRef.current;
+    if (project === null) {
+      browsePhoto(direction);
+      return;
+    }
+    const nextImage = galleryIndex + direction;
+    if (nextImage >= 0 && nextImage < imageCount(photos[project])) {
+      setGalleryIndex(nextImage);
+    } else {
+      browsePhoto(direction, direction < 0);
+    }
   };
 
   useEffect(() => {
@@ -326,7 +349,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       if (target.closest("input, textarea, select, [contenteditable='true'], video, a, .hamburger")) return;
       event.preventDefault();
       const direction = event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 1;
-      browsePhoto(direction);
+      browseSequence(direction);
     };
     window.addEventListener("keydown", navigate);
     return () => window.removeEventListener("keydown", navigate);
@@ -392,8 +415,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
 
   const compact = stageSize.width < 700;
   const selectedSrc = selected === null ? "" : photos[selected].images[galleryIndex];
-  const galleryHeight = selected !== null && photos[selected].images.length > 1 ? 72 : 0;
-  const selectedRatio = imageRatios[selectedSrc] ?? 1;
+  const selectedRow = selected !== null && photos[selected].mediaLayout === "row";
+  const galleryHeight = selected !== null && imageCount(photos[selected]) > 1 ? 72 : 0;
+  const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width * 0.82 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isWaterfall ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   const mediaWidth = Math.min(maxWidth, maxHeight * selectedRatio);
@@ -419,7 +443,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       aria-hidden={selected !== null ? true : undefined}
       style={isWaterfall ? { y: introStreamY } : undefined}>
       <motion.p className="body-l" style={{ opacity: isWaterfall ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd and/or unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
-      {isWaterfall && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>use arrows to navigate</span></motion.p>}
+      {isWaterfall && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
     <div ref={trackRef} className={isWaterfall ? "archive-waterfall-track" : "archive-sphere-track"}>
     <section
@@ -468,7 +492,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
           style={isWaterfall ? { scale: smoothZoom } : { transform: sphereTransform }}
         >
           {radius > 0 && photos.map((photo, index) => {
-            const ratio = imageRatios[photo.src] ?? 1;
+            const ratio = photo.mediaLayout === "row" ? POSTER_ROW_RATIO : imageRatios[photo.src] ?? 1;
             const width = Math.min(cardWidth * 1.35, cardWidth * 1.4 * ratio);
             const height = width / ratio;
 
@@ -534,7 +558,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                   transition={isWaterfall ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span className={isWaterfall ? "t-tilt-card" : "archive-photo-media"}>
-                  {photo.src.endsWith(".mp4") ? (
+                  {photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} /> : photo.src.endsWith(".mp4") ? (
                     <video src={photo.src} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
                       onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
                   ) : (
@@ -584,8 +608,13 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
               style={{ transformOrigin: "0 0" }}
               transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
               onPointerDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
-              {selectedSrc.endsWith(".mp4") ? (
-                <video src={selectedSrc} muted playsInline loop autoPlay={!reduceMotion} controls aria-label={photos[selected].title} />
+              {selectedRow ? <PosterRow images={photos[selected].images} title={photos[selected].title} /> : selectedSrc.endsWith(".mp4") ? (
+                <video src={selectedSrc} muted playsInline loop autoPlay={!reduceMotion} controls aria-label={photos[selected].title}
+                  onLoadedMetadata={(event) => {
+                    const video = event.currentTarget;
+                    const ratio = video.videoWidth / video.videoHeight;
+                    if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
+                  }} />
               ) : (
                 <Image src={selectedSrc} alt={`${photos[selected].title}, image ${galleryIndex + 1}`} width={1000} height={1000 / selectedRatio} unoptimized
                   onLoad={(event) => {
@@ -594,7 +623,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                     if (ratio > 0) setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio });
                   }} />
               )}
-              {!selectedSrc.endsWith(".mp4") && photos[selected].images.length > 1 && (
+              {!selectedSrc.endsWith(".mp4") && imageCount(photos[selected]) > 1 && (
                 <div className="archive-image-navigation" onKeyDown={(event) => {
                   if (isWaterfall) return;
                   if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
@@ -608,7 +637,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
               )}
             </motion.div>
             </div>
-            {photos[selected].images.length > 1 && (
+            {imageCount(photos[selected]) > 1 && (
               <motion.div className="archive-feature-gallery" role="group" aria-label="Project gallery"
                 style={{ left: slotLeft, width: maxWidth }}
                 initial={{ opacity: 0, top: featureTop + mediaHeight + 16 }}
@@ -619,12 +648,19 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                 {photos[selected].images.map((src, index) => (
                   <button key={src} type="button" aria-label={`Show image ${index + 1} of ${photos[selected].images.length}`}
                     aria-pressed={galleryIndex === index} onClick={() => setGalleryIndex(index)}>
-                    <Image src={src} alt="" width={64} height={48} unoptimized
+                    {src.endsWith(".mp4") ? (
+                      <video src={src} muted playsInline preload="metadata" aria-hidden="true"
+                        onLoadedMetadata={(event) => {
+                          const video = event.currentTarget;
+                          const ratio = video.videoWidth / video.videoHeight;
+                          if (ratio > 0) setImageRatios((current) => current[src] === ratio ? current : { ...current, [src]: ratio });
+                        }} />
+                    ) : <Image src={src} alt="" width={64} height={48} unoptimized
                       onLoad={(event) => {
                         const image = event.currentTarget;
                         const ratio = image.naturalWidth / image.naturalHeight;
                         if (ratio > 0) setImageRatios((current) => current[src] === ratio ? current : { ...current, [src]: ratio });
-                      }} />
+                      }} />}
                   </button>
                 ))}
               </motion.div>
