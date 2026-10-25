@@ -1,5 +1,7 @@
 "use client";
 
+// Yeah, this is all vibecoded – i dont know what is going on here. 
+
 // Reset measured geometry and Motion values together when editing this scene.
 // @refresh reset
 
@@ -41,8 +43,8 @@ function PosterRow({ images, title }: { images: string[]; title: string }) {
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
-export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterfall" }) {
-  const isWaterfall = mode === "waterfall";
+export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-stuff" }) {
+  const isFunStuff = mode === "fun-stuff";
   const trackRef = useRef<HTMLDivElement>(null);
   const stream = useMotionValue(0);
   const streamStep = 240;
@@ -126,7 +128,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   }, []);
 
   useEffect(() => {
-    if (!isWaterfall) return;
+    if (!isFunStuff) return;
     const track = trackRef.current;
     if (!track) return;
     const update = () => {
@@ -140,7 +142,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     update();
     track.addEventListener("scroll", update, { passive: true });
     return () => track.removeEventListener("scroll", update);
-  }, [isWaterfall, stream]);
+  }, [isFunStuff, stream]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -149,7 +151,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       const target = event.target as HTMLElement;
       // Keep native scrolling in the thumbnail strip and text, and native video controls.
       if (target.closest(".archive-feature-gallery, .archive-sphere-caption, video")) return;
-      if (isWaterfall && !event.ctrlKey && !event.metaKey) {
+      if (isFunStuff && !event.ctrlKey && !event.metaKey) {
         if (selectedRef.current !== null && (event.deltaX !== 0 || event.deltaY !== 0)) {
           event.preventDefault();
           clearSelection();
@@ -183,7 +185,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     };
     stage.addEventListener("wheel", onWheel, { passive: false });
     return () => stage.removeEventListener("wheel", onWheel);
-  }, [pitch, yaw, zoom, smoothPitch, smoothYaw, smoothZoom, reduceMotion, isWaterfall, clearSelection]);
+  }, [pitch, yaw, zoom, smoothPitch, smoothYaw, smoothZoom, reduceMotion, isFunStuff, clearSelection]);
 
   const updateReturnFlight = () => {
     const flight = returnFlight.current;
@@ -198,7 +200,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   };
 
   useAnimationFrame((time, delta) => {
-    if (isWaterfall) {
+    if (isFunStuff) {
       const offset = stream.get();
       photos.forEach((photo, index) => {
         const card = photoRefs.current[index];
@@ -285,7 +287,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     if (bounds && stage) setOrigin({ left: bounds.left - stage.left, top: bounds.top - stage.top, width: bounds.width, height: bounds.height });
     setGalleryIndex(imageIndex);
     const photo = photos[index];
-    if (isWaterfall) {
+    if (isFunStuff) {
       setSelected(index);
       return;
     }
@@ -311,9 +313,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     const index = selectedRef.current;
     // With no project open, select the current stream item before advancing.
     const next = index === null
-      ? (isWaterfall ? clamp(Math.round(stream.get() / streamStep), 0, PHOTO_COUNT - 1) : 0)
+      ? (isFunStuff ? clamp(Math.round(stream.get() / streamStep), 0, PHOTO_COUNT - 1) : 0)
       : (index + direction + PHOTO_COUNT) % PHOTO_COUNT;
-    if (isWaterfall && trackRef.current) {
+    if (isFunStuff && trackRef.current) {
       trackRef.current.scrollTo({ top: next * streamStep, behavior: reduceMotion ? "instant" : "smooth" });
     }
     focusPhoto(next, enterAtLastImage && index !== null ? imageCount(photos[next]) - 1 : 0);
@@ -341,7 +343,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   };
 
   useEffect(() => {
-    if (!isWaterfall) return;
+    if (!isFunStuff) return;
     const navigate = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
@@ -371,7 +373,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     }
     if (!current.moved) return;
 
-    if (isWaterfall) {
+    if (isFunStuff) {
       trackRef.current?.scrollBy(0, -dy);
       current.startY = event.clientY;
       return;
@@ -388,7 +390,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   };
 
   const handleCardTilt = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!isWaterfall || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
+    if (!isFunStuff || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
     const card = event.currentTarget;
     const bounds = card.getBoundingClientRect();
     const x = clamp((event.clientX - bounds.left) / bounds.width, 0, 1);
@@ -419,7 +421,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
   const galleryHeight = selected !== null && imageCount(photos[selected]) > 1 ? 72 : 0;
   const selectedRatio = selectedRow ? POSTER_ROW_RATIO : imageRatios[selectedSrc] ?? 1;
   const maxWidth = compact ? stageSize.width * 0.82 : Math.min(600, stageSize.width * 0.48);
-  const maxHeight = compact ? (isWaterfall ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
+  const maxHeight = compact ? (isFunStuff ? Math.min(380, stageSize.height * 0.46) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   const mediaWidth = Math.min(maxWidth, maxHeight * selectedRatio);
   const mediaHeight = mediaWidth / selectedRatio;
   const textWidth = compact ? Math.min(300, stageSize.width - 48) : Math.min(310, stageSize.width * 0.28);
@@ -433,7 +435,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
     top: compact ? slotTop + maxHeight + galleryHeight + gap + 24 : slotTop + maxHeight / 2,
     width: textWidth };
 
-  const cardWidth = isWaterfall ? clamp(stageSize.width * 0.24, 110, 245) : clamp(radius * 0.35, 36, 150);
+  const cardWidth = isFunStuff ? clamp(stageSize.width * 0.24, 110, 245) : clamp(radius * 0.35, 36, 150);
 
   return (
     <>
@@ -441,15 +443,15 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       animate={{ opacity: selected !== null ? 0 : 1 }}
       transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
       aria-hidden={selected !== null ? true : undefined}
-      style={isWaterfall ? { y: introStreamY } : undefined}>
-      <motion.p className="body-l" style={{ opacity: isWaterfall ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd and/or unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
-      {isWaterfall && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
+      style={isFunStuff ? { y: introStreamY } : undefined}>
+      <motion.p className="body-l" style={{ opacity: isFunStuff ? introStreamOpacity : introZoomOpacity }}>As any designer, I have a bunch of wierd and/or unfinished projects. I have bundled them together here for anyone who might be interested. </motion.p>
+      {isFunStuff && <motion.p className="archive-keyboard-hint body-s" style={{ opacity: introStreamOpacity }}><span>scroll or use arrows to navigate</span></motion.p>}
     </motion.div>
-    <div ref={trackRef} className={isWaterfall ? "archive-waterfall-track" : "archive-sphere-track"}>
+    <div ref={trackRef} className={isFunStuff ? "archive-fun-stuff-track" : "archive-sphere-track"}>
     <section
       ref={stageRef}
-      className={`archive-sphere-screen${isWaterfall ? " archive-waterfall-screen" : ""}`}
-      aria-label={isWaterfall ? "Floating project stream. Scroll or drag to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
+      className={`archive-sphere-screen${isFunStuff ? " archive-fun-stuff-screen" : ""}`}
+      aria-label={isFunStuff ? "Floating project stream. Scroll or drag to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
       tabIndex={0}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -461,8 +463,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       onKeyDown={(event) => {
         if (event.key === "Escape") clearSelection();
         // The window handler also works before the user focuses the stream.
-        if (isWaterfall && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
-        if (isWaterfall && ["PageUp", "PageDown", "Home", "End"].includes(event.key)) {
+        if (isFunStuff && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+        if (isFunStuff && ["PageUp", "PageDown", "Home", "End"].includes(event.key)) {
           event.preventDefault();
           if (selectedRef.current !== null) clearSelection();
           const top = event.key === "Home" ? 0 : event.key === "End" ? PHOTO_COUNT * streamStep
@@ -489,7 +491,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       <div className="archive-sphere-scene">
         <motion.div
           className="archive-sphere"
-          style={isWaterfall ? { scale: smoothZoom } : { transform: sphereTransform }}
+          style={isFunStuff ? { scale: smoothZoom } : { transform: sphereTransform }}
         >
           {radius > 0 && photos.map((photo, index) => {
             const ratio = photo.mediaLayout === "row" ? POSTER_ROW_RATIO : imageRatios[photo.src] ?? 1;
@@ -500,22 +502,22 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
               <button
                 key={photo.src}
                 ref={(element) => { photoRefs.current[index] = element; }}
-                className={`archive-sphere-photo${isWaterfall ? " t-tilt" : ""}`}
+                className={`archive-sphere-photo${isFunStuff ? " t-tilt" : ""}`}
                 type="button"
                 aria-label={`View ${photo.title}`}
                 aria-pressed={selected === index}
                 aria-describedby={selected === index ? "archive-photo-details" : undefined}
                 onFocus={() => {
-                  if (isWaterfall) { setHovered(index); }
-                  if (isWaterfall && trackRef.current) {
+                  if (isFunStuff) { setHovered(index); }
+                  if (isFunStuff && trackRef.current) {
                     const top = index * streamStep;
                     if (Math.abs(stream.get() - index * streamStep) > stageSize.height * 0.4) trackRef.current.scrollTo({ top, behavior: reduceMotion ? "instant" : "smooth" });
                   }
                 }}
-                onBlur={() => { if (isWaterfall) setHovered(null); }}
+                onBlur={() => { if (isFunStuff) setHovered(null); }}
                 onPointerMove={handleCardTilt}
-                onPointerDown={(event) => { if (isWaterfall) resetTilt(event.currentTarget); }}
-                onPointerCancel={(event) => { if (isWaterfall) resetTilt(event.currentTarget); }}
+                onPointerDown={(event) => { if (isFunStuff) resetTilt(event.currentTarget); }}
+                onPointerCancel={(event) => { if (isFunStuff) resetTilt(event.currentTarget); }}
                 onPointerEnter={(event) => {
                   handleCardTilt(event);
                   if (event.pointerType === "mouse") {
@@ -527,7 +529,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                   }
                 }}
                 onPointerLeave={(event) => {
-                  if (isWaterfall) resetTilt(event.currentTarget);
+                  if (isFunStuff) resetTilt(event.currentTarget);
                   if (hoveredPhoto.current === index) {
                     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
                     hoverLeaveTimer.current = setTimeout(() => {
@@ -554,10 +556,10 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
               >
                 <motion.span
                   className="archive-sphere-photo-inner"
-                  animate={{ scale: !isWaterfall && hovered === index && !reduceMotion ? 1.045 : 1 }}
-                  transition={isWaterfall ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  animate={{ scale: !isFunStuff && hovered === index && !reduceMotion ? 1.045 : 1 }}
+                  transition={isFunStuff ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <span className={isWaterfall ? "t-tilt-card" : "archive-photo-media"}>
+                  <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
                   {photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} /> : photo.src.endsWith(".mp4") ? (
                     <video src={photo.src} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
                       onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
@@ -567,7 +569,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
                         if (ratio > 0) setImageRatios((current) => current[photo.src] === ratio ? current : { ...current, [photo.src]: ratio }); }}
                       loading="eager" unoptimized draggable={false} />
                   )}
-                  {isWaterfall && <span className="t-tilt-glare" aria-hidden="true" />}
+                  {isFunStuff && <span className="t-tilt-glare" aria-hidden="true" />}
                   </span>
                 </motion.span>
 
@@ -576,17 +578,17 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
           })}
         </motion.div>
       </div>
-      {isWaterfall && photos.map((photo, index) => (
+      {isFunStuff && photos.map((photo, index) => (
         <motion.span key={photo.src} ref={(element) => { hoverTitleRefs.current[index] = element; }}
-          className="archive-waterfall-title body-m" aria-hidden="true"
+          className="archive-fun-stuff-title body-m" aria-hidden="true"
           initial={false} animate={{ opacity: hovered === index && selected === null ? 1 : 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.2, ease: "easeOut" }}>
           {photo.title}
         </motion.span>
       ))}
       <AnimatePresence>
-        {isWaterfall && atStreamEnd && selected === null && (
-          <motion.div className="archive-waterfall-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        {isFunStuff && atStreamEnd && selected === null && (
+          <motion.div className="archive-fun-stuff-end" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0 : 0.2 }} onPointerDown={(event) => event.stopPropagation()}>
             <p className="body-l">You have reached the end.</p>
             <button type="button" className="body-l underline-link" onClick={(event) => {
@@ -600,9 +602,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
       <AnimatePresence onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
         {selected !== null && (
           <motion.div key={selected} className="archive-feature" exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0 : 0.1, delay: reduceMotion ? 0 : 0.3 }}
-            onPointerDown={(event) => { if (isWaterfall && compact) event.stopPropagation(); }}
-            onClick={(event) => { if (isWaterfall && compact) event.stopPropagation(); }}>
-            <div className="archive-feature-media-slot" style={compact && isWaterfall ? { height: maxHeight } : undefined}>
+            onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
+            onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
+            <div className="archive-feature-media-slot" style={compact && isFunStuff ? { height: maxHeight } : undefined}>
             <motion.div className="archive-feature-media" initial={reduceMotion ? false : origin}
               animate={featureBounds}
               style={{ transformOrigin: "0 0" }}
@@ -625,7 +627,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
               )}
               {!selectedSrc.endsWith(".mp4") && imageCount(photos[selected]) > 1 && (
                 <div className="archive-image-navigation" onKeyDown={(event) => {
-                  if (isWaterfall) return;
+                  if (isFunStuff) return;
                   if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                     event.preventDefault(); event.stopPropagation();
                     browseImage(event.key === "ArrowLeft" ? -1 : 1);
@@ -687,7 +689,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "waterf
         )}
       </AnimatePresence>
     </section>
-    {isWaterfall && <div aria-hidden="true" style={{ height: PHOTO_COUNT * streamStep }} />}
+    {isFunStuff && <div aria-hidden="true" style={{ height: PHOTO_COUNT * streamStep }} />}
     </div>
     </>
   );

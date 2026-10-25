@@ -291,8 +291,8 @@ body:has(.archive-sphere-screen) .page > footer {
 }
 
 .archive-sphere-track { width: 100%; }
-.archive-waterfall-track { position: relative; width: 100%; }
-.archive-sphere-screen.archive-waterfall-screen {
+.archive-fun-stuff-track { position: relative; width: 100%; }
+.archive-sphere-screen.archive-fun-stuff-screen {
   position: sticky;
   top: 24px;
   height: calc(100dvh - 48px);
@@ -300,11 +300,11 @@ body:has(.archive-sphere-screen) .page > footer {
   max-width: 1200px;
   overflow: clip;
 }
-.archive-waterfall-screen .archive-sphere-scene { perspective: 1180px; }
-.archive-waterfall-screen .archive-sphere-caption h2 { font-weight: 400; }
+.archive-fun-stuff-screen .archive-sphere-scene { perspective: 1180px; }
+.archive-fun-stuff-screen .archive-sphere-caption h2 { font-weight: 400; }
 @media (max-width: 699px) {
-  .archive-sphere-screen.archive-waterfall-screen { top: 8px; height: calc(100dvh - 16px); min-height: 560px; }
-  .archive-waterfall-screen .archive-sphere-scene { perspective: 850px; }
+  .archive-sphere-screen.archive-fun-stuff-screen { top: 8px; height: calc(100dvh - 16px); min-height: 560px; }
+  .archive-fun-stuff-screen .archive-sphere-scene { perspective: 850px; }
 }
 
 /* Keep the scene's geometry stable while its intro fades; let zoomed cards
@@ -313,24 +313,24 @@ body:has(.archive-sphere-screen) .page > footer {
 body:has(.archive-sphere-track) .archive-intro { pointer-events: none; }
 body:has(.archive-sphere-track) .page > header { position: relative; z-index: 5; }
 
-/* Waterfall scrolls within the page frame, keeping the site navigation in view. */
-body:has(.archive-waterfall-track) { overflow: hidden; }
-body:has(.archive-waterfall-track) .page {
+/* Fun stuff scrolls within the page frame, keeping the site navigation in view. */
+body:has(.archive-fun-stuff-track) { overflow: hidden; }
+body:has(.archive-fun-stuff-track) .page {
   height: 100dvh;
   min-height: 0;
   box-sizing: border-box;
   padding-bottom: 0;
 }
-body:has(.archive-waterfall-track) .main { position: relative; min-height: 0; }
-body:has(.archive-waterfall-track) .page > header { position: relative; z-index: 5; flex-shrink: 0; }
-body:has(.archive-waterfall-track) .page > footer { display: flex; position: relative; z-index: 5; }
-body:has(.archive-waterfall-track) .archive-intro {
+body:has(.archive-fun-stuff-track) .main { position: relative; min-height: 0; }
+body:has(.archive-fun-stuff-track) .page > header { position: relative; z-index: 5; flex-shrink: 0; }
+body:has(.archive-fun-stuff-track) .page > footer { display: flex; position: relative; z-index: 5; }
+body:has(.archive-fun-stuff-track) .archive-intro {
   position: absolute;
   inset: 0 0 auto;
   z-index: 3;
   pointer-events: none;
 }
-.archive-waterfall-track {
+.archive-fun-stuff-track {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -338,17 +338,17 @@ body:has(.archive-waterfall-track) .archive-intro {
   overscroll-behavior: contain;
   scrollbar-width: none;
 }
-.archive-waterfall-track::-webkit-scrollbar { display: none; }
-.archive-waterfall-track > .archive-waterfall-screen {
+.archive-fun-stuff-track::-webkit-scrollbar { display: none; }
+.archive-fun-stuff-track > .archive-fun-stuff-screen {
   top: 0;
   height: 100%;
   min-height: 0;
   max-width: 1200px;
 }
-.archive-waterfall-screen .archive-sphere-photo-inner {
+.archive-fun-stuff-screen .archive-sphere-photo-inner {
   box-shadow: 0 3px 8px rgb(23 23 23 / .06), 0 18px 40px -8px rgb(23 23 23 / .16);
 }
-.archive-waterfall-title {
+.archive-fun-stuff-title {
   position: absolute;
   z-index: 1;
   visibility: hidden;
@@ -362,9 +362,9 @@ body:has(.archive-waterfall-track) .archive-intro {
   text-shadow: 0 1px 12px var(--background);
 }
 @media (max-width: 699px) {
-  .archive-waterfall-screen .archive-feature { overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; pointer-events: auto; }
-  body:has(.archive-waterfall-track) .page > footer { display: none; }
-  .archive-waterfall-screen .archive-feature {
+  .archive-fun-stuff-screen .archive-feature { overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; pointer-events: auto; }
+  body:has(.archive-fun-stuff-track) .page > footer { display: none; }
+  .archive-fun-stuff-screen .archive-feature {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -373,14 +373,14 @@ body:has(.archive-waterfall-track) .archive-intro {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
-  .archive-waterfall-screen .archive-feature-media {
+  .archive-fun-stuff-screen .archive-feature-media {
     position: relative;
     left: auto !important;
     top: auto !important;
     flex-shrink: 0;
     align-self: center;
   }
-  .archive-waterfall-screen .archive-feature-gallery {
+  .archive-fun-stuff-screen .archive-feature-gallery {
     position: relative;
     left: auto !important;
     top: auto !important;
@@ -388,7 +388,7 @@ body:has(.archive-waterfall-track) .archive-intro {
     flex-shrink: 0;
     padding-block: 4px;
   }
-  .archive-waterfall-screen .archive-sphere-caption {
+  .archive-fun-stuff-screen .archive-sphere-caption {
     position: relative;
     left: auto !important;
     top: auto !important;
@@ -396,9 +396,9 @@ body:has(.archive-waterfall-track) .archive-intro {
     flex-shrink: 0;
     padding-top: 36px;
   }
-  .archive-waterfall-screen .archive-sphere-caption-meta { top: 0; }
-  .archive-waterfall-screen .archive-sphere-caption-backdrop { display: none; }
-  .archive-waterfall-screen .archive-sphere-caption-nav { padding-bottom: 8px; }
+  .archive-fun-stuff-screen .archive-sphere-caption-meta { top: 0; }
+  .archive-fun-stuff-screen .archive-sphere-caption-backdrop { display: none; }
+  .archive-fun-stuff-screen .archive-sphere-caption-nav { padding-bottom: 8px; }
 
 }
 
@@ -412,7 +412,7 @@ body:has(.archive-waterfall-track) .archive-intro {
   touch-action: none;
 }
 .archive-photo-media, .t-tilt-card { display: block; width: 100%; height: 100%; }
-.archive-waterfall-screen .archive-sphere-photo-inner { overflow: visible; background: none; box-shadow: none; }
+.archive-fun-stuff-screen .archive-sphere-photo-inner { overflow: visible; background: none; box-shadow: none; }
 .t-tilt-card {
   position: relative;
   border-radius: 0;
@@ -442,27 +442,27 @@ body:has(.archive-waterfall-track) .archive-intro {
   .t-tilt-glare { display: none; }
 }
 
-.archive-waterfall-end {
+.archive-fun-stuff-end {
   position: absolute;
   inset: auto 20px 32px;
   z-index: 2;
   text-align: center;
 }
-.archive-waterfall-end button {
+.archive-fun-stuff-end button {
   border: 0;
   background: none;
   padding: 8px 0;
   color: var(--text-strong);
   cursor: pointer;
 }
-.archive-waterfall-end button:focus-visible { outline: 1px solid currentColor; outline-offset: 6px; }
+.archive-fun-stuff-end button:focus-visible { outline: 1px solid currentColor; outline-offset: 6px; }
 
-.archive-waterfall-end p { margin: 0; color: var(--text-strong); }
-.archive-waterfall-end .underline-link::after { bottom: 5px; }
+.archive-fun-stuff-end p { margin: 0; color: var(--text-strong); }
+.archive-fun-stuff-end .underline-link::after { bottom: 5px; }
 
 .archive-feature-media-slot { display: contents; }
 @media (max-width: 699px) {
-  .archive-waterfall-screen .archive-feature-media-slot {
+  .archive-fun-stuff-screen .archive-feature-media-slot {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -472,7 +472,7 @@ body:has(.archive-waterfall-track) .archive-intro {
 }
 
 .archive-sphere-caption h2,
-.archive-waterfall-title {
+.archive-fun-stuff-title {
   font-family: 'ABC Diatype', sans-serif;
   font-size: var(--text-m);
   font-weight: 400;
@@ -480,12 +480,12 @@ body:has(.archive-waterfall-track) .archive-intro {
   letter-spacing: normal;
 }
 
-.archive-waterfall-title { font-family: 'Instrument Serif', Georgia, serif; }
+.archive-fun-stuff-title { font-family: 'Instrument Serif', Georgia, serif; }
 .archive-sphere-screen .archive-sphere-caption h2 { font-weight: 600; }
 .archive-intro .archive-keyboard-hint { margin-top: 12px; color: var(--text-primary); }
 
 /* Intro first, then the stream, then its quiet keyboard hint. */
-.archive-waterfall-screen .archive-sphere-scene {
+.archive-fun-stuff-screen .archive-sphere-scene {
   animation: archive-reveal 1000ms ease-out 600ms both;
 }
 .archive-keyboard-hint span {
@@ -497,7 +497,7 @@ body:has(.archive-waterfall-track) .archive-intro {
   to { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .archive-waterfall-screen .archive-sphere-scene,
+  .archive-fun-stuff-screen .archive-sphere-scene,
   .archive-keyboard-hint span { animation: none; }
 }
 

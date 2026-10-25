@@ -136,10 +136,10 @@ export const archiveProjects: ArchiveProject[] = [
     "description": "A wallpaper generator using plants and illustrations of plant biochemistry. Save images from an endless feed, then turn them into graphics made with p5.js. A concept for the Oslo Botanical Garden’s upcoming exhibition, developed at AHO.",
     "year": "2023",
     "images": [
+      "/img/fun-stuff/stomata/Stomata-video.mp4",
       "/img/fun-stuff/stomata/Stomata-1.jpg",
       "/img/fun-stuff/stomata/Stomata-2.jpg",
-      "/img/fun-stuff/stomata/Stomata-3.jpg",
-      "/img/fun-stuff/stomata/Stomata-video.mp4"
+      "/img/fun-stuff/stomata/Stomata-3.jpg"
     ]
   },
   {

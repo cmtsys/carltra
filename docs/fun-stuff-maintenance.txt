@@ -1,0 +1,32 @@
+FUN STUFF — WHERE TO EDIT
+
+Content and gallery order: lib/archive.ts
+  The first media item is the stream cover. Paths are relative to public/.
+  Posters uses mediaLayout: "row" to show the series as one composition.
+
+Original media: public/img/fun-stuff/<project>/
+  Unused files are not automatically added to a gallery.
+  docs/fun-stuff-received.csv records integrated/excluded files.
+  docs/fun-stuff-media.csv also keeps superseded Cargo URLs for reference.
+
+Page entry points:
+  app/fun-stuff/page.tsx -> components/FunStuff.tsx -> Archive mode="fun-stuff"
+  app/archive/page.tsx -> components/Archive.tsx (sphere experiment)
+  The internal layout name is "fun-stuff". /waterfall remains only as an old-URL redirect to /fun-stuff.
+
+Gallery interactions and rendering: app/components/Archive.tsx
+Gallery styling and mobile layout: app/styles/archive.css
+  This stylesheet is loaded globally, but page-layout overrides are conditional
+  on the gallery being present. Check those selectors when changing scrolling,
+  header or footer behaviour.
+
+Site-wide page fades (separate from gallery animations):
+  app/components/PageTransition.tsx
+  app/styles/page-transitions.css
+  app/layout.tsx wires these in; next.config.ts enables viewTransition.
+  Dotted keyboard focus remains in app/styles/globals.css.
+
+Suggested future refactor:
+  Separate the project viewer and input handling from the sphere/river scene.
+  Keep behaviour changes (particularly mobile) separate from file moves so
+  each change is easier to review. No such restructuring has been done yet.
