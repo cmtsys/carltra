@@ -1,3 +1,6 @@
+/* THIS SECTION IS USED FOR THE FUN STUFF SECTION */
+/* This is all vibe-coded, I dont know what it all does. Remember to delete the stuff used for the sphere experiment earlier */
+
 body:has(.archive-sphere-screen) {
   margin: 0;
   overflow-x: hidden;

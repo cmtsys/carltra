@@ -1,3 +1,5 @@
+// THIS IS WHERE THE FUN STUFF PROJECTS COME FROM
+
 type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string };
 
 export const archiveProjects: ArchiveProject[] = [

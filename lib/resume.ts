@@ -1,4 +1,6 @@
-// resume.ts
+// resume.ts Not in use for now
+
+
 export type ExperienceItem = {
   years: string
   company: string

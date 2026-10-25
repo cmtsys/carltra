@@ -1,5 +1,7 @@
 "use client";
 
+// USED IN FUN STUFF SECTION
+
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 

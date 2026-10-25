@@ -6,13 +6,10 @@ Content and gallery order: lib/archive.ts
 
 Original media: public/img/fun-stuff/<project>/
   Unused files are not automatically added to a gallery.
-  docs/fun-stuff-received.csv records integrated/excluded files.
-  docs/fun-stuff-media.csv also keeps superseded Cargo URLs for reference.
 
 Page entry points:
   app/fun-stuff/page.tsx -> components/FunStuff.tsx -> Archive mode="fun-stuff"
   app/archive/page.tsx -> components/Archive.tsx (sphere experiment)
-  The internal layout name is "fun-stuff". /waterfall remains only as an old-URL redirect to /fun-stuff.
 
 Gallery interactions and rendering: app/components/Archive.tsx
 Gallery styling and mobile layout: app/styles/archive.css

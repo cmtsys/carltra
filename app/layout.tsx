@@ -7,7 +7,6 @@ import "./styles/reset.css";
 import "./styles/aboutme.css";
 import "./styles/contact.css";
 import "./styles/footer.css";
-import "./styles/comingsoon.css";
 import "./styles/archive.css";
 import "./styles/page-transitions.css";
 

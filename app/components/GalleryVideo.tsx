@@ -1,5 +1,7 @@
 "use client";
 
+// USED IN FUN STUFF SECTION
+
 import { useEffect, useRef, useState } from "react";
 
 export default function GalleryVideo({ src, poster, title, reducedMotion, onRatio }: {

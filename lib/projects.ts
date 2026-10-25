@@ -1,3 +1,5 @@
+// THIS IS WHERE THE PROJECTCARDS ARE GENERATED FROM
+
 export type Project = {
   title: string
   tagline: string
