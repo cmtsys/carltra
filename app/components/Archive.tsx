@@ -57,6 +57,13 @@ function PosterRow({ images, title, preview = false }: { images: string[]; title
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+const resetTilt = (card: HTMLButtonElement) => {
+    card.classList.remove("is-hover");
+    card.querySelector(".t-tilt-card")?.classList.remove("is-tilting");
+    card.style.setProperty("--tilt-rx", "0deg");
+    card.style.setProperty("--tilt-ry", "0deg");
+  };
+
 export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-stuff" }) {
   const isFunStuff = mode === "fun-stuff";
   const trackRef = useRef<HTMLDivElement>(null);
@@ -257,25 +264,35 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (!destination || !card) return;
     const progress = clamp((performance.now() - flight.started) / 400, 0, 1);
     const ease = 1 - (1 - progress) ** 3;
-    // Reproject every frame: scrolling keeps moving the destination during exit.
-    const tilt = isFunStuff && !reduceMotion ? Math.sin(flight.index * 1.9) * 12 : 0;
-    const twist = tilt * 0.3;
-    const radians = Math.PI / 180;
-    // The destination bounds already include rotation. Account for that before
-    // scaling, otherwise rotating the returning image makes it too large.
-    const rotatedWidth = Math.cos(tilt * radians) * (flight.contentWidth * Math.cos(twist * radians) + flight.contentHeight * Math.abs(Math.sin(twist * radians)));
-    const rotatedHeight = flight.contentHeight * Math.cos(twist * radians) + flight.contentWidth * Math.abs(Math.sin(twist * radians));
-    const targetScale = Math.min(destination.width / rotatedWidth, destination.height / rotatedHeight);
-    const scale = 1 + (targetScale - 1) * ease;
+    // Use the scene's actual projection, rather than estimating rotated bounds.
+    // Both elements then share identical corners at the handoff, even while scrolling.
+    const scene = stageRef.current?.querySelector<HTMLElement>(".archive-sphere-scene");
+    if (!scene) return;
+    const sceneBounds = scene.getBoundingClientRect();
+    const perspective = parseFloat(getComputedStyle(scene).perspective);
+    const projection = new DOMMatrix();
+    projection.m34 = -1 / perspective;
+    const destinationMatrix = new DOMMatrix()
+      .translate(sceneBounds.left + sceneBounds.width / 2 - flight.from.left - flight.from.width / 2,
+        sceneBounds.top + sceneBounds.height / 2 - flight.from.top - flight.from.height / 2)
+      .multiply(projection)
+      .multiply(isFunStuff ? new DOMMatrix().scale(smoothZoom.get())
+        : new DOMMatrix(getComputedStyle(card.parentElement!).transform))
+      .multiply(new DOMMatrix(getComputedStyle(card).transform))
+      .scale(parseFloat(getComputedStyle(card).width) / flight.contentWidth, parseFloat(getComputedStyle(card).height) / flight.contentHeight);
+    const identity = new DOMMatrix().toFloat64Array();
+    const target = destinationMatrix.toFloat64Array();
+    const transform = Array.from(target, (value, index) => identity[index] + (value - identity[index]) * ease);
     flight.element.style.transformOrigin = "50% 50%";
-    flight.element.style.translate = `${(destination.left + destination.width / 2 - flight.from.left - flight.from.width / 2) * ease}px ${(destination.top + destination.height / 2 - flight.from.top - flight.from.height / 2) * ease}px`;
-    flight.element.style.scale = String(scale);
-    flight.element.style.transform = `rotateY(${tilt * ease}deg) rotateZ(${twist * ease}deg)`;
-    // Blend into the real, tilted preview before removing the floating image.
-    const handoff = clamp((progress - 0.5) / 0.5, 0, 1);
-    flight.element.style.opacity = String(1 - handoff);
-    card.style.visibility = "visible";
-    card.style.opacity = String((isFunStuff ? Number(card.style.opacity) : 1) * handoff);
+    flight.element.style.translate = "none";
+    flight.element.style.scale = "none";
+    flight.element.style.transform = `matrix3d(${transform.join(",")})`;
+    // Keep one image visible, instead of crossfading two translucent copies.
+    // Hold the completed projection until AnimatePresence removes the overlay.
+    const destinationOpacity = Number(card.style.opacity);
+    flight.element.style.opacity = String(1 + (destinationOpacity - 1) * ease);
+    card.style.visibility = "hidden";
+    card.style.pointerEvents = "none";
   };
 
   useAnimationFrame((time, delta) => {
@@ -308,7 +325,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       updateReturnFlight();
       // Re-hit-test after moving the cards: scrolling need not move the mouse.
       const pointer = mousePosition.current;
-      if (stageSize.width >= 700 && selectedRef.current === null && !drag.current) {
+      if (stageSize.width >= 700 && selectedRef.current === null && !returnFlight.current && !drag.current) {
         const hit = pointer ? document.elementFromPoint(pointer.x, pointer.y)?.closest(".archive-sphere-photo") : null;
         const index = photoRefs.current.findIndex((card) => card === hit);
         const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
@@ -398,6 +415,8 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       const previous = selectedRef.current;
       setRememberedViews((current) => ({ ...current, [previous]: galleryIndex }));
     }
+    const openingCard = photoRefs.current[index];
+    if (openingCard) resetTilt(openingCard);
     setHovered(null);
     setReturning(null);
     returnFlight.current = null;
@@ -502,15 +521,10 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     pitch.set(current.startPitch - dy * 0.28);
   };
 
-  const resetTilt = (card: HTMLButtonElement) => {
-    card.classList.remove("is-hover");
-    card.querySelector(".t-tilt-card")?.classList.remove("is-tilting");
-    card.style.setProperty("--tilt-rx", "0deg");
-    card.style.setProperty("--tilt-ry", "0deg");
-  };
+
 
   const handleCardTilt = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!isFunStuff || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
+    if (!isFunStuff || returnFlight.current || selectedRef.current !== null || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
     const card = event.currentTarget;
     const bounds = card.getBoundingClientRect();
     const x = clamp((event.clientX - bounds.left) / bounds.width, 0, 1);
@@ -663,7 +677,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               <button
                 key={photo.src}
                 ref={(element) => { photoRefs.current[index] = element; }}
-                className={`archive-sphere-photo${isFunStuff ? " t-tilt" : ""}`}
+                className={`archive-sphere-photo${isFunStuff ? " t-tilt" : ""}${returning === index ? " is-returning" : ""}`}
                 type="button"
                 aria-label={`View ${photo.title}`}
                 aria-pressed={selected === index}
@@ -773,11 +787,16 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence custom={returning !== null} onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
+      <AnimatePresence custom={returning !== null} onExitComplete={() => {
+        const card = returnFlight.current && photoRefs.current[returnFlight.current.index];
+        if (card) card.style.visibility = "visible";
+        returnFlight.current = null;
+        setReturning(null);
+      }}>
         {selected !== null && (
           <motion.div key={selected} className="archive-feature" exit="exit"
             variants={{ exit: (isReturning: boolean) => ({ opacity: isReturning ? 1 : 0, transition: {
-              duration: reduceMotion ? 0 : isReturning ? 0.4 : 0.12,
+              duration: reduceMotion ? 0 : isReturning ? 0.45 : 0.12,
               ease: "easeOut",
             } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
