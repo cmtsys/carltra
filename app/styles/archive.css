@@ -37,6 +37,11 @@ body:has(.archive-sphere-screen) .page > footer {
   cursor: grabbing;
 }
 
+.archive-fun-stuff-screen,
+.archive-fun-stuff-screen:active {
+  cursor: default;
+}
+
 .archive-sphere-screen:focus-visible {
   outline: none;
 }
@@ -210,6 +215,19 @@ body:has(.archive-sphere-screen) .page > footer {
   aspect-ratio: 1;
   object-fit: contain;
   filter: none;
+}
+.archive-image-spread-natural {
+  width: min(100%, calc(100cqh * var(--spread-ratio)));
+  aspect-ratio: var(--spread-ratio);
+  align-items: center;
+}
+.archive-feature-media .archive-image-spread-natural img {
+  aspect-ratio: auto;
+  height: auto;
+}
+.archive-sphere-photo:has(.archive-image-spread) .archive-sphere-photo-inner,
+.archive-sphere-photo:has(.archive-image-spread) .t-tilt-card {
+  background: transparent;
 }
 .archive-sphere-caption .archive-project-year { margin-top: 16px; color: var(--text-strong); }
 .archive-project-link { display: inline-block; margin-top: 16px; text-decoration: underline; text-underline-offset: 3px; }

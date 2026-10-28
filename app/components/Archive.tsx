@@ -40,6 +40,15 @@ type DragState = {
 // Three portrait posters presented as one composition, including the gutters.
 const POSTER_ROW_RATIO = 2.35;
 const imageCount = (photo: typeof photos[number]) => photo.mediaLayout === "row" ? 1 : photo.gallery.length;
+const galleryRatio = (photo: typeof photos[number], images: string[], measured: Record<string, number>) => {
+  if (photo.mediaLayout === "row") return POSTER_ROW_RATIO;
+  if (images.length === 1) return measured[images[0]] ?? 1;
+  if (!photo.naturalPairs) return images.length === 2 ? 2 : 1;
+  const ratios = images.map((src) => measured[src] ?? 1);
+  return ratios.every((ratio) => ratio > 1)
+    ? 1 / ratios.reduce((sum, ratio) => sum + 1 / ratio, 0)
+    : ratios.reduce((sum, ratio) => sum + ratio, 0);
+};
 function PosterRow({ images, title, preview = false }: { images: string[]; title: string; preview?: boolean }) {
   return <span className="archive-poster-row">{images.map((src, index) => (
     <Image key={src} src={preview ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
@@ -60,11 +69,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const introStreamOpacity = useTransform(stream, [0, 180], [1, 0]);
   const introStreamY = useTransform(stream, [0, 240], [0, -56]);
   const [galleryIndex, setGalleryIndex] = useState(0);
+  const [rememberedViews, setRememberedViews] = useState<Record<number, number>>({});
   const focusTarget = useRef<{ index: number; yaw: number; pitch: number; fromYaw: number; fromPitch: number; elapsed: number } | null>(null);
   const [radius, setRadius] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [returning, setReturning] = useState<number | null>(null);
-  const returnFlight = useRef<{ index: number; element: HTMLElement; from: DOMRect; started: number } | null>(null);
+  const returnFlight = useRef<{ index: number; element: HTMLElement; from: DOMRect; contentWidth: number; contentHeight: number; started: number } | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   // Stop earlier on mobile so the final card and closing copy share the viewport.
   const streamEnd = PHOTO_COUNT * streamStep - (stageSize.width < 700 ? clamp(stageSize.height * 0.16, 72, 140) : 0);
@@ -99,18 +109,28 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const clearSelection = useCallback(() => {
     const index = selectedRef.current;
     if (index === null) return;
+    setRememberedViews((current) => ({ ...current, [index]: galleryIndex }));
     const card = photoRefs.current[index]?.getBoundingClientRect();
     const element = stageRef.current?.querySelector<HTMLElement>(".archive-feature-media");
     const media = element?.getBoundingClientRect();
     if (card && element && media && media.width && media.height && !reduceMotion) {
-      returnFlight.current = { index, element, from: media, started: performance.now() };
+      const frame = Array.from(element.querySelectorAll<HTMLElement>(".archive-gallery-frame"))
+        .sort((a, b) => Number(getComputedStyle(b).opacity) - Number(getComputedStyle(a).opacity))[0];
+      const image = frame?.querySelector<HTMLImageElement>("img");
+      const video = element.querySelector<HTMLVideoElement>("video");
+      const spread = (frame?.querySelector<HTMLElement>(".archive-image-spread") ?? element.querySelector<HTMLElement>(".archive-poster-row"))?.getBoundingClientRect();
+      const ratio = image?.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight
+        : video?.videoWidth && video.videoHeight ? video.videoWidth / video.videoHeight : media.width / media.height;
+      const contentWidth = spread?.width ?? Math.min(media.width, media.height * ratio);
+      const contentHeight = spread?.height ?? contentWidth / ratio;
+      returnFlight.current = { index, element, from: media, contentWidth, contentHeight, started: performance.now() };
       setReturning(index);
     }
     focusTarget.current = null;
     selectedRef.current = null;
     setSelected(null);
     stageRef.current?.focus({ preventScroll: true });
-  }, [reduceMotion]);
+  }, [reduceMotion, galleryIndex]);
 
   useEffect(() => {
     if (selected === null) return;
@@ -132,7 +152,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (selected === null) return;
     let cancelled = false;
     const images = photos[selected].gallery;
-    const adjacent = [galleryIndex - 1, galleryIndex + 1]
+    const adjacent = [galleryIndex, galleryIndex - 1, galleryIndex + 1]
       .map((index) => images[(index + images.length) % images.length])
       .flat()
       .filter((src) => !src.endsWith(".mp4"));
@@ -232,13 +252,30 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const updateReturnFlight = () => {
     const flight = returnFlight.current;
     if (!flight) return;
-    const destination = photoRefs.current[flight.index]?.getBoundingClientRect();
-    if (!destination) return;
+    const card = photoRefs.current[flight.index];
+    const destination = card?.getBoundingClientRect();
+    if (!destination || !card) return;
     const progress = clamp((performance.now() - flight.started) / 400, 0, 1);
     const ease = 1 - (1 - progress) ** 3;
     // Reproject every frame: scrolling keeps moving the destination during exit.
-    flight.element.style.translate = `${(destination.left - flight.from.left) * ease}px ${(destination.top - flight.from.top) * ease}px`;
-    flight.element.style.scale = `${1 + (destination.width / flight.from.width - 1) * ease} ${1 + (destination.height / flight.from.height - 1) * ease}`;
+    const tilt = isFunStuff && !reduceMotion ? Math.sin(flight.index * 1.9) * 12 : 0;
+    const twist = tilt * 0.3;
+    const radians = Math.PI / 180;
+    // The destination bounds already include rotation. Account for that before
+    // scaling, otherwise rotating the returning image makes it too large.
+    const rotatedWidth = Math.cos(tilt * radians) * (flight.contentWidth * Math.cos(twist * radians) + flight.contentHeight * Math.abs(Math.sin(twist * radians)));
+    const rotatedHeight = flight.contentHeight * Math.cos(twist * radians) + flight.contentWidth * Math.abs(Math.sin(twist * radians));
+    const targetScale = Math.min(destination.width / rotatedWidth, destination.height / rotatedHeight);
+    const scale = 1 + (targetScale - 1) * ease;
+    flight.element.style.transformOrigin = "50% 50%";
+    flight.element.style.translate = `${(destination.left + destination.width / 2 - flight.from.left - flight.from.width / 2) * ease}px ${(destination.top + destination.height / 2 - flight.from.top - flight.from.height / 2) * ease}px`;
+    flight.element.style.scale = String(scale);
+    flight.element.style.transform = `rotateY(${tilt * ease}deg) rotateZ(${twist * ease}deg)`;
+    // Blend into the real, tilted preview before removing the floating image.
+    const handoff = clamp((progress - 0.5) / 0.5, 0, 1);
+    flight.element.style.opacity = String(1 - handoff);
+    card.style.visibility = "visible";
+    card.style.opacity = String((isFunStuff ? Number(card.style.opacity) : 1) * handoff);
   };
 
   useAnimationFrame((time, delta) => {
@@ -350,13 +387,17 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     smoothPitch.jump(currentPitch);
   };
 
-  const focusPhoto = (index: number, imageIndex = 0) => {
+  const focusPhoto = (index: number, imageIndex = rememberedViews[index] ?? 0) => {
     if (ignoreClick.current) return;
     if (selected === index) {
       clearSelection();
       return;
     }
 
+    if (selectedRef.current !== null) {
+      const previous = selectedRef.current;
+      setRememberedViews((current) => ({ ...current, [previous]: galleryIndex }));
+    }
     setHovered(null);
     setReturning(null);
     returnFlight.current = null;
@@ -400,7 +441,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (isFunStuff && trackRef.current) {
       trackRef.current.scrollTo({ top: next * streamStep, behavior: reduceMotion ? "instant" : "smooth" });
     }
-    focusPhoto(next, enterAtLastImage && index !== null ? imageCount(photos[next]) - 1 : 0);
+    focusPhoto(next, index === null ? undefined : enterAtLastImage ? imageCount(photos[next]) - 1 : 0);
     stageRef.current?.focus({ preventScroll: true });
   };
 
@@ -501,7 +542,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const showThumbnails = !isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const galleryHeight = showThumbnails ? 72 : 0;
-  const selectedRatio = selectedRow ? POSTER_ROW_RATIO : selectedImages.length > 1 ? (selectedImages.length === 2 ? 2 : 1) : imageRatios[selectedSrc] ?? 1;
+  const selectedRatio = selected === null ? 1 : galleryRatio(photos[selected], selectedImages, imageRatios);
   const maxWidth = compact ? stageSize.width - 32 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(370, stageSize.height * 0.46, stageSize.height - 280)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   // The gallery keeps one frame; individual media contain their natural proportions.
@@ -537,7 +578,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     <section
       ref={stageRef}
       className={`archive-sphere-screen${isFunStuff ? " archive-fun-stuff-screen" : ""}`}
-      aria-label={isFunStuff ? "Floating project stream. Scroll or drag to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
+      aria-label={isFunStuff ? "Floating project stream. Scroll to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
       tabIndex={0}
       onTouchStartCapture={(event) => {
         if (isFunStuff && compact && event.touches.length === 1) {
@@ -602,13 +643,19 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           style={isFunStuff ? { scale: smoothZoom } : { transform: sphereTransform }}
         >
           {radius > 0 && photos.map((photo, index) => {
-            const preview = previews[photo.src];
+            const visited = selected === index || rememberedViews[index] !== undefined;
+            const viewIndex = selected === index ? galleryIndex : rememberedViews[index] ?? 0;
+            const cardImages = photo.gallery[viewIndex];
+            const source = visited ? cardImages[0] : photo.src;
+            const grouped = visited && cardImages.length > 1 && photo.mediaLayout !== "row";
+            const preview = previews[source];
             const nearViewport = !isFunStuff || Math.abs(index - streamIndex) <= Math.ceil(stageSize.height * 0.75 / streamStep) + 1;
-            const showMedia = nearViewport && selected !== index;
-            const cardSrc = compact && photo.mobilePreview
+            const showMedia = nearViewport || selected === index || returning === index;
+            const animated = /\.(gif|mp4)$/i.test(source);
+            const cardSrc = source === photo.src && compact && photo.mobilePreview
               ? (reduceMotion ? photo.videoPoster! : photo.mobilePreview)
-              : reduceMotion && preview?.poster ? preview.poster : preview?.src ?? photo.src;
-            const ratio = photo.mediaLayout === "row" ? POSTER_ROW_RATIO : imageRatios[photo.src] ?? 1;
+              : reduceMotion && preview?.poster ? preview.poster : visited && !animated ? source : preview?.src ?? source;
+            const ratio = galleryRatio(photo, grouped ? cardImages : [source], imageRatios);
             const width = Math.min(cardWidth * 1.35, cardWidth * 1.4 * ratio);
             const height = width / ratio;
 
@@ -682,13 +729,15 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   transition={isFunStuff ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
-                  {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : cardSrc.endsWith(".mp4") ? (
+                  {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : grouped ? (
+                    <GalleryImage src={source} sources={cardImages} naturalPairs={photo.naturalPairs} alt="" reducedMotion={!!reduceMotion} />
+                  ) : cardSrc.endsWith(".mp4") ? (
                     <video poster={preview?.poster ?? photo.videoPoster} src={cardSrc} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
-                      onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
+                      onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [source]: video.videoWidth / video.videoHeight })); }} />
                   ) : (
-                    <Image src={cardSrc} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
+                    <Image src={cardSrc} alt="" width={600} height={600 / (imageRatios[source] ?? 1)}
                       onLoad={(event) => { const image = event.currentTarget; const ratio = image.naturalWidth / image.naturalHeight;
-                        if (ratio > 0) setImageRatios((current) => current[photo.src] === ratio ? current : { ...current, [photo.src]: ratio }); }}
+                        if (ratio > 0) setImageRatios((current) => current[source] === ratio ? current : { ...current, [source]: ratio }); }}
                       loading="eager" unoptimized draggable={false} />
                   ))}
                   {isFunStuff && <span className="t-tilt-glare" aria-hidden="true" />}
@@ -727,9 +776,9 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       <AnimatePresence custom={returning !== null} onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
         {selected !== null && (
           <motion.div key={selected} className="archive-feature" exit="exit"
-            variants={{ exit: (isReturning: boolean) => ({ opacity: 0, transition: {
-              duration: reduceMotion ? 0 : 0.12,
-              delay: !reduceMotion && isReturning ? 0.28 : 0,
+            variants={{ exit: (isReturning: boolean) => ({ opacity: isReturning ? 1 : 0, transition: {
+              duration: reduceMotion ? 0 : isReturning ? 0.4 : 0.12,
+              ease: "easeOut",
             } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
@@ -774,7 +823,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   title={photos[selected].title} reducedMotion={!!reduceMotion}
                   onRatio={(ratio) => setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio })} />
               ) : (
-                <GalleryImage src={selectedSrc} sources={selectedImages} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
+                <GalleryImage src={selectedSrc} sources={selectedImages} naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
               )}
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {

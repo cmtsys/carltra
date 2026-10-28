@@ -26,17 +26,6 @@ const projects: Project[] = [
     featured: true
   },
   {
-    title: "Artwork production for Damla Kilickiran",
-    tagline: "Bridging art and engineering at A-blokka",
-    
-    // image: "/img/artwork/vinterclose.jpg",
-    // image: "/img/artwork/detail.jpeg",
-    image: "/img/nordic.jpeg",
-    slug: "artwork",
-    link: "/projects/artwork",
-    featured: true
-  },
-  {
     title: "Daydreams & doomscrolling",
     tagline: "Exploring mind-wandering on smart phones",
     image: "/img/daydream/daydream.png",
@@ -54,6 +43,17 @@ const projects: Project[] = [
     slug: "huddly",
     link: "/projects/huddly",
     featured: true,
+  },
+  {
+    title: "Artwork production for Damla Kilickiran",
+    tagline: "Bridging art and engineering at A-blokka",
+    
+    // image: "/img/artwork/vinterclose.jpg",
+    // image: "/img/artwork/detail.jpeg",
+    image: "/img/nordic.jpeg",
+    slug: "artwork",
+    link: "/projects/artwork",
+    featured: true
   },
   {
     title: "Website for Rosa Collective",
