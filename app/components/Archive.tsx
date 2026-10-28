@@ -777,7 +777,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                 >
                   <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
                   {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : grouped ? (
-                    <GalleryImage src={source} sources={cardImages} naturalPairs={photo.naturalPairs} alt="" reducedMotion={!!reduceMotion} />
+                    <GalleryImage src={source} sources={cardImages} naturalPairs={photo.naturalPairs} alt="" />
                   ) : cardSrc.endsWith(".mp4") ? (
                     <video poster={preview?.poster ?? photo.videoPoster} src={cardSrc} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
                       onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [source]: video.videoWidth / video.videoHeight })); }} />
@@ -880,7 +880,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                     const preview = previews[src];
                     return reduceMotion ? preview?.poster ?? preview?.src ?? src : preview?.src ?? src;
                   })}
-                  naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
+                  naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} />
               )}
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {

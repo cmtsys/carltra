@@ -3,11 +3,10 @@
 // USED IN FUN STUFF SECTION
 
 import { useEffect, useState, type CSSProperties } from "react";
-import { AnimatePresence, motion } from "motion/react";
 
 // Keep the previous frame painted until the replacement has decoded.
-export default function GalleryImage({ src, sources, previewSources, naturalPairs = false, alt, reducedMotion }: {
-  src: string; sources?: string[]; previewSources?: string[]; naturalPairs?: boolean; alt: string; reducedMotion: boolean;
+export default function GalleryImage({ src, sources, previewSources, naturalPairs = false, alt }: {
+  src: string; sources?: string[]; previewSources?: string[]; naturalPairs?: boolean; alt: string;
 }) {
   const [frame, setFrame] = useState(() => ({ src: previewSources?.join("|") ?? src, sources: previewSources ?? sources ?? [src], alt, ratios: (previewSources ?? sources ?? [src]).map(() => 1) }));
   useEffect(() => {
@@ -30,10 +29,7 @@ export default function GalleryImage({ src, sources, previewSources, naturalPair
     ? 1 / frame.ratios.reduce((sum, ratio) => sum + 1 / ratio, 0)
     : frame.ratios.reduce((sum, ratio) => sum + ratio, 0);
 
-  return <AnimatePresence initial={false}>
-    <motion.div key={frame.src} className="archive-gallery-frame"
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: reducedMotion ? 0 : 0.2, ease: "easeOut" }}>
+  return <div className="archive-gallery-frame">
       {/* The browser-decoded original is reused, including animated GIFs. */}
       {frame.sources.length > 1 ? <div className={`archive-image-spread archive-image-spread-${frame.sources.length}${naturalPairs ? " archive-image-spread-natural" : ""}`}
         style={naturalPairs ? {
@@ -49,6 +45,5 @@ export default function GalleryImage({ src, sources, previewSources, naturalPair
         // eslint-disable-next-line @next/next/no-img-element
         <img src={frame.src} alt={frame.alt} draggable={false} />
       )}
-    </motion.div>
-  </AnimatePresence>;
+    </div>;
 }

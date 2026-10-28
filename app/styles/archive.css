@@ -523,7 +523,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   .archive-image-navigation button span { display: none; }
 }
 
-/* Crossfade inside a fixed gallery frame without moving the copy or dots. */
+/* Keep image changes inside a fixed frame without moving the copy or dots. */
 .archive-gallery-frame { position: absolute; inset: 0; }
 
 .archive-video-play {
