@@ -6,10 +6,10 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 // Keep the previous frame painted until the replacement has decoded.
-export default function GalleryImage({ src, sources, naturalPairs = false, alt, reducedMotion }: {
-  src: string; sources?: string[]; naturalPairs?: boolean; alt: string; reducedMotion: boolean;
+export default function GalleryImage({ src, sources, previewSources, naturalPairs = false, alt, reducedMotion }: {
+  src: string; sources?: string[]; previewSources?: string[]; naturalPairs?: boolean; alt: string; reducedMotion: boolean;
 }) {
-  const [frame, setFrame] = useState({ src, sources: sources ?? [src], alt, ratios: (sources ?? [src]).map(() => 1) });
+  const [frame, setFrame] = useState(() => ({ src: previewSources?.join("|") ?? src, sources: previewSources ?? sources ?? [src], alt, ratios: (previewSources ?? sources ?? [src]).map(() => 1) }));
   useEffect(() => {
     let cancelled = false;
     const images = sources ?? [src];

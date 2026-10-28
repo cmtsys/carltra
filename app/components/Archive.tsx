@@ -50,8 +50,21 @@ const galleryRatio = (photo: typeof photos[number], images: string[], measured: 
     : ratios.reduce((sum, ratio) => sum + ratio, 0);
 };
 function PosterRow({ images, title, preview = false }: { images: string[]; title: string; preview?: boolean }) {
+  const [fullReady, setFullReady] = useState(false);
+  useEffect(() => {
+    if (preview) return;
+    let cancelled = false;
+    Promise.all(images.map((src) => {
+      const image = new window.Image();
+      image.src = src;
+      return image.decode();
+    })).then(() => { if (!cancelled) setFullReady(true); }).catch(() => {
+      // Retain the existing preview if an original cannot load.
+    });
+    return () => { cancelled = true; };
+  }, [images, preview]);
   return <span className="archive-poster-row">{images.map((src, index) => (
-    <Image key={src} src={preview ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
+    <Image key={src} src={preview || !fullReady ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
   ))}</span>;
 }
 
@@ -153,6 +166,26 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   useEffect(() => () => {
     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
   }, []);
+
+  // Give the likely next card a small head start; do not preload the whole stream.
+  const warmedImages = useRef(new Set<string>());
+  useEffect(() => {
+    if (!isFunStuff || selected !== null || returning !== null || !stageSize.width) return;
+    const index = stageSize.width < 700 ? clamp(streamIndex, 0, PHOTO_COUNT - 1) : hovered;
+    if (index === null) return;
+    const photo = photos[index];
+    const sources = photo.mediaLayout === "row" ? photo.images : photo.gallery[rememberedViews[index] ?? 0];
+    const timer = window.setTimeout(() => {
+      sources.filter((src) => !src.endsWith(".mp4")).forEach((src) => {
+        if (warmedImages.current.has(src)) return;
+        warmedImages.current.add(src);
+        const image = new window.Image();
+        image.src = src;
+        image.decode().catch(() => { warmedImages.current.delete(src); });
+      });
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [isFunStuff, selected, returning, stageSize.width, streamIndex, hovered, rememberedViews]);
 
   // Warm adjacent images and measure them before their frames animate into view.
   useEffect(() => {
@@ -842,7 +875,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   title={photos[selected].title} reducedMotion={!!reduceMotion}
                   onRatio={(ratio) => setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio })} />
               ) : (
-                <GalleryImage src={selectedSrc} sources={selectedImages} naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
+                <GalleryImage src={selectedSrc} sources={selectedImages}
+                  previewSources={selectedImages.map((src) => {
+                    const preview = previews[src];
+                    return reduceMotion ? preview?.poster ?? preview?.src ?? src : preview?.src ?? src;
+                  })}
+                  naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
               )}
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {
