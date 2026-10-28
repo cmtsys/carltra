@@ -40,13 +40,42 @@ type DragState = {
 // Three portrait posters presented as one composition, including the gutters.
 const POSTER_ROW_RATIO = 2.35;
 const imageCount = (photo: typeof photos[number]) => photo.mediaLayout === "row" ? 1 : photo.gallery.length;
+const galleryRatio = (photo: typeof photos[number], images: string[], measured: Record<string, number>) => {
+  if (photo.mediaLayout === "row") return POSTER_ROW_RATIO;
+  if (images.length === 1) return measured[images[0]] ?? 1;
+  if (!photo.naturalPairs) return images.length === 2 ? 2 : 1;
+  const ratios = images.map((src) => measured[src] ?? 1);
+  return ratios.every((ratio) => ratio > 1)
+    ? 1 / ratios.reduce((sum, ratio) => sum + 1 / ratio, 0)
+    : ratios.reduce((sum, ratio) => sum + ratio, 0);
+};
 function PosterRow({ images, title, preview = false }: { images: string[]; title: string; preview?: boolean }) {
+  const [fullReady, setFullReady] = useState(false);
+  useEffect(() => {
+    if (preview) return;
+    let cancelled = false;
+    Promise.all(images.map((src) => {
+      const image = new window.Image();
+      image.src = src;
+      return image.decode();
+    })).then(() => { if (!cancelled) setFullReady(true); }).catch(() => {
+      // Retain the existing preview if an original cannot load.
+    });
+    return () => { cancelled = true; };
+  }, [images, preview]);
   return <span className="archive-poster-row">{images.map((src, index) => (
-    <Image key={src} src={preview ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
+    <Image key={src} src={preview || !fullReady ? previews[src]?.src ?? src : src} alt={`${title}, poster ${index + 1}`} width={1181} height={1575} unoptimized draggable={false} />
   ))}</span>;
 }
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+const resetTilt = (card: HTMLButtonElement) => {
+    card.classList.remove("is-hover");
+    card.querySelector(".t-tilt-card")?.classList.remove("is-tilting");
+    card.style.setProperty("--tilt-rx", "0deg");
+    card.style.setProperty("--tilt-ry", "0deg");
+  };
 
 export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-stuff" }) {
   const isFunStuff = mode === "fun-stuff";
@@ -60,11 +89,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const introStreamOpacity = useTransform(stream, [0, 180], [1, 0]);
   const introStreamY = useTransform(stream, [0, 240], [0, -56]);
   const [galleryIndex, setGalleryIndex] = useState(0);
+  const [rememberedViews, setRememberedViews] = useState<Record<number, number>>({});
   const focusTarget = useRef<{ index: number; yaw: number; pitch: number; fromYaw: number; fromPitch: number; elapsed: number } | null>(null);
   const [radius, setRadius] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [returning, setReturning] = useState<number | null>(null);
-  const returnFlight = useRef<{ index: number; element: HTMLElement; from: DOMRect; started: number } | null>(null);
+  const returnFlight = useRef<{ index: number; element: HTMLElement; from: DOMRect; contentWidth: number; contentHeight: number; started: number } | null>(null);
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   // Stop earlier on mobile so the final card and closing copy share the viewport.
   const streamEnd = PHOTO_COUNT * streamStep - (stageSize.width < 700 ? clamp(stageSize.height * 0.16, 72, 140) : 0);
@@ -99,18 +129,28 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const clearSelection = useCallback(() => {
     const index = selectedRef.current;
     if (index === null) return;
+    setRememberedViews((current) => ({ ...current, [index]: galleryIndex }));
     const card = photoRefs.current[index]?.getBoundingClientRect();
     const element = stageRef.current?.querySelector<HTMLElement>(".archive-feature-media");
     const media = element?.getBoundingClientRect();
     if (card && element && media && media.width && media.height && !reduceMotion) {
-      returnFlight.current = { index, element, from: media, started: performance.now() };
+      const frame = Array.from(element.querySelectorAll<HTMLElement>(".archive-gallery-frame"))
+        .sort((a, b) => Number(getComputedStyle(b).opacity) - Number(getComputedStyle(a).opacity))[0];
+      const image = frame?.querySelector<HTMLImageElement>("img");
+      const video = element.querySelector<HTMLVideoElement>("video");
+      const spread = (frame?.querySelector<HTMLElement>(".archive-image-spread") ?? element.querySelector<HTMLElement>(".archive-poster-row"))?.getBoundingClientRect();
+      const ratio = image?.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight
+        : video?.videoWidth && video.videoHeight ? video.videoWidth / video.videoHeight : media.width / media.height;
+      const contentWidth = spread?.width ?? Math.min(media.width, media.height * ratio);
+      const contentHeight = spread?.height ?? contentWidth / ratio;
+      returnFlight.current = { index, element, from: media, contentWidth, contentHeight, started: performance.now() };
       setReturning(index);
     }
     focusTarget.current = null;
     selectedRef.current = null;
     setSelected(null);
     stageRef.current?.focus({ preventScroll: true });
-  }, [reduceMotion]);
+  }, [reduceMotion, galleryIndex]);
 
   useEffect(() => {
     if (selected === null) return;
@@ -127,12 +167,32 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (hoverLeaveTimer.current) clearTimeout(hoverLeaveTimer.current);
   }, []);
 
+  // Give the likely next card a small head start; do not preload the whole stream.
+  const warmedImages = useRef(new Set<string>());
+  useEffect(() => {
+    if (!isFunStuff || selected !== null || returning !== null || !stageSize.width) return;
+    const index = stageSize.width < 700 ? clamp(streamIndex, 0, PHOTO_COUNT - 1) : hovered;
+    if (index === null) return;
+    const photo = photos[index];
+    const sources = photo.mediaLayout === "row" ? photo.images : photo.gallery[rememberedViews[index] ?? 0];
+    const timer = window.setTimeout(() => {
+      sources.filter((src) => !src.endsWith(".mp4")).forEach((src) => {
+        if (warmedImages.current.has(src)) return;
+        warmedImages.current.add(src);
+        const image = new window.Image();
+        image.src = src;
+        image.decode().catch(() => { warmedImages.current.delete(src); });
+      });
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [isFunStuff, selected, returning, stageSize.width, streamIndex, hovered, rememberedViews]);
+
   // Warm adjacent images and measure them before their frames animate into view.
   useEffect(() => {
     if (selected === null) return;
     let cancelled = false;
     const images = photos[selected].gallery;
-    const adjacent = [galleryIndex - 1, galleryIndex + 1]
+    const adjacent = [galleryIndex, galleryIndex - 1, galleryIndex + 1]
       .map((index) => images[(index + images.length) % images.length])
       .flat()
       .filter((src) => !src.endsWith(".mp4"));
@@ -232,13 +292,40 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const updateReturnFlight = () => {
     const flight = returnFlight.current;
     if (!flight) return;
-    const destination = photoRefs.current[flight.index]?.getBoundingClientRect();
-    if (!destination) return;
+    const card = photoRefs.current[flight.index];
+    const destination = card?.getBoundingClientRect();
+    if (!destination || !card) return;
     const progress = clamp((performance.now() - flight.started) / 400, 0, 1);
     const ease = 1 - (1 - progress) ** 3;
-    // Reproject every frame: scrolling keeps moving the destination during exit.
-    flight.element.style.translate = `${(destination.left - flight.from.left) * ease}px ${(destination.top - flight.from.top) * ease}px`;
-    flight.element.style.scale = `${1 + (destination.width / flight.from.width - 1) * ease} ${1 + (destination.height / flight.from.height - 1) * ease}`;
+    // Use the scene's actual projection, rather than estimating rotated bounds.
+    // Both elements then share identical corners at the handoff, even while scrolling.
+    const scene = stageRef.current?.querySelector<HTMLElement>(".archive-sphere-scene");
+    if (!scene) return;
+    const sceneBounds = scene.getBoundingClientRect();
+    const perspective = parseFloat(getComputedStyle(scene).perspective);
+    const projection = new DOMMatrix();
+    projection.m34 = -1 / perspective;
+    const destinationMatrix = new DOMMatrix()
+      .translate(sceneBounds.left + sceneBounds.width / 2 - flight.from.left - flight.from.width / 2,
+        sceneBounds.top + sceneBounds.height / 2 - flight.from.top - flight.from.height / 2)
+      .multiply(projection)
+      .multiply(isFunStuff ? new DOMMatrix().scale(smoothZoom.get())
+        : new DOMMatrix(getComputedStyle(card.parentElement!).transform))
+      .multiply(new DOMMatrix(getComputedStyle(card).transform))
+      .scale(parseFloat(getComputedStyle(card).width) / flight.contentWidth, parseFloat(getComputedStyle(card).height) / flight.contentHeight);
+    const identity = new DOMMatrix().toFloat64Array();
+    const target = destinationMatrix.toFloat64Array();
+    const transform = Array.from(target, (value, index) => identity[index] + (value - identity[index]) * ease);
+    flight.element.style.transformOrigin = "50% 50%";
+    flight.element.style.translate = "none";
+    flight.element.style.scale = "none";
+    flight.element.style.transform = `matrix3d(${transform.join(",")})`;
+    // Keep one image visible, instead of crossfading two translucent copies.
+    // Hold the completed projection until AnimatePresence removes the overlay.
+    const destinationOpacity = Number(card.style.opacity);
+    flight.element.style.opacity = String(1 + (destinationOpacity - 1) * ease);
+    card.style.visibility = "hidden";
+    card.style.pointerEvents = "none";
   };
 
   useAnimationFrame((time, delta) => {
@@ -271,7 +358,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
       updateReturnFlight();
       // Re-hit-test after moving the cards: scrolling need not move the mouse.
       const pointer = mousePosition.current;
-      if (stageSize.width >= 700 && selectedRef.current === null && !drag.current) {
+      if (stageSize.width >= 700 && selectedRef.current === null && !returnFlight.current && !drag.current) {
         const hit = pointer ? document.elementFromPoint(pointer.x, pointer.y)?.closest(".archive-sphere-photo") : null;
         const index = photoRefs.current.findIndex((card) => card === hit);
         const focused = photoRefs.current.findIndex((card) => card === document.activeElement);
@@ -350,13 +437,19 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     smoothPitch.jump(currentPitch);
   };
 
-  const focusPhoto = (index: number, imageIndex = 0) => {
+  const focusPhoto = (index: number, imageIndex = rememberedViews[index] ?? 0) => {
     if (ignoreClick.current) return;
     if (selected === index) {
       clearSelection();
       return;
     }
 
+    if (selectedRef.current !== null) {
+      const previous = selectedRef.current;
+      setRememberedViews((current) => ({ ...current, [previous]: galleryIndex }));
+    }
+    const openingCard = photoRefs.current[index];
+    if (openingCard) resetTilt(openingCard);
     setHovered(null);
     setReturning(null);
     returnFlight.current = null;
@@ -400,7 +493,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     if (isFunStuff && trackRef.current) {
       trackRef.current.scrollTo({ top: next * streamStep, behavior: reduceMotion ? "instant" : "smooth" });
     }
-    focusPhoto(next, enterAtLastImage && index !== null ? imageCount(photos[next]) - 1 : 0);
+    focusPhoto(next, index === null ? undefined : enterAtLastImage ? imageCount(photos[next]) - 1 : 0);
     stageRef.current?.focus({ preventScroll: true });
   };
 
@@ -461,15 +554,10 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     pitch.set(current.startPitch - dy * 0.28);
   };
 
-  const resetTilt = (card: HTMLButtonElement) => {
-    card.classList.remove("is-hover");
-    card.querySelector(".t-tilt-card")?.classList.remove("is-tilting");
-    card.style.setProperty("--tilt-rx", "0deg");
-    card.style.setProperty("--tilt-ry", "0deg");
-  };
+
 
   const handleCardTilt = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!isFunStuff || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
+    if (!isFunStuff || returnFlight.current || selectedRef.current !== null || reduceMotion || event.pointerType !== "mouse" || event.buttons !== 0) return;
     const card = event.currentTarget;
     const bounds = card.getBoundingClientRect();
     const x = clamp((event.clientX - bounds.left) / bounds.width, 0, 1);
@@ -501,7 +589,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
   const showThumbnails = !isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const showGalleryDots = isFunStuff && selected !== null && imageCount(photos[selected]) > 1;
   const galleryHeight = showThumbnails ? 72 : 0;
-  const selectedRatio = selectedRow ? POSTER_ROW_RATIO : selectedImages.length > 1 ? (selectedImages.length === 2 ? 2 : 1) : imageRatios[selectedSrc] ?? 1;
+  const selectedRatio = selected === null ? 1 : galleryRatio(photos[selected], selectedImages, imageRatios);
   const maxWidth = compact ? stageSize.width - 32 : Math.min(600, stageSize.width * 0.48);
   const maxHeight = compact ? (isFunStuff ? Math.max(120, Math.min(370, stageSize.height * 0.46, stageSize.height - 280)) : stageSize.height * 0.38) : Math.max(100, stageSize.height - galleryHeight - 64);
   // The gallery keeps one frame; individual media contain their natural proportions.
@@ -537,7 +625,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
     <section
       ref={stageRef}
       className={`archive-sphere-screen${isFunStuff ? " archive-fun-stuff-screen" : ""}`}
-      aria-label={isFunStuff ? "Floating project stream. Scroll or drag to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
+      aria-label={isFunStuff ? "Floating project stream. Scroll to explore. Select an image to read about it. Escape closes details." : "Photo sphere. Drag, scroll with two fingers, or use arrow keys to rotate. Pinch to zoom. Select a photo to read about it. Press Escape to return."}
       tabIndex={0}
       onTouchStartCapture={(event) => {
         if (isFunStuff && compact && event.touches.length === 1) {
@@ -602,13 +690,19 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           style={isFunStuff ? { scale: smoothZoom } : { transform: sphereTransform }}
         >
           {radius > 0 && photos.map((photo, index) => {
-            const preview = previews[photo.src];
+            const visited = selected === index || rememberedViews[index] !== undefined;
+            const viewIndex = selected === index ? galleryIndex : rememberedViews[index] ?? 0;
+            const cardImages = photo.gallery[viewIndex];
+            const source = visited ? cardImages[0] : photo.src;
+            const grouped = visited && cardImages.length > 1 && photo.mediaLayout !== "row";
+            const preview = previews[source];
             const nearViewport = !isFunStuff || Math.abs(index - streamIndex) <= Math.ceil(stageSize.height * 0.75 / streamStep) + 1;
-            const showMedia = nearViewport && selected !== index;
-            const cardSrc = compact && photo.mobilePreview
+            const showMedia = nearViewport || selected === index || returning === index;
+            const animated = /\.(gif|mp4)$/i.test(source);
+            const cardSrc = source === photo.src && compact && photo.mobilePreview
               ? (reduceMotion ? photo.videoPoster! : photo.mobilePreview)
-              : reduceMotion && preview?.poster ? preview.poster : preview?.src ?? photo.src;
-            const ratio = photo.mediaLayout === "row" ? POSTER_ROW_RATIO : imageRatios[photo.src] ?? 1;
+              : reduceMotion && preview?.poster ? preview.poster : visited && !animated ? source : preview?.src ?? source;
+            const ratio = galleryRatio(photo, grouped ? cardImages : [source], imageRatios);
             const width = Math.min(cardWidth * 1.35, cardWidth * 1.4 * ratio);
             const height = width / ratio;
 
@@ -616,7 +710,7 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
               <button
                 key={photo.src}
                 ref={(element) => { photoRefs.current[index] = element; }}
-                className={`archive-sphere-photo${isFunStuff ? " t-tilt" : ""}`}
+                className={`archive-sphere-photo${isFunStuff ? " t-tilt" : ""}${returning === index ? " is-returning" : ""}`}
                 type="button"
                 aria-label={`View ${photo.title}`}
                 aria-pressed={selected === index}
@@ -682,13 +776,15 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   transition={isFunStuff ? { type: "spring", stiffness: 130, damping: 22, duration: reduceMotion ? 0 : undefined } : { duration: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span className={isFunStuff ? "t-tilt-card" : "archive-photo-media"}>
-                  {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : cardSrc.endsWith(".mp4") ? (
+                  {showMedia && (photo.mediaLayout === "row" ? <PosterRow images={photo.images} title={photo.title} preview /> : grouped ? (
+                    <GalleryImage src={source} sources={cardImages} naturalPairs={photo.naturalPairs} alt="" />
+                  ) : cardSrc.endsWith(".mp4") ? (
                     <video poster={preview?.poster ?? photo.videoPoster} src={cardSrc} muted playsInline loop autoPlay={!reduceMotion} preload="metadata"
-                      onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [photo.src]: video.videoWidth / video.videoHeight })); }} />
+                      onLoadedMetadata={(event) => { const video = event.currentTarget; setImageRatios((current) => ({ ...current, [source]: video.videoWidth / video.videoHeight })); }} />
                   ) : (
-                    <Image src={cardSrc} alt="" width={600} height={600 / (imageRatios[photo.src] ?? 1)}
+                    <Image src={cardSrc} alt="" width={600} height={600 / (imageRatios[source] ?? 1)}
                       onLoad={(event) => { const image = event.currentTarget; const ratio = image.naturalWidth / image.naturalHeight;
-                        if (ratio > 0) setImageRatios((current) => current[photo.src] === ratio ? current : { ...current, [photo.src]: ratio }); }}
+                        if (ratio > 0) setImageRatios((current) => current[source] === ratio ? current : { ...current, [source]: ratio }); }}
                       loading="eager" unoptimized draggable={false} />
                   ))}
                   {isFunStuff && <span className="t-tilt-glare" aria-hidden="true" />}
@@ -724,12 +820,17 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence custom={returning !== null} onExitComplete={() => { returnFlight.current = null; setReturning(null); }}>
+      <AnimatePresence custom={returning !== null} onExitComplete={() => {
+        const card = returnFlight.current && photoRefs.current[returnFlight.current.index];
+        if (card) card.style.visibility = "visible";
+        returnFlight.current = null;
+        setReturning(null);
+      }}>
         {selected !== null && (
           <motion.div key={selected} className="archive-feature" exit="exit"
-            variants={{ exit: (isReturning: boolean) => ({ opacity: 0, transition: {
-              duration: reduceMotion ? 0 : 0.12,
-              delay: !reduceMotion && isReturning ? 0.28 : 0,
+            variants={{ exit: (isReturning: boolean) => ({ opacity: isReturning ? 1 : 0, transition: {
+              duration: reduceMotion ? 0 : isReturning ? 0.45 : 0.12,
+              ease: "easeOut",
             } }) }}
             onPointerDown={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}
             onClick={(event) => { if (isFunStuff && compact) event.stopPropagation(); }}>
@@ -774,7 +875,12 @@ export default function Archive({ mode = "sphere" }: { mode?: "sphere" | "fun-st
                   title={photos[selected].title} reducedMotion={!!reduceMotion}
                   onRatio={(ratio) => setImageRatios((current) => current[selectedSrc] === ratio ? current : { ...current, [selectedSrc]: ratio })} />
               ) : (
-                <GalleryImage src={selectedSrc} sources={selectedImages} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} reducedMotion={!!reduceMotion} />
+                <GalleryImage src={selectedSrc} sources={selectedImages}
+                  previewSources={selectedImages.map((src) => {
+                    const preview = previews[src];
+                    return reduceMotion ? preview?.poster ?? preview?.src ?? src : preview?.src ?? src;
+                  })}
+                  naturalPairs={photos[selected].naturalPairs} alt={`${photos[selected].title}, view ${galleryIndex + 1}`} />
               )}
               {(
                 <div className="archive-image-navigation" onKeyDown={(event) => {

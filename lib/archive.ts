@@ -1,6 +1,6 @@
 // THIS IS WHERE THE FUN STUFF PROJECTS COME FROM
 
-type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string; mobilePreview?: string; galleryGroups?: number[][] };
+type ArchiveProject = { title: string; description: string; images: string[]; year?: string; link?: string; mediaLayout?: "row"; videoPoster?: string; mobilePreview?: string; galleryGroups?: number[][]; naturalPairs?: boolean };
 
 export const archiveProjects: ArchiveProject[] = [
   {
@@ -113,6 +113,8 @@ export const archiveProjects: ArchiveProject[] = [
   },
   {
     "title": "Accidental Exposures",
+    "galleryGroups": [[0], [1], [2, 6], [3, 4], [5]],
+    "naturalPairs": true,
     "description": "Random double exposures made over five months in Vejle and Vienna. Places and people overlap, revealing another image when you look closer. Shot on high-speed black-and-white 35mm film with an Olympus OM-1.",
     "year": "2021–2022",
     "images": [
@@ -120,7 +122,6 @@ export const archiveProjects: ArchiveProject[] = [
       "/img/fun-stuff/accidental-exposures/1.jpg",
       "/img/fun-stuff/accidental-exposures/2.jpg",
       "/img/fun-stuff/accidental-exposures/3.jpg",
-      "/img/fun-stuff/accidental-exposures/5.jpg",
       "/img/fun-stuff/accidental-exposures/6.jpg",
       "/img/fun-stuff/accidental-exposures/7.jpg",
       "/img/fun-stuff/accidental-exposures/8.jpg"

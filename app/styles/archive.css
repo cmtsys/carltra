@@ -37,6 +37,11 @@ body:has(.archive-sphere-screen) .page > footer {
   cursor: grabbing;
 }
 
+.archive-fun-stuff-screen,
+.archive-fun-stuff-screen:active {
+  cursor: default;
+}
+
 .archive-sphere-screen:focus-visible {
   outline: none;
 }
@@ -210,6 +215,19 @@ body:has(.archive-sphere-screen) .page > footer {
   aspect-ratio: 1;
   object-fit: contain;
   filter: none;
+}
+.archive-image-spread-natural {
+  width: min(100%, calc(100cqh * var(--spread-ratio)));
+  aspect-ratio: var(--spread-ratio);
+  align-items: center;
+}
+.archive-feature-media .archive-image-spread-natural img {
+  aspect-ratio: auto;
+  height: auto;
+}
+.archive-sphere-photo:has(.archive-image-spread) .archive-sphere-photo-inner,
+.archive-sphere-photo:has(.archive-image-spread) .t-tilt-card {
+  background: transparent;
 }
 .archive-sphere-caption .archive-project-year { margin-top: 16px; color: var(--text-strong); }
 .archive-project-link { display: inline-block; margin-top: 16px; text-decoration: underline; text-underline-offset: 3px; }
@@ -398,7 +416,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
     scale: 1;
     transition: transform var(--tilt-return) var(--tilt-ease), scale 220ms var(--tilt-ease);
   }
-  .archive-fun-stuff-screen .t-tilt:hover .t-tilt-card { scale: 1.025; }
+  .archive-fun-stuff-screen .t-tilt:not(.is-returning):hover .t-tilt-card { scale: 1.025; }
 }
 @media (prefers-reduced-motion: reduce) {
   .t-tilt-card { transform: none !important; transition: none !important; }
@@ -505,7 +523,7 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   .archive-image-navigation button span { display: none; }
 }
 
-/* Crossfade inside a fixed gallery frame without moving the copy or dots. */
+/* Keep image changes inside a fixed frame without moving the copy or dots. */
 .archive-gallery-frame { position: absolute; inset: 0; }
 
 .archive-video-play {
@@ -516,4 +534,40 @@ body:has(.archive-fun-stuff-track) .archive-intro {
   background: rgb(252 252 252 / .9);
   color: var(--text-strongest); font: inherit;
   cursor: pointer;
+}
+
+/* Keep the returning surface flat until it has joined the stream. */
+.archive-sphere-photo.is-returning .t-tilt-card {
+  transform: none;
+  scale: 1;
+  transition: none;
+}
+.archive-sphere-photo.is-returning .t-tilt-glare { opacity: 0; }
+
+/* Measure the painted poster row, excluding the surrounding letterbox. */
+.archive-feature-media > .archive-poster-row {
+  position: absolute;
+  top: 50%;
+  height: auto;
+  aspect-ratio: 2.35;
+  translate: 0 -50%;
+}
+
+/* A shallow, feathered backdrop follows the title without a visible panel edge. */
+.archive-fun-stuff-title,
+.archive-mobile-card-title { isolation: isolate; }
+.archive-fun-stuff-title::before,
+.archive-mobile-card-title::before {
+  content: "";
+  position: absolute;
+  inset: -7px -22px -11px;
+  z-index: -1;
+  pointer-events: none;
+  background: rgb(252 252 252 / .45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / .35) 8px, #000 22px, #000 calc(100% - 22px), rgb(0 0 0 / .35) calc(100% - 8px), transparent), linear-gradient(to bottom, transparent, rgb(0 0 0 / .35) 4px, #000 12px, #000 calc(100% - 12px), rgb(0 0 0 / .35) calc(100% - 4px), transparent);
+  mask-composite: intersect;
+  -webkit-mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / .35) 8px, #000 22px, #000 calc(100% - 22px), rgb(0 0 0 / .35) calc(100% - 8px), transparent), linear-gradient(to bottom, transparent, rgb(0 0 0 / .35) 4px, #000 12px, #000 calc(100% - 12px), rgb(0 0 0 / .35) calc(100% - 4px), transparent);
+  -webkit-mask-composite: source-in;
 }
